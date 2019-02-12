@@ -1,0 +1,9 @@
+{
+  "GameObjects": [
+      {"name": "pCube1", "position": [0,0,-5]},
+	  {"name": "pCube2", "position": [0,2,-5]},
+	  {"name": "pCube3", "position": [0,-2,-5]},
+	  {"name": "pCube4", "position": [2,0,-5]},
+	  {"name": "pCube5", "position": [-2,0,-5]}
+  ]
+}
