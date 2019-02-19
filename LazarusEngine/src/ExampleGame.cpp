@@ -14,7 +14,7 @@
 //#include <iostream>
 //#include <fstream>
 #include <sstream>
-//#include "InputHandler.h"
+#include "InputHandler.h"
 
 
 ExampleGame::ExampleGame(IEngineCore* engine) : Game(engine)
@@ -53,9 +53,25 @@ void ExampleGame::render()
 		eulerAngles.y = glm::degrees(eulerAngles.y);
 		eulerAngles.z = glm::degrees(eulerAngles.z);
 		std::ostringstream oss;
+		std::ostringstream oss1;
+		std::ostringstream oss2;
+		std::ostringstream oss3;
+		std::ostringstream oss4;
+		std::ostringstream oss5;
 		oss << " (" << eulerAngles.x << ", " << eulerAngles.y << ", " << eulerAngles.z << ")"; // fps:" << (1 / frameDuration);
+		oss1 << "Controls:";
+		oss2 << "WASD = Movement";
+		oss3 << "IJKL/LMB = Rotate";
+		oss4 << "1,2 = Camera";
+		oss5 << "9,0 = Level";
 		//oss << frameDuration;
+		//renderText([string stream name].str(), [Xpos(0-1)], [Ypos(0-1)], [Text Size], glm::vec3[Text Colour(R, G, B)]
 		m_engineInterfacePtr->renderText(oss.str(), 0.01f, 0.01f, 1, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss1.str(), 0.01f, 0.96f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss2.str(), 0.01f, 0.92f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss3.str(), 0.01f, 0.88f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss4.str(), 0.01f, 0.84f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss5.str(), 0.01f, 0.80f, 0.50f, glm::vec3(1, 1, 0));
 	}
 }
 
@@ -72,3 +88,7 @@ void ExampleGame::Initialise()
 	m_inputHandler = new InputHandler(m_scene->getPlayer());
 }
 
+/*class ShowControls : public InputCommand
+{
+	void execute();
+};*/
