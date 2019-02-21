@@ -110,8 +110,11 @@ void Scene::render(IEngineCore* engineCore)
 	for (auto gameObject : v_gameObjects)
 	{
 		Model* model = gameObject->getComponent<ModelComponent>()->getModel();
+		//glm::vec3 position = gameObject->getComponent<TransformComponent>()->m_position;
 		glm::mat4 matrix = gameObject->getComponent<TransformComponent>()->getModelMatrix();
 		engineCore->drawModel(model, matrix);
+		engineCore->drawPhysicsBox(matrix);
+		//engineCore->drawCube(matrix);
 
 	}
 }

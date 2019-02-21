@@ -22,18 +22,21 @@ public:
 	void renderText(std::string text, float x, float y, float scale, glm::vec3 colour) override;
 
 	void setCamera(const CameraComponent* cam) override;
-	void drawCube(const glm::mat4& modelMatrix) override;
 	void drawModel(Model* model, const glm::mat4& modelMatrix) override;
+	void drawPhysicsBox(const glm::mat4& modelIn) override; // Method to draw a physics box to the screen
 
 	double getFrameDuration();
 
 	void getMouseState(double& mouseX, double& mouseY, int& mouseButtons) override;
+
+	
 
 
 private:
 	GLFWwindow* m_window;
 	GLuint m_defaultShaderProgram;
 	GLuint m_fontShaderProgram;
+	GLuint m_boxShaderProgram;
 
 
 	// added PC 
@@ -53,6 +56,7 @@ private:
 
 	std::map<GLchar, Character> Characters;
 	GLuint font_VAO, font_VBO;
+	GLuint physics_VAO, physics_VBO, physics_EBO;
 	
 
 	// why are these static?
@@ -74,7 +78,7 @@ private:
 	
 	void loadShader(std::string vertexShaderFile, std::string fragmentShaderFile, GLuint& shaderProgram);
 	void setDefaultShaders();
-	void initCubeModel();
+	void initPhysicsBox(); // Setup physics box ready to be drawn to the screen
 	void setupDefaultFont();
 
 

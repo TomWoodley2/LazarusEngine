@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+
 #include <glm/mat4x4.hpp>
 
 // high definition timer code...
@@ -15,6 +16,7 @@ constexpr std::chrono::milliseconds dt(16ms);
 class Model;
 class CameraComponent;
 class Game;
+typedef unsigned int GLuint;
 
 class IEngineCore
 {
@@ -29,8 +31,8 @@ public:
 	virtual void renderColouredBackground(float r, float g, float b) = 0;
 	virtual void renderText(std::string text, float x, float y, float scale, glm::vec3 colour) = 0;
 	virtual	void setCamera(const CameraComponent* cam) = 0;
-	virtual void drawCube(const glm::mat4& modelMatrix) = 0;
 	virtual void drawModel(Model* model, const glm::mat4& modelMatrix) = 0;
+	virtual void drawPhysicsBox(const glm::mat4& modelIn) = 0;
 
 	virtual double getFrameDuration() = 0;
 
