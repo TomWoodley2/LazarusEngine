@@ -5,6 +5,7 @@
 /.vs/Github/v15/.suo
 *.db
 *.suo
+*.objs
 *.opendb
 *.json
 *.sqlite
