@@ -1,0 +1,7 @@
+newmtl ground_material
+
+
+
+
+map_Ka ground.bmp
+map_Kd ground.bmp
