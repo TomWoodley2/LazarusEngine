@@ -1,0 +1,11 @@
+{
+  "GameObjects": [
+      {"name": "gnd", "model": "ground4.obj", "position": [0.0,0.0,0.0], "type":"static"},  
+      {"name": "pCone1", "model": "cone.obj", "position": [0.0,0.0,0.0], "type":"player"},
+	  {"name": "pCube1", "model": "cube1.obj", "position": [-12.0,0.0,-7.0], "type":"static"},
+	  {"name": "pCone1", "model": "sphere.obj", "position": [5.0,1.0,-5.0], "type":"static"},
+	  {"name": "pCone1", "model": "sphere.obj", "position": [6.5,1.0,-5.0], "type":"static"},	  
+	  {"name": "pCylinder1", "model": "cylinder.obj", "position": [12.0,0.0,-7.0], "type":"static"},
+	  {"name": "pSphere2", "model": "sphere.obj", "position": [0.0,1.0,-12.0], "type":"static"}
+  ]
+}
