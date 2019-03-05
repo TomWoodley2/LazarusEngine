@@ -1,3 +1,4 @@
+#include <Windows.h>
 #include "ExampleGame.h"
 
 #include "ModelManager.h"
@@ -38,13 +39,17 @@ void ExampleGame::update(float dt)
 		m_inputHandler = new InputHandler(m_scene->getPlayer());  // or have a set function perhaps better then a new instance!
 	}
 }
+
 void ExampleGame::render() 
 {
 	m_scene->render(m_engineInterfacePtr);
 
 	double frameDuration = m_engineInterfacePtr->getFrameDuration();
 
-	if (frameDuration > 0)
+	SHORT keyState = GetKeyState(VK_TAB);
+	bool isToggled = keyState & 1;
+
+	if (isToggled != false && frameDuration > 0)
 	{
 		glm::vec3 eulerAngles = m_scene->getPlayer()->getEulerAngles();
 
