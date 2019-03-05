@@ -63,12 +63,14 @@ void ExampleGame::render()
 		std::ostringstream oss3;
 		std::ostringstream oss4;
 		std::ostringstream oss5;
-		oss << " (" << eulerAngles.x << ", " << eulerAngles.y << ", " << eulerAngles.z << ")"; // fps:" << (1 / frameDuration);
+		std::ostringstream oss6;
+		oss << " (" << eulerAngles.x << ", " << eulerAngles.y << ", " << eulerAngles.z << ")";
 		oss1 << "Controls:";
 		oss2 << "WASD = Movement";
 		oss3 << "IJKL/LMB = Rotate";
 		oss4 << "1,2 = Camera";
 		oss5 << "9,0 = Level";
+		oss6 << "fps:" << (1 / frameDuration);
 		//oss << frameDuration;
 		//renderText([string stream name].str(), [Xpos(0-1)], [Ypos(0-1)], [Text Size], glm::vec3[Text Colour(R, G, B)]
 		m_engineInterfacePtr->renderText(oss.str(), 0.01f, 0.01f, 1, glm::vec3(1, 1, 0));
@@ -77,6 +79,7 @@ void ExampleGame::render()
 		m_engineInterfacePtr->renderText(oss3.str(), 0.01f, 0.88f, 0.50f, glm::vec3(1, 1, 0));
 		m_engineInterfacePtr->renderText(oss4.str(), 0.01f, 0.84f, 0.50f, glm::vec3(1, 1, 0));
 		m_engineInterfacePtr->renderText(oss5.str(), 0.01f, 0.80f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss6.str(), 0.01f, 0.76f, 0.50f, glm::vec3(1, 1, 0));
 	}
 }
 
