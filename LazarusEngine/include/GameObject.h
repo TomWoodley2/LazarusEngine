@@ -2,6 +2,7 @@
 #include "Component.h"
 #include <unordered_map>
 #include <typeindex>
+#include <string>
 
 class GameObject
 {
@@ -34,8 +35,12 @@ public:
 	virtual void OnUpdate(float dt) = 0;
 	virtual void OnMessage(const std::string m) = 0;
 
+	// Set and get object type
+	void setObjectType(const std::string type) { objectType = type; }
+	std::string getObjectType() { return objectType; }
 private:
 	std::unordered_map<std::type_index, Component*> m_components;
+	std::string objectType;
 };
 
 

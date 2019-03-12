@@ -549,11 +549,12 @@ void GLFW_EngineCore::updatePhysicsBoxVertices(glm::vec3 negativeMeshCornerIn, g
 
 
 
-void GLFW_EngineCore::drawPhysicsBox(const glm::mat4& modelIn, int modelNo)
+void GLFW_EngineCore::drawPhysicsBox(const glm::mat4& modelIn, int modelNo, glm::vec3 colourIn)
 {
 	glUseProgram(m_boxShaderProgram); // Use the box shader program
 
 	glUniformMatrix4fv(glGetUniformLocation(m_boxShaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(modelIn)); // send model matrix to shader
+	glUniform3f(glGetUniformLocation(m_boxShaderProgram, "colour"), colourIn.x, colourIn.y, colourIn.z);
 	
 	//std::cout << modelNo << std::endl;
 

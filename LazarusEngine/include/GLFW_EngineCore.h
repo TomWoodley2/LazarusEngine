@@ -23,7 +23,7 @@ public:
 
 	void setCamera(const CameraComponent* cam) override;
 	void drawModel(Model* model, const glm::mat4& modelMatrix) override;
-	void drawPhysicsBox(const glm::mat4& modelIn, int modelNo) override; // Method to draw a physics box to the screen
+	void drawPhysicsBox(const glm::mat4& modelIn, int modelNo, glm::vec3 colourIn) override; // Method to draw a physics box to the screen
 
 	double getFrameDuration();
 

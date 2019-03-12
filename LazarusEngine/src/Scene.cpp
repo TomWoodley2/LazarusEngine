@@ -134,11 +134,21 @@ void Scene::render(IEngineCore* engineCore)
 		glm::mat4 matrix = gameObject->getComponent<TransformComponent>()->getModelMatrix();
 
 		engineCore->drawModel(model, matrix);
+		
+		glm::vec3 ObjColour;
+		if (gameObject->getObjectType() == "collision")
+		{
+			ObjColour = glm::vec3(0.0f, 1.0f, 0.0f);
 
+		}
+		else
+		{
+			ObjColour = glm::vec3(1.0f, 0.0f, 0.0f);
+		}
 		// Draw the physics boxes if in debug mode
 		if (renderDebugMode)
 		{
-			engineCore->drawPhysicsBox(matrix, i);
+			engineCore->drawPhysicsBox(matrix, i, ObjColour);
 		}
 		
 		i++; // Used for drawing the physics boxes
@@ -247,29 +257,41 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 
 		const Json::Value typeNode = gameObjects[i]["type"];
 
-		// todo - fix this to be data dependent
+		GameObject* thisGameObject;
 		if (typeNode == "player")
 		{
-			v_gameObjects.push_back(new PlayerCharacter(model, position, orientation));
+			thisGameObject = new PlayerCharacter(model, position, orientation);
+			thisGameObject->setObjectType("player");
+			
 		}
 		else if (typeNode == "static")
 		{
-			v_gameObjects.push_back(new StaticEnvironmentObject(model, position, orientation));
+			thisGameObject = new StaticEnvironmentObject(model, position, orientation);
+			thisGameObject->setObjectType("static");
 		}
 		else if (typeNode == "dynamic")
 		{
-			v_gameObjects.push_back(new DynamicEnvironmentObject(model, position, orientation));
+			thisGameObject = new DynamicEnvironmentObject(model, position, orientation);
+			thisGameObject->setObjectType("dynamic");
+		
 		}
 		else if (typeNode == "collision")
 		{
 			// Type to test collision bounding boxes
-			v_gameObjects.push_back(new CollisionObject(model, position, orientation));
+			thisGameObject = new CollisionObject(model, position, orientation);
+			thisGameObject->setObjectType("collision");
+			
 		}
 		else
 		{
 			// If no type specified, set to static
-			v_gameObjects.push_back(new StaticEnvironmentObject(model, position, orientation));
+			thisGameObject = new StaticEnvironmentObject(model, position, orientation);
+			thisGameObject->setObjectType("static");
+			
 		}
+		v_gameObjects.push_back(thisGameObject);
+
+		//delete thisGameObject;
 	}
 
 

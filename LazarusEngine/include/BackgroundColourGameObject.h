@@ -8,5 +8,6 @@ public:
 	BackgroundColourGameObject();
 	void OnUpdate(float dt) override;
 	void OnMessage(const std::string msg) override;
+	
 
 };

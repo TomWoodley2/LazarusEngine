@@ -33,7 +33,7 @@ public:
 	virtual void renderText(std::string text, float x, float y, float scale, glm::vec3 colour) = 0;
 	virtual	void setCamera(const CameraComponent* cam) = 0;
 	virtual void drawModel(Model* model, const glm::mat4& modelMatrix) = 0;
-	virtual void drawPhysicsBox(const glm::mat4& modelIn, int modelNo) = 0;
+	virtual void drawPhysicsBox(const glm::mat4& modelIn, int modelNo,glm::vec3 colourIn) = 0;
 	virtual void initPhysicsBox() = 0;
 	virtual void updatePhysicsBoxVertices(glm::vec3 negativeMeshCornerIn, glm::vec3 positiveMeshCornerIn) = 0;
 
