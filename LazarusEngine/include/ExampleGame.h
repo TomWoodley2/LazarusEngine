@@ -17,8 +17,9 @@ private:
 	ModelManager* m_theModelManager;
 	int m_sceneIndex{ 0 };
 	//these could be loaded from a file...
-	std::string m_levelNames[2] = {
+	std::string m_levelNames[3] = {
 		"assets/levels/testLevel.json",
-		"assets/levels/testLevel2.json"
+		"assets/levels/testLevel2.json",
+		"assets/levels/levelEditor.json"
 	};
 };

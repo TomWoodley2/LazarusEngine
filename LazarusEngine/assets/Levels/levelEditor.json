@@ -1,0 +1,6 @@
+{
+  "GameObjects": [
+      {"name": "gnd", "model": "ground4.obj", "position": [0.0,0.0,0.0], "type":"static"},  
+      {"name": "pCone1", "model": "", "position": [0.0,0.0,0.0], "type":"player"}
+  ]
+}

@@ -44,6 +44,11 @@ void PlayerCharacter::OnMessage(const std::string msg)
 		getComponent<SceneStateComponent>()->OnMessage("Level2");
 
 	}
+	else if (msg == "LevelEditor")	// Level Editor Scene
+	{
+		getComponent<SceneStateComponent>()->OnMessage("LevelEditor");
+
+	}
 	else
 	{
 		// pass message to transform component

@@ -25,6 +25,10 @@ void SceneStateComponent::OnMessage(const std::string msg)
 	{
 		SetSceneIndex(1);
 	}
+	else if (msg == "LevelEditor")
+	{
+		SetSceneIndex(2);
+	}
 }
 
 int SceneStateComponent::GetSceneIndex()

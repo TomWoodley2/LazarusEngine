@@ -24,8 +24,9 @@ InputHandler::InputHandler(GameObject* playerCube) : m_playerCube(playerCube)
 	m_controlMapping[(int)'1'] = new CameraFirstCommand();
 	m_controlMapping[(int)'2'] = new CameraThirdCommand();
 
-	m_controlMapping[(int)'9'] = new GotoLevel1Command();
-	m_controlMapping[(int)'0'] = new GotoLevel2Command();
+	m_controlMapping[(int)'8'] = new GotoLevel1Command();
+	m_controlMapping[(int)'9'] = new GotoLevel2Command();
+	m_controlMapping[(int)'0'] = new GotoLevel3Command();
 
 }
 

@@ -85,3 +85,8 @@ void GotoLevel2Command::execute(GameObject& player)
 {
 	player.OnMessage("Level2");
 }
+
+void GotoLevel3Command::execute(GameObject& player)
+{
+	player.OnMessage("LevelEditor");
+}

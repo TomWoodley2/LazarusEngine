@@ -18,6 +18,8 @@
 
 #include <fstream>
 #include <sstream>
+#include <windows.h>
+
 
 Scene::Scene(std::string filename, ModelManager* theModelManager, IEngineCore* engineCore) : m_theModelManager(theModelManager)
 {
@@ -69,15 +71,14 @@ void Scene::render(IEngineCore* engineCore)
 	double yDelta = m_mouseY - m_oldMouseY;
 
 	// do we have a new button press
-	if ((m_mouseButtons & 0x1) & !(m_oldMouseButtons & 0x1))
+	if (((m_mouseButtons & 0x2) != 0) & ((m_oldMouseButtons & 0x2) == 0))
 	{
 		m_mouseEnabled = !m_mouseEnabled;
 	}
 
-
 	if (m_mouseEnabled)
 	{
-		const float mouseSensitivity = 200.0f;	// related to scrfeenwidth later might be better!
+		const float mouseSensitivity = 200.0f;	// related to screenwidth later might be better!
 
 		float theta = static_cast<float>(xDelta) / mouseSensitivity;
 		float thi = static_cast<float>(yDelta) / mouseSensitivity;		// use screen width later...

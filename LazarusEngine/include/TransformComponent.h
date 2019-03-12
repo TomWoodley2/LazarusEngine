@@ -25,7 +25,7 @@ class TransformComponent : public Component
 
 	//const float rotateStepsize = 1.0f / 512.0f;	// 0.001f;
 
-	const float moveStepsize = 1.0f / 64.0f; // 0.004f;  accurate binary value
+	const float moveStepsize = 1.0f / 16.0f; // 0.004f;  accurate binary value
 	const float rotateStepsize = 1.0f / 128.0f;	// 0.001f;
 
 public:
