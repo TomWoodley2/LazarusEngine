@@ -1,3 +1,4 @@
+#include <Windows.h>
 #include "ExampleGame.h"
 
 #include "ModelManager.h"
@@ -14,7 +15,7 @@
 //#include <iostream>
 //#include <fstream>
 #include <sstream>
-//#include "InputHandler.h"
+#include "InputHandler.h"
 
 
 ExampleGame::ExampleGame(IEngineCore* engine) : Game(engine)
@@ -38,13 +39,17 @@ void ExampleGame::update(float dt)
 		m_inputHandler = new InputHandler(m_scene->getPlayer());  // or have a set function perhaps better then a new instance!
 	}
 }
+
 void ExampleGame::render() 
 {
 	m_scene->render(m_engineInterfacePtr);
 
 	double frameDuration = m_engineInterfacePtr->getFrameDuration();
 
-	if (frameDuration > 0)
+	SHORT keyState = GetKeyState(VK_TAB);
+	bool isToggled = keyState & 1;
+
+	if (isToggled != false && frameDuration > 0)
 	{
 		glm::vec3 eulerAngles = m_scene->getPlayer()->getEulerAngles();
 
@@ -53,9 +58,28 @@ void ExampleGame::render()
 		eulerAngles.y = glm::degrees(eulerAngles.y);
 		eulerAngles.z = glm::degrees(eulerAngles.z);
 		std::ostringstream oss;
-		oss << " (" << eulerAngles.x << ", " << eulerAngles.y << ", " << eulerAngles.z << ")"; // fps:" << (1 / frameDuration);
+		std::ostringstream oss1;
+		std::ostringstream oss2;
+		std::ostringstream oss3;
+		std::ostringstream oss4;
+		std::ostringstream oss5;
+		std::ostringstream oss6;
+		oss << " (" << eulerAngles.x << ", " << eulerAngles.y << ", " << eulerAngles.z << ")";
+		oss1 << "Controls:";
+		oss2 << "WASD = Movement";
+		oss3 << "IJKL/LMB = Rotate";
+		oss4 << "1,2 = Camera";
+		oss5 << "9,0 = Level";
+		oss6 << "fps:" << (1 / frameDuration);
 		//oss << frameDuration;
+		//renderText([string stream name].str(), [Xpos(0-1)], [Ypos(0-1)], [Text Size], glm::vec3[Text Colour(R, G, B)]
 		m_engineInterfacePtr->renderText(oss.str(), 0.01f, 0.01f, 1, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss1.str(), 0.01f, 0.96f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss2.str(), 0.01f, 0.92f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss3.str(), 0.01f, 0.88f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss4.str(), 0.01f, 0.84f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss5.str(), 0.01f, 0.80f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss6.str(), 0.01f, 0.76f, 0.50f, glm::vec3(1, 1, 0));
 	}
 }
 
@@ -72,3 +96,7 @@ void ExampleGame::Initialise()
 	m_inputHandler = new InputHandler(m_scene->getPlayer());
 }
 
+/*class ShowControls : public InputCommand
+{
+	void execute();
+};*/
