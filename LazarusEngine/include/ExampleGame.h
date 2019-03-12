@@ -10,7 +10,7 @@ public:
 	void update(float dt) override;
 	void render() override;
 	void Initialise();
-	bool UI = true;
+	bool UI = true; // Toggle debug mode
 
 private:
 

@@ -49,6 +49,8 @@ void ExampleGame::render()
 	SHORT keyState = GetKeyState(VK_TAB);
 	bool isToggled = keyState & 1;
 
+	m_scene->setDebugMode(isToggled); // Change the state in scene class
+
 	if (isToggled != false && frameDuration > 0)
 	{
 		glm::vec3 eulerAngles = m_scene->getPlayer()->getEulerAngles();

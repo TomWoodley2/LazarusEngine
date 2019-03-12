@@ -37,6 +37,8 @@ public:
 
 	PlayerCharacter* getPlayer();
 
+	void setDebugMode(bool state); // Change state of debug mode based on game class
+
 private:
 
 	bool m_levelLoaded{ false };
@@ -58,4 +60,6 @@ private:
 	int m_mouseButtons;
 	int m_oldMouseButtons;
 	bool m_mouseEnabled{ false };
+
+	bool renderDebugMode = true;
 };

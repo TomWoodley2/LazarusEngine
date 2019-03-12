@@ -134,7 +134,13 @@ void Scene::render(IEngineCore* engineCore)
 		glm::mat4 matrix = gameObject->getComponent<TransformComponent>()->getModelMatrix();
 
 		engineCore->drawModel(model, matrix);
-		engineCore->drawPhysicsBox(matrix, i);
+
+		// Draw the physics boxes if in debug mode
+		if (renderDebugMode)
+		{
+			engineCore->drawPhysicsBox(matrix, i);
+		}
+		
 		i++; // Used for drawing the physics boxes
 		//engineCore->drawCube(matrix);
 
@@ -453,4 +459,9 @@ void Scene::loadLevel(std::string levelFile)
 			v_gameObjects.push_back(new StaticEnvironmentObject(model, position, orientation));
 		}
 	}
+}
+
+void Scene::setDebugMode(bool state)
+{
+	renderDebugMode = state;
 }
