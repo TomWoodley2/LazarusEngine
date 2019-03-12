@@ -23,16 +23,21 @@ public:
 
 	void setCamera(const CameraComponent* cam) override;
 	void drawModel(Model* model, const glm::mat4& modelMatrix) override;
-	void drawPhysicsBox(const glm::mat4& modelIn) override; // Method to draw a physics box to the screen
+	void drawPhysicsBox(const glm::mat4& modelIn, int modelNo) override; // Method to draw a physics box to the screen
 
 	double getFrameDuration();
 
 	void getMouseState(double& mouseX, double& mouseY, int& mouseButtons) override;
 
-	
+	void updatePhysicsBoxVertices(glm::vec3 negativeMeshCornerIn, glm::vec3 positiveMeshCornerIn); // Used to update positions of physicsbox
+	void initPhysicsBox() override; // Setup physics box ready to be drawn to the screen
 
+	void clearPhysicsBoxes() override; // Reset VBOs - used when starting a new level
 
 private:
+
+	std::vector<std::vector<float>> v_allObjectCollisionVertices; // stores each vector of collision vertices
+
 	GLFWwindow* m_window;
 	GLuint m_defaultShaderProgram;
 	GLuint m_fontShaderProgram;
@@ -57,6 +62,8 @@ private:
 	std::map<GLchar, Character> Characters;
 	GLuint font_VAO, font_VBO;
 	GLuint physics_VAO, physics_VBO, physics_EBO;
+
+	std::vector<GLuint> physics_VBOs; // Vector to store the different VBO's for different objects
 	
 
 	// why are these static?
@@ -78,7 +85,7 @@ private:
 	
 	void loadShader(std::string vertexShaderFile, std::string fragmentShaderFile, GLuint& shaderProgram);
 	void setDefaultShaders();
-	void initPhysicsBox(); // Setup physics box ready to be drawn to the screen
+	
 	void setupDefaultFont();
 
 

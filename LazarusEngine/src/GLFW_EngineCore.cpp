@@ -68,7 +68,7 @@ bool GLFW_EngineCore::initWindow(int width, int height, std::string windowName)
 	setupDefaultFont();
 	
 	// Setup the rendering for the physics box
-	initPhysicsBox();
+	//initPhysicsBox();
 
 	// enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -456,6 +456,10 @@ void GLFW_EngineCore::initPhysicsBox()
 	glm::vec3 centre = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 size = glm::vec3(2.f, 2.f, 2.f);
 
+	//std::cout << "Negative: " << negativeMeshCornerIn.x << ", " << negativeMeshCornerIn.y << ", " << negativeMeshCornerIn.z << std::endl;
+	//std::cout << "Positive: " << positiveMeshCornerIn.x << ", " << positiveMeshCornerIn.y << ", " << positiveMeshCornerIn.z << std::endl;
+
+	
 	// set vertices ready for debug
 	float vertices[] = {
 		centre.x - (size.x / 2), centre.y - (size.y / 2), centre.z - (size.z / 2),
@@ -468,6 +472,24 @@ void GLFW_EngineCore::initPhysicsBox()
 		centre.x + (size.x / 2), centre.y + (size.y / 2), centre.z + (size.z / 2),
 		centre.x + (size.x / 2), centre.y - (size.y / 2), centre.z + (size.z / 2)
 	};
+	
+	
+	/*
+	
+	// set vertices ready for debug
+	float vertices[] = {
+		negativeMeshCornerIn.x, negativeMeshCornerIn.y, negativeMeshCornerIn.z,
+		negativeMeshCornerIn.x, positiveMeshCornerIn.y, negativeMeshCornerIn.z,
+		positiveMeshCornerIn.x, positiveMeshCornerIn.y, negativeMeshCornerIn.z,
+		positiveMeshCornerIn.x, negativeMeshCornerIn.y, negativeMeshCornerIn.z,
+
+		negativeMeshCornerIn.x, negativeMeshCornerIn.y, positiveMeshCornerIn.z,
+		negativeMeshCornerIn.x, positiveMeshCornerIn.y, positiveMeshCornerIn.z,
+		positiveMeshCornerIn.x, positiveMeshCornerIn.y, positiveMeshCornerIn.z,
+		positiveMeshCornerIn.x, negativeMeshCornerIn.y, positiveMeshCornerIn.z
+	};
+	
+	*/
 
 	// Index data
 	unsigned int indices[] = {
@@ -508,18 +530,52 @@ void GLFW_EngineCore::initPhysicsBox()
 	
 }
 
+void GLFW_EngineCore::updatePhysicsBoxVertices(glm::vec3 negativeMeshCornerIn, glm::vec3 positiveMeshCornerIn)
+{
+	std::vector<float> vertices = {
+		negativeMeshCornerIn.x, negativeMeshCornerIn.y, negativeMeshCornerIn.z,
+		negativeMeshCornerIn.x, positiveMeshCornerIn.y, negativeMeshCornerIn.z,
+		positiveMeshCornerIn.x, positiveMeshCornerIn.y, negativeMeshCornerIn.z,
+		positiveMeshCornerIn.x, negativeMeshCornerIn.y, negativeMeshCornerIn.z,
 
-void GLFW_EngineCore::drawPhysicsBox(const glm::mat4& modelIn)
+		negativeMeshCornerIn.x, negativeMeshCornerIn.y, positiveMeshCornerIn.z,
+		negativeMeshCornerIn.x, positiveMeshCornerIn.y, positiveMeshCornerIn.z,
+		positiveMeshCornerIn.x, positiveMeshCornerIn.y, positiveMeshCornerIn.z,
+		positiveMeshCornerIn.x, negativeMeshCornerIn.y, positiveMeshCornerIn.z
+	};
+
+	v_allObjectCollisionVertices.push_back(vertices);
+}
+
+
+
+void GLFW_EngineCore::drawPhysicsBox(const glm::mat4& modelIn, int modelNo)
 {
 	glUseProgram(m_boxShaderProgram); // Use the box shader program
 
 	glUniformMatrix4fv(glGetUniformLocation(m_boxShaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(modelIn)); // send model matrix to shader
 	
+	//std::cout << modelNo << std::endl;
+
 	glBindVertexArray(physics_VAO); // get the vertex array for drawing
+	//glBufferData(GL_ARRAY_BUFFER, v_allObjectCollisionVertices[modelNo].size() * sizeof(float), &v_allObjectCollisionVertices[modelNo][0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, physics_VBO);
+	glBufferData(GL_ARRAY_BUFFER, 36 * sizeof(float), &v_allObjectCollisionVertices[modelNo][0], GL_STATIC_DRAW);
+
+	//glEnableVertexAttribArray(0);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Draw as a line
 	glDrawElements(GL_TRIANGLES, 36 * sizeof(unsigned int), GL_UNSIGNED_INT, 0); // size of gets the number of points required for the number of triangles to be drawn
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // change back to filling objects
 																				 
 	glUseProgram(m_defaultShaderProgram); // change back to default shader
 
+}
+
+void GLFW_EngineCore::clearPhysicsBoxes()
+{
+	physics_VBOs.clear();
+	v_allObjectCollisionVertices.clear();
 }

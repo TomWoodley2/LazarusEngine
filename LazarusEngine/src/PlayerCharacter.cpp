@@ -62,7 +62,7 @@ void PlayerCharacter::SetCameraPositionFromTransformComponent(TransformComponent
 	glm::vec3 relativePosition;		// could use ? operator here
 	if (m_cameraState == CameraViewState::thirdPersonCamera)
 	{
-		relativePosition = glm::vec3(0, 1.5, 6);		//above and behind
+		relativePosition = glm::vec3(0, 0.7, 6);		//above and behind
 	}
 	else
 	{

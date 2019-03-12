@@ -24,6 +24,19 @@ Scene::Scene(std::string filename, ModelManager* theModelManager, IEngineCore* e
 	m_playerBackground = new BackgroundColourGameObject();
 	m_levelLoaded = loadLevelJSON(filename);
 
+	engineCore->clearPhysicsBoxes();
+	engineCore->initPhysicsBox();
+	
+	// Initiate the physics box for each gameObject
+	for (auto gameObject : v_gameObjects)
+	{
+		Model* model = gameObject->getComponent<ModelComponent>()->getModel();
+		glm::vec3 negativeMeshCorner = model->getNegativeCorner(); // Get the corner points of the model
+		glm::vec3 positiveMeshCorner = model->getPositiveCorner();
+		engineCore->updatePhysicsBoxVertices(negativeMeshCorner, positiveMeshCorner); // Update the physics box based on the model position
+	}
+	
+
 	engineCore->getMouseState(m_mouseX, m_mouseY, m_mouseButtons);
 
 	m_oldMouseX = m_mouseX;
@@ -107,13 +120,22 @@ void Scene::render(IEngineCore* engineCore)
 	engineCore->setCamera(getPlayer()->getComponent<CameraComponent>());
 
 	// draw the game objects
+	int i = 0;
 	for (auto gameObject : v_gameObjects)
 	{
 		Model* model = gameObject->getComponent<ModelComponent>()->getModel();
+		//glm::vec3 negativeMeshCorner = model->getNegativeCorner(); // Get the corner points of the model
+		//glm::vec3 positiveMeshCorner = model->getPositiveCorner();
+
+		//std::cout << "Negative: " << negativeMeshCorner.x << ", " << negativeMeshCorner.y << ", " << negativeMeshCorner.z << std::endl;
+		//::cout << "Positive: " << positiveMeshCorner.x << ", " << positiveMeshCorner.y << ", " << positiveMeshCorner.z << std::endl;
+
 		//glm::vec3 position = gameObject->getComponent<TransformComponent>()->m_position;
 		glm::mat4 matrix = gameObject->getComponent<TransformComponent>()->getModelMatrix();
+
 		engineCore->drawModel(model, matrix);
-		engineCore->drawPhysicsBox(matrix);
+		engineCore->drawPhysicsBox(matrix, i);
+		i++; // Used for drawing the physics boxes
 		//engineCore->drawCube(matrix);
 
 	}
