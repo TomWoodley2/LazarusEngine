@@ -16,10 +16,10 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 
-#include "Detour/Include/DetourNode.h"
-#include "Detour/Include/DetourAlloc.h"
-#include "Detour/Include/DetourAssert.h"
-#include "Detour/Include/DetourCommon.h"
+#include "DetourNode.h"
+#include "DetourAlloc.h"
+#include "DetourAssert.h"
+#include "DetourCommon.h"
 #include <string.h>
 
 #ifdef DT_POLYREF64

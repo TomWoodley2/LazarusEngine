@@ -16,11 +16,11 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 
-#include "DetourObstacleAvoidance.h"
-#include "DetourCommon.h"
-#include "DetourMath.h"
-#include "DetourAlloc.h"
-#include "DetourAssert.h"
+#include "DetourAllFiles/DetourCrowd/Include/DetourObstacleAvoidance.h"
+#include "DetourAllFiles/Include/DetourCommon.h"
+#include "DetourAllFiles/Include/DetourMath.h"
+#include "DetourAllFiles/Include/DetourAlloc.h"
+#include "DetourAllFiles/Include/DetourAssert.h"
 #include <string.h>
 #include <float.h>
 #include <new>

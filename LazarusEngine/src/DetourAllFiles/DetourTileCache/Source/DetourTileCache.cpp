@@ -1,11 +1,11 @@
-#include "DetourTileCache.h"
-#include "DetourTileCacheBuilder.h"
-#include "DetourNavMeshBuilder.h"
-#include "DetourNavMesh.h"
-#include "DetourCommon.h"
-#include "DetourMath.h"
-#include "DetourAlloc.h"
-#include "DetourAssert.h"
+#include "DetourAllFiles/DetourTileCache/Include/DetourTileCache.h"
+#include "DetourAllFiles/DetourTileCache/Include/DetourTileCacheBuilder.h"
+#include "DetourAllFiles/Include/DetourNavMeshBuilder.h"
+#include "DetourAllFiles/Include/DetourNavMesh.h"
+#include "DetourAllFiles/Include/DetourCommon.h"
+#include "DetourAllFiles/Include/DetourMath.h"
+#include "DetourAllFiles/Include/DetourAlloc.h"
+#include "DetourAllFiles/Include/DetourAssert.h"
 #include <string.h>
 #include <new>
 

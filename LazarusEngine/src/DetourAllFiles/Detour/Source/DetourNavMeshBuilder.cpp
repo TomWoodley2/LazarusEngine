@@ -20,12 +20,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <float.h>
-#include "Detour/Include/DetourNavMesh.h"
-#include "Detour/Include/DetourCommon.h"
-#include "Detour/Include/DetourMath.h"
-#include "Detour/Include/DetourNavMeshBuilder.h"
-#include "Detour/Include/DetourAlloc.h"
-#include "Detour/Include/DetourAssert.h"
+#include "DetourNavMesh.h"
+#include "DetourCommon.h"
+#include "DetourMath.h"
+#include "DetourNavMeshBuilder.h"
+#include "DetourAlloc.h"
+#include "DetourAssert.h"
 
 static unsigned short MESH_NULL_IDX = 0xffff;
 

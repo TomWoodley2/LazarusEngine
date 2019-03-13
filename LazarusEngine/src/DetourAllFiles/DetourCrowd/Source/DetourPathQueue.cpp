@@ -17,11 +17,11 @@
 //
 
 #include <string.h>
-#include "DetourPathQueue.h"
-#include "DetourNavMesh.h"
-#include "DetourNavMeshQuery.h"
-#include "DetourAlloc.h"
-#include "DetourCommon.h"
+#include "DetourAllFiles/DetourCrowd/Include/DetourPathQueue.h"
+#include "DetourAllFiles/Include/DetourNavMesh.h"
+#include "DetourAllFiles/Include/DetourNavMeshQuery.h"
+#include "DetourAllFiles/Include/DetourAlloc.h"
+#include "DetourAllFiles/Include/DetourCommon.h"
 
 
 dtPathQueue::dtPathQueue() :

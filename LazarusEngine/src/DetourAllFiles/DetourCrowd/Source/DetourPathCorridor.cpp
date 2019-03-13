@@ -17,11 +17,11 @@
 //
 
 #include <string.h>
-#include "DetourPathCorridor.h"
-#include "DetourNavMeshQuery.h"
-#include "DetourCommon.h"
-#include "DetourAssert.h"
-#include "DetourAlloc.h"
+#include "DetourAllFiles/DetourCrowd/Include/DetourPathCorridor.h"
+#include "DetourAllFiles/Include/DetourNavMeshQuery.h"
+#include "DetourAllFiles/Include/DetourCommon.h"
+#include "DetourAllFiles/Include/DetourAssert.h"
+#include "DetourAllFiles/Include/DetourAlloc.h"
 
 
 int dtMergeCorridorStartMoved(dtPolyRef* path, const int npath, const int maxPath,
