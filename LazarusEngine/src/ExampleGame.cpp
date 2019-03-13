@@ -100,3 +100,15 @@ void ExampleGame::Initialise()
 {
 	void execute();
 };*/
+void ExampleGame::imguiInit()
+{
+}
+void ExampleGame::imguiRender()
+{
+	//scene handles this#
+
+	m_scene->imguiRender();
+}
+void ExampleGame::imguiShutdown()
+{
+}

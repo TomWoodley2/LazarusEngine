@@ -7,6 +7,9 @@
 #include "PlayerCharacter.h"
 #include "IEngineCore.h"
 
+#include <imgui.h>
+#include "imgui_impl_glfw_gl3.h"
+
 #include <string>
 
 
@@ -36,6 +39,8 @@ public:
 
 
 	PlayerCharacter* getPlayer();
+
+	void imguiRender();
 
 private:
 

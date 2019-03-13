@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	engineCore = new GLFW_EngineCore;
 #endif
 
-	if (!engineCore->initWindow(800, 600, "TransformAndData"))
+	if (!engineCore->initWindow(1000, 800, "TransformAndData"))
 		return -1;
 
 	Game* myFirstGame = new ExampleGame(engineCore);

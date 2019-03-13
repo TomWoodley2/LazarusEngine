@@ -87,6 +87,8 @@ bool GLFW_EngineCore::runEngine(Game* game)			// was Game&
 	// there are other ways this could be handled
 	// game.m_engineInterfacePtr = this;
 
+	ImGui_ImplGlfwGL3_Init(m_window, false);
+
 	// prepare the array for frame times
 	int currentFrame = 0;
 	m_frameTimes.resize(m_framesToMonitor);
@@ -103,6 +105,8 @@ bool GLFW_EngineCore::runEngine(Game* game)			// was Game&
 		game->update(m_frameTimes[currentFrame]); // update game logic based on the time of this frame
 		game->render(); // prepare game to send info to the renderer in engine core
 
+		game->imguiRender();
+
 		// swap buffers
 		glfwSwapBuffers(m_window);
 		glfwPollEvents();
@@ -117,6 +121,8 @@ bool GLFW_EngineCore::runEngine(Game* game)			// was Game&
 
 		
 	}
+
+	ImGui_ImplGlfwGL3_Shutdown();
 
 	return true;
 }
@@ -230,6 +236,13 @@ void GLFW_EngineCore::drawModel(Model* model, const glm::mat4& modelMatrix)
 }
 
 //-----------------------------Private functions------------------------------
+
+void GLFW_EngineCore::charCallbackEvent(GLFWwindow* window, unsigned int codepoint)
+{
+	// pass to imgui
+	ImGui_ImplGlfwGL3_CharCallback(window, codepoint);
+}
+
 void GLFW_EngineCore::keyCallbackEvent(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_UNKNOWN || key > m_keyBufferSize)
@@ -242,6 +255,7 @@ void GLFW_EngineCore::keyCallbackEvent(GLFWwindow* window, int key, int scancode
 	{
 		glfwSetWindowShouldClose(window, true);
 	}
+	ImGui_ImplGlfwGL3_KeyCallback(window, key, scancode, action, mods);
 }
 
 void GLFW_EngineCore::windowResizeCallbackEvent(GLFWwindow* window, int width, int height)
@@ -477,6 +491,11 @@ void GLFW_EngineCore::initCubeModel()
 	
 }
 
+//glfwSetMouseButtonCallback(window, ImGui_ImplGlfwGL3_MouseButtonCallback);
+//glfwSetScrollCallback(window, ImGui_ImplGlfwGL3_ScrollCallback);
+//glfwSetKeyCallback(window, ImGui_ImplGlfwGL3_KeyCallback);
+//glfwSetCharCallback(window, ImGui_ImplGlfwGL3_CharCallback);
+
 
 void GLFW_EngineCore::mouseMoveCallbackEvent(GLFWwindow* window, double xPos, double yPos)
 {
@@ -500,7 +519,7 @@ void GLFW_EngineCore::mouseButtonCallbackEvent(GLFWwindow* window, int button, i
 
 	if (action == GLFW_PRESS)
 	{
-		(m_mouseButtons |= ((1 << button) & 0x03));			// butons 0 & 1 only here
+		(m_mouseButtons |= ((1 << button) & 0x03));			// buttons 0 & 1 only here
 	}
 	else
 	{

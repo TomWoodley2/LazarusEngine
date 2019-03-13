@@ -26,6 +26,11 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GLAD\glad.c" />
     <ClCompile Include="src\GLFW_EngineCore.cpp" />
+    <ClCompile Include="src\imgui.cpp" />
+    <ClCompile Include="src\imgui_demo.cpp" />
+    <ClCompile Include="src\imgui_draw.cpp" />
+    <ClCompile Include="src\imgui_glfw.cpp" />
+    <ClCompile Include="src\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="src\InputCommand.cpp" />
     <ClCompile Include="src\InputHandler.cpp" />
     <ClCompile Include="src\jsoncpp.cpp" />
@@ -53,6 +58,11 @@
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\GLFW_EngineCore.h" />
     <ClInclude Include="include\IEngineCore.h" />
+    <ClInclude Include="include\imconfig.h" />
+    <ClInclude Include="include\imgui.h" />
+    <ClInclude Include="include\imgui_glfw.h" />
+    <ClInclude Include="include\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="include\imgui_internal.h" />
     <ClInclude Include="include\InputCommand.h" />
     <ClInclude Include="include\InputHandler.h" />
     <ClInclude Include="include\Mesh.h" />
@@ -63,6 +73,9 @@
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneStateComponent.h" />
     <ClInclude Include="include\StaticEnvironmentObject.h" />
+    <ClInclude Include="include\stb_rect_pack.h" />
+    <ClInclude Include="include\stb_textedit.h" />
+    <ClInclude Include="include\stb_truetype.h" />
     <ClInclude Include="include\TransformComponent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

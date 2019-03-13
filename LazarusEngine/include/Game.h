@@ -13,6 +13,10 @@ public:
 
 	virtual void update(float dt) = 0;
 	virtual void render() = 0;
+
+	virtual void imguiInit() = 0;
+	virtual void imguiRender() = 0;
+	virtual void imguiShutdown() = 0;
 	
 	InputHandler* getInputHandler();
 

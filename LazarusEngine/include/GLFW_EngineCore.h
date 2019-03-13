@@ -2,6 +2,10 @@
 #include "IEngineCore.h"
 #include <GLAD/glad.h>
 #include <GLFW/glfw3.h>
+
+#include <imgui.h>
+#include "imgui_impl_glfw_gl3.h"
+
 #include <vector>
 #include <glm/mat4x4.hpp>
 #include "CameraComponent.h"
@@ -70,6 +74,7 @@ private:
 	static void mouseMoveCallbackEvent(GLFWwindow* window, double xPos, double yPos);
 	static void mouseButtonCallbackEvent(GLFWwindow* window, int button, int action, int mods);
 	static void keyCallbackEvent(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void charCallbackEvent(GLFWwindow* window, unsigned int codepoint);
 	static void windowResizeCallbackEvent(GLFWwindow* window, int width, int height);
 	
 	void loadShader(std::string vertexShaderFile, std::string fragmentShaderFile, GLuint& shaderProgram);

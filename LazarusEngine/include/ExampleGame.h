@@ -12,6 +12,10 @@ public:
 	void Initialise();
 	bool UI = true;
 
+	virtual void imguiInit();
+	virtual void imguiRender();
+	virtual void imguiShutdown();
+
 private:
 
 	ModelManager* m_theModelManager;
