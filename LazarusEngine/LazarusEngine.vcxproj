@@ -19,8 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AIBehavour.cpp" />
     <ClCompile Include="src\BackgroundColourGameObject.cpp" />
     <ClCompile Include="src\CollisionObject.cpp" />
+    <ClCompile Include="src\Detour\DetourAlloc.cpp" />
+    <ClCompile Include="src\Detour\DetourAssert.cpp" />
+    <ClCompile Include="src\Detour\DetourCommon.cpp" />
+    <ClCompile Include="src\Detour\DetourNavMesh.cpp" />
+    <ClCompile Include="src\Detour\DetourNavMeshBuilder.cpp" />
+    <ClCompile Include="src\Detour\DetourNavMeshQuery.cpp" />
+    <ClCompile Include="src\Detour\DetourNode.cpp" />
     <ClCompile Include="src\DynamicEnviromentObject.cpp" />
     <ClCompile Include="src\ExampleGame.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -34,18 +42,39 @@
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\ModelManager.cpp" />
     <ClCompile Include="src\PlayerCharacter.cpp" />
+    <ClCompile Include="src\Recast\Recast.cpp" />
+    <ClCompile Include="src\Recast\RecastAlloc.cpp" />
+    <ClCompile Include="src\Recast\RecastArea.cpp" />
+    <ClCompile Include="src\Recast\RecastAssert.cpp" />
+    <ClCompile Include="src\Recast\RecastContour.cpp" />
+    <ClCompile Include="src\Recast\RecastFilter.cpp" />
+    <ClCompile Include="src\Recast\RecastLayers.cpp" />
+    <ClCompile Include="src\Recast\RecastMesh.cpp" />
+    <ClCompile Include="src\Recast\RecastMeshDetail.cpp" />
+    <ClCompile Include="src\Recast\RecastRasterization.cpp" />
+    <ClCompile Include="src\Recast\RecastRegion.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneStateComponent.cpp" />
     <ClCompile Include="src\StaticEnvironmentObject.cpp" />
     <ClCompile Include="src\stb_image.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Selector.h" />
     <ClInclude Include="include\BackgroundColourGameObject.h" />
     <ClInclude Include="include\CameraComponent.h" />
     <ClInclude Include="include\CollisionComponent.h" />
     <ClInclude Include="include\CollisionObject.h" />
     <ClInclude Include="include\ColourComponent.h" />
     <ClInclude Include="include\Component.h" />
+    <ClInclude Include="include\Detour\Include\DetourAlloc.h" />
+    <ClInclude Include="include\Detour\Include\DetourAssert.h" />
+    <ClInclude Include="include\Detour\Include\DetourCommon.h" />
+    <ClInclude Include="include\Detour\Include\DetourMath.h" />
+    <ClInclude Include="include\Detour\Include\DetourNavMesh.h" />
+    <ClInclude Include="include\Detour\Include\DetourNavMeshBuilder.h" />
+    <ClInclude Include="include\Detour\Include\DetourNavMeshQuery.h" />
+    <ClInclude Include="include\Detour\Include\DetourNode.h" />
+    <ClInclude Include="include\Detour\Include\DetourStatus.h" />
     <ClInclude Include="include\DynamicEnviromentObject.h" />
     <ClInclude Include="include\ExampleGame.h" />
     <ClInclude Include="include\ft2build.h" />
@@ -60,10 +89,17 @@
     <ClInclude Include="include\ModelComponent.h" />
     <ClInclude Include="include\ModelManager.h" />
     <ClInclude Include="include\PlayerCharacter.h" />
+    <ClInclude Include="include\Recast\Include\Recast.h" />
+    <ClInclude Include="include\Recast\Include\RecastAlloc.h" />
+    <ClInclude Include="include\Recast\Include\RecastAssert.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneStateComponent.h" />
+    <ClInclude Include="include\Node.h" />
+    <ClInclude Include="include\Sequence.h" />
     <ClInclude Include="include\StaticEnvironmentObject.h" />
     <ClInclude Include="include\TransformComponent.h" />
+    <ClInclude Include="include\wander.h" />
+    <ClInclude Include="NavMesh.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -127,6 +163,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>E:\Users\Ashton\Documents\GitHub\LazarusEngine\LazarusEngine\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\Users\Ashton\Documents\GitHub\LazarusEngine\LazarusEngine\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>E:\Users\Ashton\Documents\GitHub\LazarusEngine\LazarusEngine\src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
