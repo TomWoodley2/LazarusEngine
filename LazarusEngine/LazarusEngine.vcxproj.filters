@@ -46,6 +46,36 @@
     <Filter Include="Source Files\AI">
       <UniqueIdentifier>{2112d87a-b4fb-4790-8d79-6f68813c9be6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Externals\Detour">
+      <UniqueIdentifier>{df502d15-9fe5-4a3d-a0c9-1da0af7a1c8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Externals\DetourUtil">
+      <UniqueIdentifier>{4b4d0809-4def-479d-aca1-4879169c5f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Externals\DetourCrowd">
+      <UniqueIdentifier>{bada3d02-337d-4756-9efc-a0bb0ebda793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Externals\DetourTileCache">
+      <UniqueIdentifier>{521a392d-14b0-4f3c-89a1-eb099bc89d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Externals\Recast">
+      <UniqueIdentifier>{441d05bf-2dad-440d-99cc-b07b4861affd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Recast">
+      <UniqueIdentifier>{3a4319d1-c970-4062-a3e0-36b996c1466c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detour">
+      <UniqueIdentifier>{f6bcc666-c90d-4809-9316-74dc715421f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DetourUtil">
+      <UniqueIdentifier>{38e3cf35-f8e7-42ec-b395-391e60c15eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DetourCrowd">
+      <UniqueIdentifier>{c461b4d4-9e87-4f62-9df5-09b8cdde474f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DetourTileCache">
+      <UniqueIdentifier>{4c66b12a-3b4a-4737-8bf9-9ae4305ff1d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ExampleGame.cpp">
@@ -66,13 +96,7 @@
     <ClCompile Include="src\SceneStateComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GLAD\glad.c">
-      <Filter>Source Files\Externals</Filter>
-    </ClCompile>
     <ClCompile Include="src\stb_image.c">
-      <Filter>Source Files\Externals</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jsoncpp.cpp">
       <Filter>Source Files\Externals</Filter>
     </ClCompile>
     <ClCompile Include="src\BackgroundColourGameObject.cpp">
@@ -105,62 +129,95 @@
     <ClCompile Include="src\ModelManager.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\Recast.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\Recast.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastAlloc.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastAlloc.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastArea.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastArea.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastAssert.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastAssert.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastContour.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastContour.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastFilter.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastFilter.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastLayers.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastLayers.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastMesh.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastMesh.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastMeshDetail.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastMeshDetail.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastRasterization.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastRasterization.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Recast\RecastRegion.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Recast\Source\RecastRegion.cpp">
+      <Filter>Source Files\Recast</Filter>
     </ClCompile>
-    <ClCompile Include="src\Detour\DetourAlloc.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Detour\Source\DetourAlloc.cpp">
+      <Filter>Source Files\Detour</Filter>
     </ClCompile>
-    <ClCompile Include="src\Detour\DetourAssert.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Detour\Source\DetourAssert.cpp">
+      <Filter>Source Files\Detour</Filter>
     </ClCompile>
-    <ClCompile Include="src\Detour\DetourCommon.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Detour\Source\DetourCommon.cpp">
+      <Filter>Source Files\Detour</Filter>
     </ClCompile>
-    <ClCompile Include="src\Detour\DetourNavMesh.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Detour\Source\DetourNavMesh.cpp">
+      <Filter>Source Files\Detour</Filter>
     </ClCompile>
-    <ClCompile Include="src\Detour\DetourNavMeshBuilder.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Detour\Source\DetourNavMeshBuilder.cpp">
+      <Filter>Source Files\Detour</Filter>
     </ClCompile>
-    <ClCompile Include="src\Detour\DetourNavMeshQuery.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Detour\Source\DetourNavMeshQuery.cpp">
+      <Filter>Source Files\Detour</Filter>
     </ClCompile>
-    <ClCompile Include="src\Detour\DetourNode.cpp">
-      <Filter>Source Files\Externals</Filter>
+    <ClCompile Include="..\Detour\Source\DetourNode.cpp">
+      <Filter>Source Files\Detour</Filter>
     </ClCompile>
-    <ClCompile Include="src\AIBehavour.cpp">
-      <Filter>Source Files\AI</Filter>
+    <ClCompile Include="..\Detour\DebugUtils\Source\DebugDraw.cpp">
+      <Filter>Source Files\DetourUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DebugUtils\Source\DetourDebugDraw.cpp">
+      <Filter>Source Files\DetourUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DebugUtils\Source\RecastDebugDraw.cpp">
+      <Filter>Source Files\DetourUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DebugUtils\Source\RecastDump.cpp">
+      <Filter>Source Files\DetourUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourCrowd.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourLocalBoundary.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourObstacleAvoidance.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourPathCorridor.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourPathQueue.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourProximityGrid.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourTileCache\Source\DetourTileCache.cpp">
+      <Filter>Source Files\DetourTileCache</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourTileCache\Source\DetourTileCacheBuilder.cpp">
+      <Filter>Source Files\DetourTileCache</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +235,6 @@
     </ClInclude>
     <ClInclude Include="include\Scene.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ft2build.h">
-      <Filter>Header Files\Externals</Filter>
     </ClInclude>
     <ClInclude Include="include\CameraComponent.h">
       <Filter>Header Files\Components</Filter>
@@ -236,42 +290,6 @@
     <ClInclude Include="include\ModelManager.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="include\Recast\Include\Recast.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Recast\Include\RecastAlloc.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Recast\Include\RecastAssert.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Detour\Include\DetourAlloc.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Detour\Include\DetourAssert.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Detour\Include\DetourCommon.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Detour\Include\DetourMath.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Detour\Include\DetourNavMesh.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Detour\Include\DetourNavMeshBuilder.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Detour\Include\DetourNavMeshQuery.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Detour\Include\DetourNode.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Detour\Include\DetourStatus.h">
-      <Filter>Header Files\Externals</Filter>
-    </ClInclude>
     <ClInclude Include="NavMesh.h">
       <Filter>Header Files\AI</Filter>
     </ClInclude>
@@ -286,6 +304,81 @@
     </ClInclude>
     <ClInclude Include="include\wander.h">
       <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourAlloc.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourAssert.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourCommon.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourMath.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourNavMesh.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourNavMeshBuilder.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourNavMeshQuery.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourNode.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourStatus.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DebugUtils\Include\DebugDraw.h">
+      <Filter>Header Files\Externals\DetourUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DebugUtils\Include\DetourDebugDraw.h">
+      <Filter>Header Files\Externals\DetourUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DebugUtils\Include\RecastDebugDraw.h">
+      <Filter>Header Files\Externals\DetourUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DebugUtils\Include\RecastDump.h">
+      <Filter>Header Files\Externals\DetourUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourCrowd.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourLocalBoundary.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourObstacleAvoidance.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourPathCorridor.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourProximityGrid.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourTileCache\Include\DetourTileCache.h">
+      <Filter>Header Files\Externals\DetourTileCache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourTileCache\Include\DetourTileCacheBuilder.h">
+      <Filter>Header Files\Externals\DetourTileCache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourPathQueue.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Recast\Include\Recast.h">
+      <Filter>Header Files\Externals\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Recast\Include\RecastAlloc.h">
+      <Filter>Header Files\Externals\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Recast\Include\RecastAssert.h">
+      <Filter>Header Files\Externals\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="include\stdafx.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
