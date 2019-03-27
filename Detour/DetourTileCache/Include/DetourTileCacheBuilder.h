@@ -19,8 +19,8 @@
 #ifndef DETOURTILECACHEBUILDER_H
 #define DETOURTILECACHEBUILDER_H
 
-#include "../../Include/DetourAlloc.h"
-#include "../../Include/DetourStatus.h"
+#include "DetourAlloc.h"
+#include "DetourStatus.h"
 
 
 static const int DT_TILECACHE_MAGIC = 'D'<<24 | 'T'<<16 | 'L'<<8 | 'R'; ///< 'DTLR';

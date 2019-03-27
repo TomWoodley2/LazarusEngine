@@ -19,12 +19,12 @@
 #include <float.h>
 #include <string.h>
 #include <stdio.h>
-#include "../Include/DetourNavMesh.h"
-#include "../Include/DetourNode.h"
-#include "../Include/DetourCommon.h"
-#include "../Include/DetourMath.h"
-#include "../Include/DetourAlloc.h"
-#include "../Include/DetourAssert.h"
+#include "DetourNavMesh.h"
+#include "DetourNode.h"
+#include "DetourCommon.h"
+#include "DetourMath.h"
+#include "DetourAlloc.h"
+#include "DetourAssert.h"
 #include <new>
 
 

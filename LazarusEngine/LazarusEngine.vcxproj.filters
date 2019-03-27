@@ -219,6 +219,12 @@
     <ClCompile Include="..\Detour\DetourTileCache\Source\DetourTileCacheBuilder.cpp">
       <Filter>Source Files\DetourTileCache</Filter>
     </ClCompile>
+    <ClCompile Include="src\GLAD\glad.c">
+      <Filter>Source Files\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jsoncpp.cpp">
+      <Filter>Source Files\Externals</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ExampleGame.h">
@@ -289,9 +295,6 @@
     </ClInclude>
     <ClInclude Include="include\ModelManager.h">
       <Filter>Header Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="NavMesh.h">
-      <Filter>Header Files\AI</Filter>
     </ClInclude>
     <ClInclude Include="include\Node.h">
       <Filter>Header Files\AI</Filter>
@@ -377,8 +380,11 @@
     <ClInclude Include="..\Recast\Include\RecastAssert.h">
       <Filter>Header Files\Externals\Recast</Filter>
     </ClInclude>
-    <ClInclude Include="include\stdafx.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\glad\glad.h">
+      <Filter>Header Files\Externals</Filter>
+    </ClInclude>
+    <ClInclude Include="include\json\json.h">
+      <Filter>Header Files\Externals</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

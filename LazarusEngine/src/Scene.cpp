@@ -8,7 +8,7 @@
 #include "ModelComponent.h"
 #include "CameraComponent.h"
 #include "ModelManager.h"
-#include "JSON\json.h"
+#include "json\json.h"
 
 //#include "PlayerCharacter.h" already included in Scene.h
 #include "StaticEnvironmentObject.h"

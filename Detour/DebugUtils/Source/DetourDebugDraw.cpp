@@ -16,11 +16,11 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 
-#include "../Include/DebugDraw.h"
-#include "../Include/DetourDebugDraw.h"
-#include "../../Include/DetourNavMesh.h"
-#include "../../Include/DetourCommon.h"
-#include "../../Include/DetourNode.h"
+#include "DebugDraw.h"
+#include "DetourDebugDraw.h"
+#include "DetourNavMesh.h"
+#include "DetourCommon.h"
+#include "DetourNode.h"
 
 
 

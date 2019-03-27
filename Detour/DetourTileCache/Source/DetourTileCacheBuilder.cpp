@@ -16,11 +16,11 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 
-#include "../../Include/DetourCommon.h"
-#include "../../Include/DetourMath.h"
-#include "../../Include/DetourStatus.h"
-#include "../../Include/DetourAssert.h"
-#include "../Include/DetourTileCacheBuilder.h"
+#include "DetourCommon.h"
+#include "DetourMath.h"
+#include "DetourStatus.h"
+#include "DetourAssert.h"
+#include "DetourTileCacheBuilder.h"
 #include <string.h>
 
 

@@ -19,7 +19,7 @@
 #ifndef DETOURLOCALBOUNDARY_H
 #define DETOURLOCALBOUNDARY_H
 
-#include "../../Include/DetourNavMeshQuery.h"
+#include "DetourNavMeshQuery.h"
 
 
 class dtLocalBoundary

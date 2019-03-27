@@ -54,9 +54,11 @@
     <ClCompile Include="src\DynamicEnviromentObject.cpp" />
     <ClCompile Include="src\ExampleGame.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GLAD\glad.c" />
     <ClCompile Include="src\GLFW_EngineCore.cpp" />
     <ClCompile Include="src\InputCommand.cpp" />
     <ClCompile Include="src\InputHandler.cpp" />
+    <ClCompile Include="src\jsoncpp.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Model.cpp" />
@@ -92,6 +94,8 @@
     <ClInclude Include="..\Recast\Include\Recast.h" />
     <ClInclude Include="..\Recast\Include\RecastAlloc.h" />
     <ClInclude Include="..\Recast\Include\RecastAssert.h" />
+    <ClInclude Include="include\glad\glad.h" />
+    <ClInclude Include="include\json\json.h" />
     <ClInclude Include="include\Selector.h" />
     <ClInclude Include="include\BackgroundColourGameObject.h" />
     <ClInclude Include="include\CameraComponent.h" />
@@ -117,10 +121,8 @@
     <ClInclude Include="include\Node.h" />
     <ClInclude Include="include\Sequence.h" />
     <ClInclude Include="include\StaticEnvironmentObject.h" />
-    <ClInclude Include="include\stdafx.h" />
     <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\wander.h" />
-    <ClInclude Include="NavMesh.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -177,7 +179,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\Users\Ashton\Documents\GitHub\LazarusEngine\Recast\Include;include;E:\Users\Ashton\Documents\GitHub\LazarusEngine\Detour\DetourCrowd\Include;E:\Users\Ashton\Documents\GitHub\LazarusEngine\Detour\Include;E:\Users\Ashton\Documents\GitHub\LazarusEngine\Detour\DebugUtils\Include;E:\Users\Ashton\Documents\GitHub\LazarusEngine\Detour\DetourTileCache\Include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Recast\Include;include;..\Detour\DetourCrowd\Include;..\Detour\Include;..\Detour\DebugUtils\Include;..\Detour\DetourTileCache\Include;$(IncludePath)</IncludePath>
     <LibraryPath>lib;$(LibraryPath)</LibraryPath>
     <SourcePath>src;$(SourcePath)</SourcePath>
     <OutDir>$(SolutionDir)$(Configuration)\bin\</OutDir>
@@ -218,7 +220,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>

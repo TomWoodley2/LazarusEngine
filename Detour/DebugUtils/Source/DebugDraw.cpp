@@ -15,13 +15,13 @@
 //    misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 //
-#include "../../../LazarusEngine/include/stdafx.h"
+
 #define _USE_MATH_DEFINES
 #include <string.h>
 
-#include "../Include/DebugDraw.h"
-#include "../../Include/DetourMath.h"
-#include "../../Include/DetourNavMesh.h"
+#include "DebugDraw.h"
+#include "DetourMath.h"
+#include "DetourNavMesh.h"
 
 
 duDebugDraw::~duDebugDraw()
