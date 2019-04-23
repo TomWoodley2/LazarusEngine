@@ -2,13 +2,13 @@
 
 #include "TransformComponent.h"
 #include "ModelComponent.h"
-#include "CollisionComponent.h"
+#include "RigidbodyComponent.h"
 
 CollisionObject::CollisionObject(Model* model, glm::vec3 position, glm::quat orientation)
 {
 	addComponent(new TransformComponent(position, orientation));
 	addComponent(new ModelComponent(model));
-	addComponent(new CollisionComponent(position));
+	addComponent(new RigidbodyComponent(position,orientation));
 }
 
 CollisionObject::~CollisionObject()
@@ -17,7 +17,14 @@ CollisionObject::~CollisionObject()
 
 void CollisionObject::OnUpdate(float dt)
 {
-	this->getComponent<CollisionComponent>()->OnUpdate(dt); // Update the collision component based on dt
+	TransformComponent* tc = getComponent<TransformComponent>();
+
+	glm::vec3 velocity = getComponent<RigidbodyComponent>()->getVelocity();
+	tc->translate(velocity * dt);
+
+	//this->getComponent<RigidbodyComponent>()->OnUpdate(dt); // Update the collision component based on dt
+
+	// Update transform component based on rigidbodyComponent
 }
 void CollisionObject::OnMessage(const std::string msg)
 {
