@@ -17,6 +17,7 @@ CollisionObject::~CollisionObject()
 
 void CollisionObject::OnUpdate(float dt)
 {
+	getComponent<RigidbodyComponent>()->OnUpdate(dt);
 	TransformComponent* tc = getComponent<TransformComponent>();
 
 	glm::vec3 velocity = getComponent<RigidbodyComponent>()->getVelocity();
