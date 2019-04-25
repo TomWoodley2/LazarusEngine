@@ -15,6 +15,7 @@
 #include "DynamicEnviromentObject.h"
 #include "BackgroundColourGameObject.h"
 #include "CollisionObject.h"
+#include "RigidbodyComponent.h"
 
 #include <fstream>
 #include <sstream>
@@ -53,13 +54,47 @@ Scene::~Scene()
 
 void Scene::update(float dt)
 {
+	// Getting baseplate and dynamic sphere for initial AABB collision checks
+
+	// Baseplate
+	glm::vec3 baseplateCNegative = v_gameObjects[0]->getComponent<TransformComponent>()->position() + v_gameObjects[0]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+	glm::vec3 baseplateCPositive = v_gameObjects[0]->getComponent<TransformComponent>()->position() + v_gameObjects[0]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+
+	// Dynamic sphere
+	glm::vec3 sphereCNegative = v_gameObjects[3]->getComponent<TransformComponent>()->position() + v_gameObjects[3]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+	glm::vec3 sphereCPositive = v_gameObjects[3]->getComponent<TransformComponent>()->position() + v_gameObjects[3]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+
+	// Output if colliding
+	std::cout << m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, sphereCNegative, sphereCPositive) << std::endl;
+
+	// If collision takes place, set the force of the model upwards
+	if (m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, sphereCNegative, sphereCPositive))
+	{
+		v_gameObjects[3]->getComponent<RigidbodyComponent>()->setForce(glm::vec3(0.0f, 1.0f, 0.0f));
+		v_gameObjects[3]->getComponent<RigidbodyComponent>()->setAcceleration(glm::vec3(0.0f, -4.9f, 0.0f));
+		v_gameObjects[3]->getComponent<RigidbodyComponent>()->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+	}
+
+	//GameObject* m_basePlate;
+
+	// Technique if multiple moving objects
+	/*
+	for (int i = 0; i < dynamicCollisionPositions.size(); i++)
+	{
+		v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+		v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+	}
+	*/
+
+
+
+	// (remember to delete pointers)
+
 	// Update dynamic objects based on dt
 	for (int i = 0; i < v_gameObjects.size(); i++)
 	{
 		v_gameObjects[i]->OnUpdate(dt);
 	}
-
-
 
 }
 
@@ -136,9 +171,14 @@ void Scene::render(IEngineCore* engineCore)
 		engineCore->drawModel(model, matrix);
 		
 		glm::vec3 ObjColour;
-		if (gameObject->getObjectType() == "collision")
+		if (gameObject->getObjectType() == "StaticCollision")
 		{
 			ObjColour = glm::vec3(0.0f, 1.0f, 0.0f);
+
+		}
+		else if (gameObject->getObjectType() == "DynamicCollision")
+		{
+			ObjColour = glm::vec3(0.0f, 0.0f, 1.0f);
 
 		}
 		else
@@ -263,23 +303,29 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 			thisGameObject = new PlayerCharacter(model, position, orientation);
 			thisGameObject->setObjectType("player");
 			
+			
 		}
 		else if (typeNode == "static")
 		{
 			thisGameObject = new StaticEnvironmentObject(model, position, orientation);
-			thisGameObject->setObjectType("static");
+			thisGameObject->setObjectType("StaticCollision");
+			staticCollisionPositions.push_back(i);
 		}
 		else if (typeNode == "dynamic")
 		{
 			thisGameObject = new DynamicEnvironmentObject(model, position, orientation);
 			thisGameObject->setObjectType("dynamic");
+			
 		
 		}
 		else if (typeNode == "collision")
 		{
 			// Type to test collision bounding boxes
 			thisGameObject = new CollisionObject(model, position, orientation);
-			thisGameObject->setObjectType("collision");
+			thisGameObject->setObjectType("DynamicCollision");
+			dynamicCollisionPositions.push_back(i);
+
+
 			
 		}
 		else
@@ -294,7 +340,17 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		//delete thisGameObject;
 	}
 
+	std::cout << "staticCollision" << std::endl;
+	for (int i = 0; i < staticCollisionPositions.size(); i++)
+	{
+		std::cout << staticCollisionPositions[i] << std::endl;
+	}
 
+	std::cout << "dynamicCollision" << std::endl;
+	for (int i = 0; i < dynamicCollisionPositions.size(); i++)
+	{
+		std::cout << dynamicCollisionPositions[i] << std::endl;
+	}
 
 
 

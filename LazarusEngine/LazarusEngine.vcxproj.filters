@@ -102,6 +102,9 @@
     <ClCompile Include="src\RigidbodyComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ExampleGame.h">
@@ -177,6 +180,9 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="include\Rigidbody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

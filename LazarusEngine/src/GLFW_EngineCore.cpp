@@ -532,6 +532,7 @@ void GLFW_EngineCore::initPhysicsBox()
 
 void GLFW_EngineCore::updatePhysicsBoxVertices(glm::vec3 negativeMeshCornerIn, glm::vec3 positiveMeshCornerIn)
 {
+	// Update which vertices are being used based on updated positions of the physics box
 	std::vector<float> vertices = {
 		negativeMeshCornerIn.x, negativeMeshCornerIn.y, negativeMeshCornerIn.z,
 		negativeMeshCornerIn.x, positiveMeshCornerIn.y, negativeMeshCornerIn.z,

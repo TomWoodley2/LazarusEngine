@@ -7,6 +7,8 @@
 #include "PlayerCharacter.h"
 #include "IEngineCore.h"
 
+#include "Collision.h" // Used for collision between objects
+
 #include <string>
 
 
@@ -62,4 +64,10 @@ private:
 	bool m_mouseEnabled{ false };
 
 	bool renderDebugMode = true;
+
+	Collision m_collision ;
+
+	std::vector<int> staticCollisionPositions; // Store positions of static collision objects in the GameObject array
+	std::vector<int> dynamicCollisionPositions; // Store positions of dynamic collision objects in the GameObject array
+	
 };

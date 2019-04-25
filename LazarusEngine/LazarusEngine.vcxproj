@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BackgroundColourGameObject.cpp" />
+    <ClCompile Include="src\Collision.cpp" />
     <ClCompile Include="src\CollisionObject.cpp" />
     <ClCompile Include="src\DynamicEnviromentObject.cpp" />
     <ClCompile Include="src\ExampleGame.cpp" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <ClInclude Include="include\BackgroundColourGameObject.h" />
     <ClInclude Include="include\CameraComponent.h" />
+    <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\CollisionObject.h" />
     <ClInclude Include="include\ColourComponent.h" />
     <ClInclude Include="include\Component.h" />
