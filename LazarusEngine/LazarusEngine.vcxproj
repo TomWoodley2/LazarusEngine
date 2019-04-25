@@ -50,24 +50,45 @@
     <ClCompile Include="..\Recast\Source\RecastRasterization.cpp" />
     <ClCompile Include="..\Recast\Source\RecastRegion.cpp" />
     <ClCompile Include="src\BackgroundColourGameObject.cpp" />
+    <ClCompile Include="src\ChunkyTriMesh.cpp" />
     <ClCompile Include="src\CollisionObject.cpp" />
+    <ClCompile Include="src\ConvexVolumeTool.cpp" />
+    <ClCompile Include="src\CrowdTool.cpp" />
     <ClCompile Include="src\DynamicEnviromentObject.cpp" />
     <ClCompile Include="src\ExampleGame.cpp" />
+    <ClCompile Include="src\Filelist.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GLAD\glad.c" />
     <ClCompile Include="src\GLFW_EngineCore.cpp" />
+    <ClCompile Include="src\imgui.cpp" />
+    <ClCompile Include="src\imguiRenderGL.cpp" />
     <ClCompile Include="src\InputCommand.cpp" />
+    <ClCompile Include="src\InputGeom.cpp" />
     <ClCompile Include="src\InputHandler.cpp" />
     <ClCompile Include="src\jsoncpp.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\MeshLoaderObj.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\ModelManager.cpp" />
+    <ClCompile Include="src\NavMesh.cpp" />
+    <ClCompile Include="src\NavMeshPruneTool.cpp" />
+    <ClCompile Include="src\NavMeshTesterTool.cpp" />
+    <ClCompile Include="src\OffMeshConnectionTool.cpp" />
+    <ClCompile Include="src\PerfTimer.cpp" />
     <ClCompile Include="src\PlayerCharacter.cpp" />
+    <ClCompile Include="src\Sample.cpp" />
+    <ClCompile Include="src\SampleInterfaces.cpp" />
+    <ClCompile Include="src\Sample_Debug.cpp" />
+    <ClCompile Include="src\Sample_SoloMesh.cpp" />
+    <ClCompile Include="src\Sample_TempObstacles.cpp" />
+    <ClCompile Include="src\Sample_TileMesh.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneStateComponent.cpp" />
     <ClCompile Include="src\StaticEnvironmentObject.cpp" />
     <ClCompile Include="src\stb_image.c" />
+    <ClCompile Include="src\TestCase.cpp" />
+    <ClCompile Include="src\ValueHistory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Detour\DebugUtils\Include\DebugDraw.h" />
@@ -96,6 +117,27 @@
     <ClInclude Include="..\Recast\Include\RecastAssert.h" />
     <ClInclude Include="include\glad\glad.h" />
     <ClInclude Include="include\json\json.h" />
+    <ClInclude Include="include\NavMesh\ChunkyTriMesh.h" />
+    <ClInclude Include="include\NavMesh\ConvexVolumeTool.h" />
+    <ClInclude Include="include\NavMesh\CrowdTool.h" />
+    <ClInclude Include="include\NavMesh\Filelist.h" />
+    <ClInclude Include="include\NavMesh\imgui.h" />
+    <ClInclude Include="include\NavMesh\imguiRenderGL.h" />
+    <ClInclude Include="include\NavMesh\InputGeom.h" />
+    <ClInclude Include="include\NavMesh\MeshLoaderObj.h" />
+    <ClInclude Include="include\NavMesh\NavMesh.h" />
+    <ClInclude Include="include\NavMesh\NavMeshPruneTool.h" />
+    <ClInclude Include="include\NavMesh\NavMeshTesterTool.h" />
+    <ClInclude Include="include\NavMesh\OffMeshConnectionTool.h" />
+    <ClInclude Include="include\NavMesh\PerfTimer.h" />
+    <ClInclude Include="include\NavMesh\Sample.h" />
+    <ClInclude Include="include\NavMesh\SampleInterfaces.h" />
+    <ClInclude Include="include\NavMesh\Sample_Debug.h" />
+    <ClInclude Include="include\NavMesh\Sample_SoloMesh.h" />
+    <ClInclude Include="include\NavMesh\Sample_TempObstacles.h" />
+    <ClInclude Include="include\NavMesh\Sample_TileMesh.h" />
+    <ClInclude Include="include\NavMesh\TestCase.h" />
+    <ClInclude Include="include\NavMesh\ValueHistory.h" />
     <ClInclude Include="include\Selector.h" />
     <ClInclude Include="include\BackgroundColourGameObject.h" />
     <ClInclude Include="include\CameraComponent.h" />
@@ -121,6 +163,7 @@
     <ClInclude Include="include\Node.h" />
     <ClInclude Include="include\Sequence.h" />
     <ClInclude Include="include\StaticEnvironmentObject.h" />
+    <ClInclude Include="include\stb_truetype.h" />
     <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\wander.h" />
   </ItemGroup>
@@ -129,7 +172,7 @@
     <ProjectGuid>{9A94FDF4-C024-4B44-9F86-E92CEF08175A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>IMAT3905Starter</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>LazarusEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
