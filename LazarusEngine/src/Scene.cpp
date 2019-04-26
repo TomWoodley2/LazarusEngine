@@ -70,9 +70,10 @@ void Scene::update(float dt)
 	// If collision takes place, set the force of the model upwards
 	if (m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, sphereCNegative, sphereCPositive))
 	{
+		RigidbodyComponent* baseplateBody = v_gameObjects[0]->getComponent<RigidbodyComponent>();
 		RigidbodyComponent* sphereBody = v_gameObjects[3]->getComponent<RigidbodyComponent>();
 		// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
-		sphereBody->setVelocity(glm::vec3(sphereBody->getVelocity().x, -sphereBody->getVelocity().y * sphereBody->getBounceCoefficient(), sphereBody->getVelocity().z));
+		sphereBody->setVelocity(glm::vec3(sphereBody->getVelocity().x, -sphereBody->getVelocity().y * baseplateBody->getBounceCoefficient() * sphereBody->getBounceCoefficient(), sphereBody->getVelocity().z));
 
 		if (sphereBody->getVelocity().y < 0.1f && sphereBody->getVelocity().y > -0.1f)
 		{

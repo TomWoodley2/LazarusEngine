@@ -5,9 +5,16 @@
 
 StaticEnvironmentObject::StaticEnvironmentObject(Model* model, glm::vec3 position, glm::quat orientation)
 {
+	// Set all rigidbody properties
+	m_rigidbody.mass = 1.0f;
+	m_rigidbody.velocity = glm::vec3(0.0f, 0.0f, 0.0f);
+	m_rigidbody.bounceCoefficient = 1.0f;
+	m_rigidbody.gravityEnabled = false;
+	m_rigidbody.positionLocked = false;
+
 	addComponent(new TransformComponent(position, orientation));
 	addComponent(new ModelComponent(model));
-	addComponent(new RigidbodyComponent(position, orientation, glm::vec3(0.0f, 0.0f, 0.0f),false)); // Not using gravity
+	addComponent(new RigidbodyComponent(position, orientation, m_rigidbody)); // Not using gravity
 }
 
 StaticEnvironmentObject::~StaticEnvironmentObject() 

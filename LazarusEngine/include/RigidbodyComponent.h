@@ -10,7 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-
+#include "Rigidbody.h"
 
 // Component used to apply physics to collision objects
 
@@ -28,16 +28,12 @@ private:
 	bool isUsingGravity = true; // is the object affected by gravity
 	//glm::vec3 m_acceleration = glm::vec3(0.0f, -9.8f, 0.0f);
 public:
-	RigidbodyComponent(glm::vec3 posIn, const glm::quat orientationIn, glm::vec3 velocityIn) : m_position(posIn), m_orientation(orientationIn), m_velocity(velocityIn)
+	RigidbodyComponent(glm::vec3 posIn, const glm::quat orientationIn, Rigidbody rigidbodyIn) : m_position(posIn), m_orientation(orientationIn)
 	{
-		m_velocity = velocityIn;
-		m_acceleration = glm::vec3(0.0f, -9.8f, 0.0f); // default to gravity being enabled
-		m_force = m_mass * m_acceleration;
-	}
-
-	RigidbodyComponent(glm::vec3 posIn, const glm::quat orientationIn, glm::vec3 velocityIn, bool isUsingGravityIn) : m_position(posIn), m_orientation(orientationIn),m_velocity(velocityIn),isUsingGravity(isUsingGravityIn)
-	{
-		m_velocity = velocityIn;
+		m_velocity = rigidbodyIn.velocity;
+		m_mass = rigidbodyIn.mass;
+		m_bounce_coefficient = rigidbodyIn.bounceCoefficient;
+		isUsingGravity = rigidbodyIn.gravityEnabled;
 
 		if (isUsingGravity)
 		{
@@ -47,10 +43,10 @@ public:
 		{
 			m_acceleration = glm::vec3(0.0f, 0.0f, 0.0f); // Don't use gravity
 		}
-		m_force = m_mass * m_acceleration;
 
-		
+		m_force = m_mass * m_acceleration;
 	}
+
 	void OnUpdate(float dt) override;
 	void OnMessage(const std::string m) override;
 

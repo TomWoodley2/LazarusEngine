@@ -6,9 +6,17 @@
 
 CollisionObject::CollisionObject(Model* model, glm::vec3 position, glm::quat orientation)
 {
+	// Set all rigidbody properties
+	m_rigidbody.mass = 0.8f;
+	m_rigidbody.velocity = glm::vec3(1.0f, 1.0f, 0.0f);
+	m_rigidbody.bounceCoefficient = 0.8f;
+	m_rigidbody.gravityEnabled = true;
+	m_rigidbody.positionLocked = false;
+
+
 	addComponent(new TransformComponent(position, orientation));
 	addComponent(new ModelComponent(model));
-	addComponent(new RigidbodyComponent(position,orientation, glm::vec3(1.0f,1.0f,0.0f))); // With hard coded velocity value
+	addComponent(new RigidbodyComponent(position,orientation,m_rigidbody)); 
 }
 
 CollisionObject::~CollisionObject()
