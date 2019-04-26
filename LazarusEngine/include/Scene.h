@@ -69,5 +69,7 @@ private:
 
 	std::vector<int> staticCollisionPositions; // Store positions of static collision objects in the GameObject array
 	std::vector<int> dynamicCollisionPositions; // Store positions of dynamic collision objects in the GameObject array
+
+	std::vector<bool> hasStoppedColliding; // Store if the object has stopped colliding ( stop multiple procs on collision )
 	
 };

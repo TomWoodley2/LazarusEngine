@@ -16,6 +16,7 @@
 #include "BackgroundColourGameObject.h"
 #include "CollisionObject.h"
 #include "RigidbodyComponent.h"
+#include "Rigidbody.h"
 
 #include <fstream>
 #include <sstream>
@@ -54,43 +55,40 @@ Scene::~Scene()
 
 void Scene::update(float dt)
 {
-	// Getting baseplate and dynamic sphere for initial AABB collision checks
+	// Checking for collisions between all dynamic objects and the baseplate
 
-	// Baseplate
 	glm::vec3 baseplateCNegative = v_gameObjects[0]->getComponent<TransformComponent>()->position() + v_gameObjects[0]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
 	glm::vec3 baseplateCPositive = v_gameObjects[0]->getComponent<TransformComponent>()->position() + v_gameObjects[0]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
 
-	// Dynamic sphere
-	glm::vec3 sphereCNegative = v_gameObjects[3]->getComponent<TransformComponent>()->position() + v_gameObjects[3]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
-	glm::vec3 sphereCPositive = v_gameObjects[3]->getComponent<TransformComponent>()->position() + v_gameObjects[3]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
-
-	// Output if colliding
-	//std::cout << m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, sphereCNegative, sphereCPositive) << std::endl;
-
-	// If collision takes place, set the force of the model upwards
-	if (m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, sphereCNegative, sphereCPositive))
-	{
-		RigidbodyComponent* baseplateBody = v_gameObjects[0]->getComponent<RigidbodyComponent>();
-		RigidbodyComponent* sphereBody = v_gameObjects[3]->getComponent<RigidbodyComponent>();
-		// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
-		sphereBody->setVelocity(glm::vec3(sphereBody->getVelocity().x, -sphereBody->getVelocity().y * baseplateBody->getBounceCoefficient() * sphereBody->getBounceCoefficient(), sphereBody->getVelocity().z));
-
-		if (sphereBody->getVelocity().y < 0.1f && sphereBody->getVelocity().y > -0.1f)
-		{
-			sphereBody->setForce(glm::vec3(0.0f, 0.0f, 0.0f));
-		}
-	}
-
-	//GameObject* m_basePlate;
-
-	// Technique if multiple moving objects
-	/*
 	for (int i = 0; i < dynamicCollisionPositions.size(); i++)
 	{
-		v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
-		v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+		glm::vec3 dynamicCNegative = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+		glm::vec3 dynamicCPositive = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+
+		if (m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, dynamicCNegative, dynamicCPositive))
+		{
+			if (hasStoppedColliding[i])
+			{
+				RigidbodyComponent* baseplateBody = v_gameObjects[0]->getComponent<RigidbodyComponent>();
+				RigidbodyComponent* dynamicBody = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
+				// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
+				dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, -dynamicBody->getVelocity().y * baseplateBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient(), dynamicBody->getVelocity().z));
+
+				/*
+				if (dynamicBody->getVelocity().y < 0.1f && dynamicBody->getVelocity().y > -0.1f)
+				{
+					dynamicBody->setForce(glm::vec3(0.0f, 0.0f, 0.0f));
+				}
+				*/
+				hasStoppedColliding[i] = false;
+			}	
+		}
+		else
+		{
+			hasStoppedColliding[i] = true;
+		}
 	}
-	*/
+	
 
 
 
@@ -223,9 +221,9 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		return loadOK;
 	}
 	const Json::Value gameObjects = root["GameObjects"];
+	
 
-	//
-
+	
 	int numberOfCubes = gameObjects.size();
 	//v_GameObjects.resize(numberOfCubes);
 
@@ -246,6 +244,7 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		// link this to model
 
 		const Json::Value modelNode = gameObjects[i]["model"];
+		
 
 		std::string modelName = modelNode.asString();	// no index as not an array
 
@@ -313,9 +312,12 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		}
 		else if (typeNode == "static")
 		{
+
+
 			thisGameObject = new StaticEnvironmentObject(model, position, orientation);
 			thisGameObject->setObjectType("StaticCollision");
 			staticCollisionPositions.push_back(i);
+			
 		}
 		else if (typeNode == "dynamic")
 		{
@@ -346,18 +348,83 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		//delete thisGameObject;
 	}
 
+	// PHYSICS
+	const Json::Value physicsProperties = root["Physics"];
+
+
+	
+
 	std::cout << "staticCollision" << std::endl;
 	for (int i = 0; i < staticCollisionPositions.size(); i++)
 	{
 		std::cout << staticCollisionPositions[i] << std::endl;
+
+		Rigidbody m_rigidbody;
+
+		// Velocity
+		const Json::Value velocityNode = physicsProperties[staticCollisionPositions[i]]["velocity"];
+		m_rigidbody.velocity = glm::vec3(velocityNode[0].asFloat(), velocityNode[1].asFloat(), velocityNode[2].asFloat());
+
+		// Mass 
+		const Json::Value massNode = physicsProperties[staticCollisionPositions[i]]["mass"];
+		m_rigidbody.mass = massNode.asFloat();
+
+		// Bounce
+		const Json::Value bounceNode = physicsProperties[staticCollisionPositions[i]]["bounce"];
+		m_rigidbody.bounceCoefficient = bounceNode.asFloat();
+
+		// Gravity
+		const Json::Value gravityNode = physicsProperties[staticCollisionPositions[i]]["gravity"];
+		m_rigidbody.gravityEnabled = gravityNode.asBool();
+
+		// Locked
+		const Json::Value lockedNode = physicsProperties[staticCollisionPositions[i]]["locked"];
+		m_rigidbody.positionLocked = lockedNode.asBool();
+
+		v_gameObjects[staticCollisionPositions[i]]->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
 	}
 
 	std::cout << "dynamicCollision" << std::endl;
 	for (int i = 0; i < dynamicCollisionPositions.size(); i++)
 	{
 		std::cout << dynamicCollisionPositions[i] << std::endl;
-	}
 
+		Rigidbody m_rigidbody;
+
+		// Velocity
+		const Json::Value velocityNode = physicsProperties[dynamicCollisionPositions[i]]["velocity"];
+		m_rigidbody.velocity = glm::vec3(velocityNode[0].asFloat(), velocityNode[1].asFloat(), velocityNode[2].asFloat());
+
+		// Mass 
+		const Json::Value massNode = physicsProperties[dynamicCollisionPositions[i]]["mass"];
+		m_rigidbody.mass = massNode.asFloat();
+
+		// Bounce
+		const Json::Value bounceNode = physicsProperties[dynamicCollisionPositions[i]]["bounce"];
+		m_rigidbody.bounceCoefficient = bounceNode.asFloat();
+
+		// Gravity
+		const Json::Value gravityNode = physicsProperties[dynamicCollisionPositions[i]]["gravity"];
+		m_rigidbody.gravityEnabled = gravityNode.asBool();
+
+		// Locked
+		const Json::Value lockedNode = physicsProperties[dynamicCollisionPositions[i]]["locked"];
+		m_rigidbody.positionLocked = lockedNode.asBool();
+
+		v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
+
+	}
+	
+
+	hasStoppedColliding.reserve(dynamicCollisionPositions.size());
+
+	for (int i = 0; i < dynamicCollisionPositions.size(); i++)
+	{
+		hasStoppedColliding.push_back(true);
+	}
+	
+
+	
 
 
 	return loadOK;

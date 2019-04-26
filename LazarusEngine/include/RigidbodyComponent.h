@@ -87,4 +87,23 @@ public:
 	{
 		m_bounce_coefficient = bounceCoefficientIn;
 	}
+
+	void setRigidbody(Rigidbody rigidbodyIn)
+	{
+		m_velocity = rigidbodyIn.velocity;
+		m_mass = rigidbodyIn.mass;
+		m_bounce_coefficient = rigidbodyIn.bounceCoefficient;
+		isUsingGravity = rigidbodyIn.gravityEnabled;
+
+		if (isUsingGravity)
+		{
+			m_acceleration = glm::vec3(0.0f, -9.8f, 0.0f); // Use gravity
+		}
+		else
+		{
+			m_acceleration = glm::vec3(0.0f, 0.0f, 0.0f); // Don't use gravity
+		}
+
+		m_force = m_mass * m_acceleration;
+	}
 };
