@@ -8,7 +8,7 @@ CollisionObject::CollisionObject(Model* model, glm::vec3 position, glm::quat ori
 {
 	addComponent(new TransformComponent(position, orientation));
 	addComponent(new ModelComponent(model));
-	addComponent(new RigidbodyComponent(position,orientation));
+	addComponent(new RigidbodyComponent(position,orientation, glm::vec3(1.0f,1.0f,0.0f))); // With hard coded velocity value
 }
 
 CollisionObject::~CollisionObject()

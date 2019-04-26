@@ -18,16 +18,38 @@ class RigidbodyComponent : public Component
 {
 private:
 	float m_mass = 0.5f; // Will later be set in json file (in kg)
+	float m_bounce_coefficient = 0.8f; // How bouncy the object is (1 = full bounce, 0 = no bounce)
 	glm::vec3 m_position;
 	glm::quat m_orientation;
 	glm::vec3 m_acceleration = glm::vec3(0.0f, -9.8f, 0.0f);
 	glm::vec3 m_velocity;
-	glm::vec3 m_force = m_mass * m_acceleration;
+	glm::vec3 m_force = glm::vec3(0.0f, 0.0f, 0.0f);
+
+	bool isUsingGravity = true; // is the object affected by gravity
 	//glm::vec3 m_acceleration = glm::vec3(0.0f, -9.8f, 0.0f);
 public:
-	RigidbodyComponent(glm::vec3 posIn, const glm::quat orientationIn) : m_position(posIn), m_orientation(orientationIn) 
+	RigidbodyComponent(glm::vec3 posIn, const glm::quat orientationIn, glm::vec3 velocityIn) : m_position(posIn), m_orientation(orientationIn), m_velocity(velocityIn)
 	{
-		m_velocity = glm::vec3(1.0f,1.0f,0.0f);
+		m_velocity = velocityIn;
+		m_acceleration = glm::vec3(0.0f, -9.8f, 0.0f); // default to gravity being enabled
+		m_force = m_mass * m_acceleration;
+	}
+
+	RigidbodyComponent(glm::vec3 posIn, const glm::quat orientationIn, glm::vec3 velocityIn, bool isUsingGravityIn) : m_position(posIn), m_orientation(orientationIn),m_velocity(velocityIn),isUsingGravity(isUsingGravityIn)
+	{
+		m_velocity = velocityIn;
+
+		if (isUsingGravity)
+		{
+			m_acceleration = glm::vec3(0.0f, -9.8f, 0.0f); // Use gravity
+		}
+		else
+		{
+			m_acceleration = glm::vec3(0.0f, 0.0f, 0.0f); // Don't use gravity
+		}
+		m_force = m_mass * m_acceleration;
+
+		
 	}
 	void OnUpdate(float dt) override;
 	void OnMessage(const std::string m) override;
@@ -35,6 +57,19 @@ public:
 	glm::vec3 getVelocity()
 	{
 		return m_velocity;
+	}
+	glm::vec3 getAcceleration()
+	{
+		return m_acceleration;
+	}
+	glm::vec3 getForce()
+	{
+		return m_force;
+	}
+
+	float getBounceCoefficient()
+	{
+		return m_bounce_coefficient;
 	}
 
 	void setVelocity(glm::vec3 velocityIn)
@@ -50,5 +85,10 @@ public:
 	void setForce(glm::vec3 forceIn)
 	{
 		m_force = forceIn;
+	}
+
+	void setBounceCoefficient(float bounceCoefficientIn)
+	{
+		m_bounce_coefficient = bounceCoefficientIn;
 	}
 };

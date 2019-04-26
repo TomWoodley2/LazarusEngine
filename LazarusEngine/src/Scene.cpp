@@ -65,14 +65,19 @@ void Scene::update(float dt)
 	glm::vec3 sphereCPositive = v_gameObjects[3]->getComponent<TransformComponent>()->position() + v_gameObjects[3]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
 
 	// Output if colliding
-	std::cout << m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, sphereCNegative, sphereCPositive) << std::endl;
+	//std::cout << m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, sphereCNegative, sphereCPositive) << std::endl;
 
 	// If collision takes place, set the force of the model upwards
 	if (m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, sphereCNegative, sphereCPositive))
 	{
-		v_gameObjects[3]->getComponent<RigidbodyComponent>()->setForce(glm::vec3(0.0f, 1.0f, 0.0f));
-		v_gameObjects[3]->getComponent<RigidbodyComponent>()->setAcceleration(glm::vec3(0.0f, -4.9f, 0.0f));
-		v_gameObjects[3]->getComponent<RigidbodyComponent>()->setVelocity(glm::vec3(0.0f, 0.0f, 0.0f));
+		RigidbodyComponent* sphereBody = v_gameObjects[3]->getComponent<RigidbodyComponent>();
+		// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
+		sphereBody->setVelocity(glm::vec3(sphereBody->getVelocity().x, -sphereBody->getVelocity().y * sphereBody->getBounceCoefficient(), sphereBody->getVelocity().z));
+
+		if (sphereBody->getVelocity().y < 0.1f && sphereBody->getVelocity().y > -0.1f)
+		{
+			sphereBody->setForce(glm::vec3(0.0f, 0.0f, 0.0f));
+		}
 	}
 
 	//GameObject* m_basePlate;
