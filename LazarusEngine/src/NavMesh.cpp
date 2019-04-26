@@ -168,10 +168,10 @@ void NavMesh::NavMeshMain()
 				{
 					if (sample && geom)
 					{
-						string savePath = meshesFolder + "/";
+						string savePath = meshesFolder + "/";						//Point of interest			
 						BuildSettings settings;
 						memset(&settings, 0, sizeof(settings));
-
+						
 						rcVcopy(settings.navMeshBMin, geom->getNavMeshBoundsMin());
 						rcVcopy(settings.navMeshBMax, geom->getNavMeshBoundsMax());
 
@@ -488,7 +488,7 @@ void NavMesh::NavMeshMain()
 				}
 				else
 				{
-					showSample = false;
+					showSample = false;											//Point of interest
 					showTestCases = false;
 					showLevels = true;
 					scanDirectory(meshesFolder, ".obj", files);
@@ -510,7 +510,7 @@ void NavMesh::NavMeshMain()
 				imguiSeparatorLine();
 
 				sample->handleSettings();
-
+				
 				if (imguiButton("Build"))
 				{
 					ctx.resetLog();
