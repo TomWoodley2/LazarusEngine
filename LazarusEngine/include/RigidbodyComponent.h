@@ -37,14 +37,14 @@ public:
 
 		if (isUsingGravity)
 		{
-			m_acceleration = glm::vec3(0.0f, -9.8f, 0.0f); // Use gravity
+			m_force = glm::vec3(0.0f, -9.8f, 0.0f); // Use gravity
 		}
 		else
 		{
-			m_acceleration = glm::vec3(0.0f, 0.0f, 0.0f); // Don't use gravity
+			m_force = glm::vec3(0.0f, 0.0f, 0.0f); // Don't use gravity
 		}
 
-		m_force = m_mass * m_acceleration;
+		//m_force = m_mass * m_acceleration;
 	}
 
 	void OnUpdate(float dt) override;
@@ -97,13 +97,13 @@ public:
 
 		if (isUsingGravity)
 		{
-			m_acceleration = glm::vec3(0.0f, -9.8f, 0.0f); // Use gravity
+			m_force = glm::vec3(0.0f, -9.8f, 0.0f); // Use gravity
 		}
 		else
 		{
-			m_acceleration = glm::vec3(0.0f, 0.0f, 0.0f); // Don't use gravity
+			m_force = glm::vec3(0.0f, 0.0f, 0.0f); // Don't use gravity
 		}
 
-		m_force = m_mass * m_acceleration;
+		//m_force = m_mass * m_acceleration;
 	}
 };

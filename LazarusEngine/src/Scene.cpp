@@ -57,37 +57,44 @@ void Scene::update(float dt)
 {
 	// Checking for collisions between all dynamic objects and the baseplate
 
-	glm::vec3 baseplateCNegative = v_gameObjects[0]->getComponent<TransformComponent>()->position() + v_gameObjects[0]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
-	glm::vec3 baseplateCPositive = v_gameObjects[0]->getComponent<TransformComponent>()->position() + v_gameObjects[0]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
 
-	for (int i = 0; i < dynamicCollisionPositions.size(); i++)
+	for (int j = 0; j < staticCollisionPositions.size(); j++)
 	{
-		glm::vec3 dynamicCNegative = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
-		glm::vec3 dynamicCPositive = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+		glm::vec3 staticCNegative = v_gameObjects[staticCollisionPositions[j]]->getComponent<TransformComponent>()->position() + v_gameObjects[staticCollisionPositions[j]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+		glm::vec3 staticCPositive = v_gameObjects[staticCollisionPositions[j]]->getComponent<TransformComponent>()->position() + v_gameObjects[staticCollisionPositions[j]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
 
-		if (m_collision.checkAABBCollision(baseplateCNegative, baseplateCPositive, dynamicCNegative, dynamicCPositive))
+		for (int i = 0; i < dynamicCollisionPositions.size(); i++)
 		{
-			if (hasStoppedColliding[i])
+			glm::vec3 dynamicCNegative = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+			glm::vec3 dynamicCPositive = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+
+			if (m_collision.checkAABBCollision(staticCNegative, staticCPositive, dynamicCNegative, dynamicCPositive))
 			{
-				RigidbodyComponent* baseplateBody = v_gameObjects[0]->getComponent<RigidbodyComponent>();
-				RigidbodyComponent* dynamicBody = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
-				// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
-				dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, -dynamicBody->getVelocity().y * baseplateBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient(), dynamicBody->getVelocity().z));
-
-				/*
-				if (dynamicBody->getVelocity().y < 0.1f && dynamicBody->getVelocity().y > -0.1f)
+				if (hasStoppedColliding[i+(j*(dynamicCollisionPositions.size()))])
 				{
+					RigidbodyComponent *const  staticBody = v_gameObjects[staticCollisionPositions[j]]->getComponent<RigidbodyComponent>();
+					RigidbodyComponent *const  dynamicBody = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
+					// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
+					dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, -dynamicBody->getVelocity().y * staticBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient(), dynamicBody->getVelocity().z));
+
+					/*
+					if (dynamicBody->getVelocity().y < 0.1f && dynamicBody->getVelocity().y > -0.1f)
+					{
 					dynamicBody->setForce(glm::vec3(0.0f, 0.0f, 0.0f));
+					}
+					*/
+					hasStoppedColliding[i+(j*(dynamicCollisionPositions.size()))] = false;
 				}
-				*/
-				hasStoppedColliding[i] = false;
-			}	
+			}
+			else
+			{
+				hasStoppedColliding[i+(j*(dynamicCollisionPositions.size()))] = true;
+			}
 		}
-		else
-		{
-			hasStoppedColliding[i] = true;
-		}
+
 	}
+	
+
 	
 
 
@@ -416,9 +423,9 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 	}
 	
 
-	hasStoppedColliding.reserve(dynamicCollisionPositions.size());
+	hasStoppedColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
 
-	for (int i = 0; i < dynamicCollisionPositions.size(); i++)
+	for (int i = 0; i < dynamicCollisionPositions.size()*staticCollisionPositions.size(); i++)
 	{
 		hasStoppedColliding.push_back(true);
 	}

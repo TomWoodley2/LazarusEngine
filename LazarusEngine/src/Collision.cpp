@@ -16,6 +16,7 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 	std::cout << "Mesh 2 Positive, X : " << mesh2NegIn.x << " Y : " << mesh2PosIn.y << " Z : " << mesh2PosIn.z << std::endl;
 	*/
 
+	/*
 	if ((mesh1NegIn.x < mesh2PosIn.x && mesh1NegIn.x > mesh2NegIn.x) || (mesh2NegIn.x < mesh1PosIn.x && mesh2NegIn.x > mesh1NegIn.x))
 	{
 		if ((mesh1NegIn.y < mesh2PosIn.y && mesh1NegIn.y > mesh2NegIn.y) || (mesh2NegIn.y < mesh1PosIn.y && mesh2NegIn.y > mesh1NegIn.y))
@@ -26,7 +27,32 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 			}
 		}
 	}
+	*/
 
+	if (mesh1NegIn.x > mesh2PosIn.x)
+	{
+		return false;
+	}
+	if (mesh2NegIn.x > mesh1PosIn.x)
+	{
+		return false;
+	}
+	if (mesh1NegIn.y > mesh2PosIn.y)
+	{
+		return false;
+	}
+	if (mesh2NegIn.y > mesh1PosIn.y)
+	{
+		return false;
+	}
+	if (mesh1NegIn.z > mesh2PosIn.z)
+	{
+		return false;
+	}
+	if (mesh2NegIn.z > mesh1PosIn.z)
+	{
+		return false;
+	}
 
-	return false;
+	return true;
 }
