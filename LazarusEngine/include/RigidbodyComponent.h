@@ -50,6 +50,11 @@ public:
 	void OnUpdate(float dt) override;
 	void OnMessage(const std::string m) override;
 
+	float getMass()
+	{
+		return m_mass;
+	}
+
 	glm::vec3 getVelocity()
 	{
 		return m_velocity;

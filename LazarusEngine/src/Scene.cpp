@@ -55,8 +55,7 @@ Scene::~Scene()
 
 void Scene::update(float dt)
 {
-	// Checking for collisions between all dynamic objects and the baseplate
-
+	// Checking for collisions between all dynamic objects and all static objects
 
 	for (int j = 0; j < staticCollisionPositions.size(); j++)
 	{
@@ -75,7 +74,18 @@ void Scene::update(float dt)
 					RigidbodyComponent *const  staticBody = v_gameObjects[staticCollisionPositions[j]]->getComponent<RigidbodyComponent>();
 					RigidbodyComponent *const  dynamicBody = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
 					// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
+
+					// Get momentum and compare for each axis (momentum = mass * velocity)
+					glm::vec3 dynamicMomentum = dynamicBody->getMass() * dynamicBody->getVelocity();
+					glm::vec3 staticMomentum = staticBody->getMass() * staticBody->getVelocity();
+
+					// Dynamic body velocity after
 					dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, -dynamicBody->getVelocity().y * staticBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient(), dynamicBody->getVelocity().z));
+					
+					// Therefore static body velocity after
+					//glm::vec3 staticVelocityAfter = -(dynamicBody->getVelocity() * dynamicBody->getMass()) / staticBody->getMass();
+					//staticBody->setVelocity(staticVelocityAfter);
+
 
 					/*
 					if (dynamicBody->getVelocity().y < 0.1f && dynamicBody->getVelocity().y > -0.1f)
@@ -94,9 +104,59 @@ void Scene::update(float dt)
 
 	}
 	
+	// Checking for collisions between dynamic objects
+	// Hard coded for the 2 dynamic objects to start with
 
+	glm::vec3 d1CNegative = v_gameObjects[dynamicCollisionPositions[0]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[0]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+	glm::vec3 d1CPositive = v_gameObjects[dynamicCollisionPositions[0]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[0]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+
+	glm::vec3 d2CNegative = v_gameObjects[dynamicCollisionPositions[1]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[1]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+	glm::vec3 d2CPositive = v_gameObjects[dynamicCollisionPositions[1]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[1]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+
+	if (m_collision.checkAABBCollision(d1CNegative, d2CPositive, d1CNegative, d2CPositive))
+	{
+		if (hasStoppedCollidingDD)
+		{
+			//std::cout << "Dynamic Collision" << std::endl;
+			RigidbodyComponent *const  d1Body = v_gameObjects[dynamicCollisionPositions[0]]->getComponent<RigidbodyComponent>();
+			RigidbodyComponent *const  d2Body = v_gameObjects[dynamicCollisionPositions[1]]->getComponent<RigidbodyComponent>();
+
+			glm::vec3 d1Momentum = d1Body->getMass() * d1Body->getVelocity();
+			glm::vec3 d2Momentum = d2Body->getMass() * d2Body->getVelocity();
+
+			// Normalized velocity
+			//glm::vec3 normalizedVelD1 =  glm::normalize(d1Body->getVelocity());
+			//glm::vec3 normalizedVelD2 =  glm::normalize(d2Body->getVelocity());
+
+
+			
+			//glm::vec3 resultMomentumD1 = (normalizedVelD2 - normalizedVelD1) * d1Momentum * d1Body->getBounceCoefficient();
+			//glm::vec3 resultMomentumD2 = (normalizedVelD1 - normalizedVelD2) * d2Momentum * d2Body->getBounceCoefficient();
+			
+			//std::cout << "XD1: " << resultMomentumD1.x << "YD1: " << resultMomentumD1.y << "ZD1: " << resultMomentumD1.z << std::endl;
+			//std::cout << "XD2: " << resultMomentumD2.x << "YD2: " << resultMomentumD2.y << "ZD2: " << resultMomentumD2.z << std::endl;
+
+			d1Body->setVelocity(glm::vec3(d1Body->getVelocity().x, -d1Body->getVelocity().y * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d1Body->getVelocity().z));
+			//d1Body->setVelocity(resultMomentumD1 / d1Body->getMass());
+			//d2Body->setVelocity(resultMomentumD2 / d2Body->getMass());
+
+			glm::vec3 staticVelocityAfter = -(d1Body->getVelocity() * d1Body->getMass()) / d2Body->getMass();
+			d2Body->setVelocity(staticVelocityAfter);
+
+			hasStoppedCollidingDD = false;
+
+
+			
+		}
+		
+		
+	}
+	else
+	{
+		hasStoppedCollidingDD = true;
+		//std::cout << "No dynamic Collision" << std::endl;
+	}
 	
-
 
 
 	// (remember to delete pointers)
@@ -431,7 +491,7 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 	}
 	
 
-	
+	hasStoppedCollidingDD = true;
 
 
 	return loadOK;
