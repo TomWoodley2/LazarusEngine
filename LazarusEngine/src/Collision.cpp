@@ -52,7 +52,7 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 		closestValue = currentValue;
 	}
 
-	std::cout << "X positive : " << currentValue << std::endl;
+	//std::cout << "X positive : " << currentValue << std::endl;
 
 	// X Negative
 	currentValue = mesh1NegIn.x - mesh2PosIn.x;
@@ -64,7 +64,7 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 		closestValue = currentValue;
 	}
 
-	std::cout << "X negative : " << currentValue << std::endl;
+	//std::cout << "X negative : " << currentValue << std::endl;
 	
 	// Y Positive
 	currentValue = mesh2NegIn.y - mesh1PosIn.y;
@@ -76,7 +76,7 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 		closestValue = currentValue;
 	}
 
-	std::cout << "Y positive : " << currentValue << std::endl;
+	//std::cout << "Y positive : " << currentValue << std::endl;
 
 	// Y Negative
 	currentValue = mesh1NegIn.y - mesh2PosIn.y;
@@ -89,7 +89,7 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 	}
 
 	
-	std::cout << "Y negative : " << currentValue << std::endl;
+	//std::cout << "Y negative : " << currentValue << std::endl;
 
 
 	// Z Positive
@@ -102,7 +102,7 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 		closestValue = currentValue;
 	}
 
-	std::cout << "Z positive : " << currentValue << std::endl;
+	//std::cout << "Z positive : " << currentValue << std::endl;
 
 	// Z Negative
 	currentValue = mesh1NegIn.z - mesh2PosIn.z;
@@ -114,10 +114,10 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 		closestValue = currentValue;
 	}
 
-	std::cout << "Z negative : " << currentValue << std::endl;
+	//std::cout << "Z negative : " << currentValue << std::endl;
 
-	std::cout << closestPlane << std::endl;
-	std::cout << planeValue << std::endl;
+	//std::cout << closestPlane << std::endl;
+	//std::cout << planeValue << std::endl;
 
 
 	return true;

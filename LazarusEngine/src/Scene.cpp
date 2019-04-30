@@ -71,7 +71,7 @@ void Scene::update(float dt)
 			{
 				if (hasStoppedColliding[i+(j*(dynamicCollisionPositions.size()))])
 				{
-					std::cout << "Static-Dynamic Collision " << std::endl;
+					//std::cout << "Static-Dynamic Collision " << std::endl;
 					RigidbodyComponent *const  staticBody = v_gameObjects[staticCollisionPositions[j]]->getComponent<RigidbodyComponent>();
 					RigidbodyComponent *const  dynamicBody = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
 					// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
@@ -116,56 +116,86 @@ void Scene::update(float dt)
 	// Checking for collisions between dynamic objects
 	// Hard coded for the 2 dynamic objects to start with
 
-	glm::vec3 d1CNegative = v_gameObjects[dynamicCollisionPositions[0]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[0]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
-	glm::vec3 d1CPositive = v_gameObjects[dynamicCollisionPositions[0]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[0]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+	//int currentBranchSize = dynamicCollisionPositions.size() - 1;
 
-	glm::vec3 d2CNegative = v_gameObjects[dynamicCollisionPositions[1]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[1]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
-	glm::vec3 d2CPositive = v_gameObjects[dynamicCollisionPositions[1]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[1]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
-
-	if (m_collision.checkAABBCollision(d1CNegative, d1CPositive, d2CNegative, d2CPositive))
+	// Loop to get dynamic objects
+	/*
+	for (int i = 0; i < dynamicCollisionPositions.size() - 1; i++)
 	{
-		if (hasStoppedCollidingDD)
+		for (int j = i + 1; j < dynamicCollisionPositions.size() ; j++)
 		{
-			std::cout << "Dynamic-Dynamic Collision" << std::endl;
-			// Get rididbodies for each dynamic object
-			RigidbodyComponent *const  d1Body = v_gameObjects[dynamicCollisionPositions[0]]->getComponent<RigidbodyComponent>();
-			RigidbodyComponent *const  d2Body = v_gameObjects[dynamicCollisionPositions[1]]->getComponent<RigidbodyComponent>();
+			std::cout << "i : " << i << " j : " << j << std::endl;
+		}
+	}
+	*/
 
-			if (m_collision.getClosestPlane() == 'X')
+	int k = 0; // Used to count place is hasStoppedColliding
+
+	for (int i = 0; i < dynamicCollisionPositions.size() - 1; i++)
+	{
+		glm::vec3 d1CNegative = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+		glm::vec3 d1CPositive = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+
+		for (int j = i + 1; j < dynamicCollisionPositions.size(); j++)
+		{
+			//std::cout << "i : " << i << " j : " << j << std::endl;
+
+			glm::vec3 d2CNegative = v_gameObjects[dynamicCollisionPositions[j]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[j]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
+			glm::vec3 d2CPositive = v_gameObjects[dynamicCollisionPositions[j]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[j]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
+
+			if (m_collision.checkAABBCollision(d1CNegative, d1CPositive, d2CNegative, d2CPositive))
 			{
-				d1Body->setVelocity(glm::vec3(m_collision.getPlaneValue() * d1Body->getVelocity().x * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d1Body->getVelocity().y, d1Body->getVelocity().z));
-				d2Body->setVelocity(glm::vec3(m_collision.getPlaneValue() * d2Body->getVelocity().x * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d2Body->getVelocity().y, d2Body->getVelocity().z));
-			}
-			else if (m_collision.getClosestPlane() == 'Y')
-			{
-				d1Body->setVelocity(glm::vec3(d1Body->getVelocity().x, m_collision.getPlaneValue() * d1Body->getVelocity().y * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d1Body->getVelocity().z));
-				d2Body->setVelocity(glm::vec3(d2Body->getVelocity().x, m_collision.getPlaneValue() * d2Body->getVelocity().y * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d2Body->getVelocity().z));
-			}
-			else if (m_collision.getClosestPlane() == 'Z')
-			{
-				d1Body->setVelocity(glm::vec3(d1Body->getVelocity().x, d1Body->getVelocity().y, m_collision.getPlaneValue() * d1Body->getVelocity().z * d1Body->getBounceCoefficient() * d2Body->getBounceCoefficient()));
-				d2Body->setVelocity(glm::vec3(d2Body->getVelocity().x, d2Body->getVelocity().y  , m_collision.getPlaneValue() * d2Body->getVelocity().z * d1Body->getBounceCoefficient() * d2Body->getBounceCoefficient()));
+				if (hasStoppedCollidingDD[k])
+				{
+					std::cout << "Dynamic-Dynamic Collision" << std::endl;
+					// Get rididbodies for each dynamic object
+					RigidbodyComponent *const  d1Body = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
+					RigidbodyComponent *const  d2Body = v_gameObjects[dynamicCollisionPositions[j]]->getComponent<RigidbodyComponent>();
+
+					if (m_collision.getClosestPlane() == 'X')
+					{
+						d1Body->setVelocity(glm::vec3(m_collision.getPlaneValue() * d1Body->getVelocity().x * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d1Body->getVelocity().y, d1Body->getVelocity().z));
+						d2Body->setVelocity(glm::vec3(m_collision.getPlaneValue() * d2Body->getVelocity().x * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d2Body->getVelocity().y, d2Body->getVelocity().z));
+					}
+					else if (m_collision.getClosestPlane() == 'Y')
+					{
+						d1Body->setVelocity(glm::vec3(d1Body->getVelocity().x, m_collision.getPlaneValue() * d1Body->getVelocity().y * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d1Body->getVelocity().z));
+						d2Body->setVelocity(glm::vec3(d2Body->getVelocity().x, m_collision.getPlaneValue() * d2Body->getVelocity().y * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d2Body->getVelocity().z));
+					}
+					else if (m_collision.getClosestPlane() == 'Z')
+					{
+						d1Body->setVelocity(glm::vec3(d1Body->getVelocity().x, d1Body->getVelocity().y, m_collision.getPlaneValue() * d1Body->getVelocity().z * d1Body->getBounceCoefficient() * d2Body->getBounceCoefficient()));
+						d2Body->setVelocity(glm::vec3(d2Body->getVelocity().x, d2Body->getVelocity().y, m_collision.getPlaneValue() * d2Body->getVelocity().z * d1Body->getBounceCoefficient() * d2Body->getBounceCoefficient()));
+					}
+					else
+					{
+						std::cout << "error" << std::endl;
+					}
+
+
+
+					hasStoppedCollidingDD[k] = false;
+				}
 			}
 			else
 			{
-				std::cout << "error" << std::endl;
+				hasStoppedCollidingDD[k] = true;
+				//std::cout << "No dynamic Collision" << std::endl;
 			}
-
-			
-	
-			hasStoppedCollidingDD = false;
-
-
+			//std::cout << "K : " << k << std::endl;
+			k++;
 			
 		}
-		
-		
 	}
-	else
-	{
-		hasStoppedCollidingDD = true;
-		//std::cout << "No dynamic Collision" << std::endl;
-	}
+
+	
+
+	
+
+	
+
+	
+
 	
 
 
@@ -500,8 +530,22 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		hasStoppedColliding.push_back(true);
 	}
 	
+	int currentDynamicSize = dynamicCollisionPositions.size();
+	int totalDynamicSize = 0;
 
-	hasStoppedCollidingDD = true;
+	for (int i = dynamicCollisionPositions.size()-1; i > 0; i--)
+	{
+		totalDynamicSize += i;
+	}
+
+	hasStoppedCollidingDD.reserve(totalDynamicSize);
+
+	for (int i = 0; i < totalDynamicSize; i++)
+	{
+		hasStoppedCollidingDD.push_back(true);
+	}
+
+	//hasStoppedCollidingDD = true;
 
 
 	return loadOK;
