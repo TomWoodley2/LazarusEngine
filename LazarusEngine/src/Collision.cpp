@@ -60,7 +60,7 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 	if (currentValue < closestValue)
 	{
 		closestPlane = 'X';
-		planeValue = 1;
+		planeValue = -1;
 		closestValue = currentValue;
 	}
 
@@ -72,7 +72,7 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 	if (currentValue < closestValue)
 	{
 		closestPlane = 'Y';
-		planeValue = 1;
+		planeValue = -1;
 		closestValue = currentValue;
 	}
 
@@ -110,7 +110,7 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 	if (currentValue < closestValue)
 	{
 		closestPlane = 'Z';
-		planeValue = 1;
+		planeValue = -1;
 		closestValue = currentValue;
 	}
 

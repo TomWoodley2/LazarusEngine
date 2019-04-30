@@ -76,16 +76,24 @@ void Scene::update(float dt)
 					RigidbodyComponent *const  dynamicBody = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
 					// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
 
-					// Get momentum and compare for each axis (momentum = mass * velocity)
-					glm::vec3 dynamicMomentum = dynamicBody->getMass() * dynamicBody->getVelocity();
-					glm::vec3 staticMomentum = staticBody->getMass() * staticBody->getVelocity();
+					if (m_collision.getClosestPlane() == 'X')
+					{
+						dynamicBody->setVelocity(glm::vec3(m_collision.getPlaneValue() * dynamicBody->getVelocity().x * dynamicBody->getBounceCoefficient() * staticBody->getBounceCoefficient(), dynamicBody->getVelocity().y, dynamicBody->getVelocity().z));
+					}
+					else if (m_collision.getClosestPlane() == 'Y')
+					{
+						dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, m_collision.getPlaneValue() * dynamicBody->getVelocity().y * dynamicBody->getBounceCoefficient() * staticBody->getBounceCoefficient(), dynamicBody->getVelocity().z));
+					}
+					else if (m_collision.getClosestPlane() == 'Z')
+					{
+						dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, dynamicBody->getVelocity().y, m_collision.getPlaneValue() * dynamicBody->getVelocity().z * staticBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient()));
+						
+					}
+					else
+					{
+						std::cout << "error" << std::endl;
+					}
 
-					// Dynamic body velocity after
-					dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, -dynamicBody->getVelocity().y * staticBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient(), dynamicBody->getVelocity().z));
-					
-					// Therefore static body velocity after
-					//glm::vec3 staticVelocityAfter = -(dynamicBody->getVelocity() * dynamicBody->getMass()) / staticBody->getMass();
-					//staticBody->setVelocity(staticVelocityAfter);
 
 
 					/*
