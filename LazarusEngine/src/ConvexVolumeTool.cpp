@@ -21,8 +21,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <float.h>
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
 #include "..\include\NavMesh\imgui.h"
 #include "..\include\NavMesh\ConvexVolumeTool.h"
 #include "..\include\NavMesh\InputGeom.h"

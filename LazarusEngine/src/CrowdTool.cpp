@@ -21,13 +21,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <float.h>
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
-#ifdef __APPLE__
-#	include <OpenGL/glu.h>
-#else
-#	include <GL/glu.h>
-#endif
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
+//#ifdef __APPLE__
+//#	include <OpenGL/glu.h>
+//#else
+//#	include <GL/glu.h>
+//#endif
 #include "..\include\NavMesh\imgui.h"
 #include "..\include\NavMesh\CrowdTool.h"
 #include "..\include\NavMesh\InputGeom.h"
@@ -521,7 +521,7 @@ void CrowdToolState::handleRender()
 
 void CrowdToolState::handleRenderOverlay(double* proj, double* model, int* view)
 {
-	GLdouble x, y, z;
+	/*GLdouble x, y, z;
 	
 	// Draw start and end point labels
 	if (m_targetRef && gluProject((GLdouble)m_targetPos[0], (GLdouble)m_targetPos[1], (GLdouble)m_targetPos[2],
@@ -612,7 +612,7 @@ void CrowdToolState::handleRenderOverlay(double* proj, double* model, int* view)
 				}
 			}
 		}
-	}
+	}*/
 	
 	
 	if (m_toolParams.m_showPerfGraph)

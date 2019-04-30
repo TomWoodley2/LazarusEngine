@@ -231,46 +231,22 @@
     <ClCompile Include="src\jsoncpp.cpp">
       <Filter>Source Files\Externals</Filter>
     </ClCompile>
-    <ClCompile Include="src\ChunkyTriMesh.cpp">
-      <Filter>Source Files\Navmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ConvexVolumeTool.cpp">
-      <Filter>Source Files\Navmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CrowdTool.cpp">
-      <Filter>Source Files\Navmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Filelist.cpp">
-      <Filter>Source Files\Navmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\imgui.cpp">
-      <Filter>Source Files\Navmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\imguiRenderGL.cpp">
+    <ClCompile Include="src\NavMesh.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
     <ClCompile Include="src\InputGeom.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
+    <ClCompile Include="src\ChunkyTriMesh.cpp">
+      <Filter>Source Files\Navmesh</Filter>
+    </ClCompile>
     <ClCompile Include="src\MeshLoaderObj.cpp">
-      <Filter>Source Files\Navmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\NavMeshPruneTool.cpp">
-      <Filter>Source Files\Navmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\NavMeshTesterTool.cpp">
-      <Filter>Source Files\Navmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OffMeshConnectionTool.cpp">
-      <Filter>Source Files\Navmesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PerfTimer.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
     <ClCompile Include="src\Sample.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
-    <ClCompile Include="src\Sample_Debug.cpp">
+    <ClCompile Include="src\imgui.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
     <ClCompile Include="src\Sample_SoloMesh.cpp">
@@ -282,16 +258,43 @@
     <ClCompile Include="src\Sample_TileMesh.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
-    <ClCompile Include="src\SampleInterfaces.cpp">
+    <ClCompile Include="src\Sample_Debug.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
-    <ClCompile Include="src\TestCase.cpp">
+    <ClCompile Include="include\fastlz\fastlz.c">
+      <Filter>Source Files\Externals</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NavMeshTesterTool.cpp">
+      <Filter>Source Files\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NavMeshPruneTool.cpp">
+      <Filter>Source Files\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OffMeshConnectionTool.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
     <ClCompile Include="src\ValueHistory.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
-    <ClCompile Include="src\NavMesh.cpp">
+    <ClCompile Include="src\CrowdTool.cpp">
+      <Filter>Source Files\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConvexVolumeTool.cpp">
+      <Filter>Source Files\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imguiRenderGL.cpp">
+      <Filter>Source Files\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Filelist.cpp">
+      <Filter>Source Files\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestCase.cpp">
+      <Filter>Source Files\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SampleInterfaces.cpp">
+      <Filter>Source Files\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PerfTimer.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
   </ItemGroup>
@@ -455,70 +458,73 @@
     <ClInclude Include="include\json\json.h">
       <Filter>Header Files\Externals</Filter>
     </ClInclude>
-    <ClInclude Include="include\NavMesh\ChunkyTriMesh.h">
-      <Filter>Header Files\AI\Navmesh</Filter>
+    <ClInclude Include="include\stb_truetype.h">
+      <Filter>Source Files\Externals</Filter>
     </ClInclude>
-    <ClInclude Include="include\NavMesh\ConvexVolumeTool.h">
-      <Filter>Header Files\AI\Navmesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NavMesh\CrowdTool.h">
-      <Filter>Header Files\AI\Navmesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NavMesh\Filelist.h">
-      <Filter>Header Files\AI\Navmesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NavMesh\imgui.h">
-      <Filter>Header Files\AI\Navmesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NavMesh\imguiRenderGL.h">
+    <ClInclude Include="include\NavMesh\NavMesh.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
     <ClInclude Include="include\NavMesh\InputGeom.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
+    <ClInclude Include="include\NavMesh\ChunkyTriMesh.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
     <ClInclude Include="include\NavMesh\MeshLoaderObj.h">
-      <Filter>Header Files\AI\Navmesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NavMesh\NavMeshPruneTool.h">
-      <Filter>Header Files\AI\Navmesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NavMesh\NavMeshTesterTool.h">
-      <Filter>Header Files\AI\Navmesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NavMesh\OffMeshConnectionTool.h">
-      <Filter>Header Files\AI\Navmesh</Filter>
-    </ClInclude>
-    <ClInclude Include="include\NavMesh\PerfTimer.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
     <ClInclude Include="include\NavMesh\Sample.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
-    <ClInclude Include="include\NavMesh\Sample_Debug.h">
+    <ClInclude Include="include\NavMesh\imgui.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
     <ClInclude Include="include\NavMesh\Sample_SoloMesh.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
+    <ClInclude Include="include\NavMesh\Sample_TileMesh.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
     <ClInclude Include="include\NavMesh\Sample_TempObstacles.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
-    <ClInclude Include="include\NavMesh\SampleInterfaces.h">
+    <ClInclude Include="include\NavMesh\Sample_Debug.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
-    <ClInclude Include="include\NavMesh\TestCase.h">
+    <ClInclude Include="include\fastlz\fastlz.h">
+      <Filter>Header Files\Externals</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\NavMeshTesterTool.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\NavMeshPruneTool.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\OffMeshConnectionTool.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\CrowdTool.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\ConvexVolumeTool.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
     <ClInclude Include="include\NavMesh\ValueHistory.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
-    <ClInclude Include="include\stb_truetype.h">
-      <Filter>Source Files\Externals</Filter>
+    <ClInclude Include="include\NavMesh\Filelist.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
-    <ClInclude Include="include\NavMesh\Sample_TileMesh.h">
-      <Filter>Header Files\AI</Filter>
+    <ClInclude Include="include\NavMesh\PerfTimer.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
-    <ClInclude Include="include\NavMesh\NavMesh.h">
+    <ClInclude Include="include\NavMesh\imguiRenderGL.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\TestCase.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\SampleInterfaces.h">
       <Filter>Header Files\AI\Navmesh</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,8 +20,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
 #include "..\include\NavMesh\imgui.h"
 #include "..\include\NavMesh\InputGeom.h"
 #include "..\include\NavMesh\Sample.h"
@@ -230,7 +230,7 @@ void Sample_SoloMesh::handleDebugMode()
 
 void Sample_SoloMesh::handleRender()
 {
-	if (!m_geom || !m_geom->getMesh())
+	/*if (!m_geom || !m_geom->getMesh())
 		return;
 	
 	glEnable(GL_FOG);
@@ -341,7 +341,7 @@ void Sample_SoloMesh::handleRender()
 		m_tool->handleRender();
 	renderToolStates();
 
-	glDepthMask(GL_TRUE);
+	glDepthMask(GL_TRUE);*/
 }
 
 void Sample_SoloMesh::handleRenderOverlay(double* proj, double* model, int* view)

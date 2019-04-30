@@ -24,13 +24,13 @@
 #include "DetourNavMesh.h"
 #include "DetourNavMeshQuery.h"
 #include "DetourCommon.h"
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
-#ifdef __APPLE__
-#	include <OpenGL/glu.h>
-#else
-#	include <GL/glu.h>
-#endif
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
+//#ifdef __APPLE__
+//#	include <OpenGL/glu.h>
+//#else
+//#	include <GL/glu.h>
+//#endif
 #include "..\include\NavMesh\imgui.h"
 #include "..\include\NavMesh\PerfTimer.h"
 
@@ -329,7 +329,7 @@ void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* navquery)
 
 void TestCase::handleRender()
 {
-	glLineWidth(2.0f);
+	/*glLineWidth(2.0f);
 	glBegin(GL_LINES);
 	for (Test* iter = m_tests; iter; iter = iter->next)
 	{
@@ -383,12 +383,12 @@ void TestCase::handleRender()
 		}
 	}
 	glEnd();
-	glLineWidth(1.0f);
+	glLineWidth(1.0f);*/
 }
 
 bool TestCase::handleRenderOverlay(double* proj, double* model, int* view)
 {
-	GLdouble x, y, z;
+	//GLdouble x, y, z;
 	char text[64], subtext[64];
 	int n = 0;
 
@@ -416,7 +416,7 @@ bool TestCase::handleRenderOverlay(double* proj, double* model, int* view)
 			pt[1]+=0.5f;
 		}
 		
-		if (gluProject((GLdouble)pt[0], (GLdouble)pt[1], (GLdouble)pt[2],
+		/*if (gluProject((GLdouble)pt[0], (GLdouble)pt[1], (GLdouble)pt[2],
 					   model, proj, view, &x, &y, &z))
 		{
 			snprintf(text, 64, "Path %d\n", n);
@@ -424,13 +424,13 @@ bool TestCase::handleRenderOverlay(double* proj, double* model, int* view)
 			if (iter->expand)
 				col = imguiRGBA(255,192,0,220);
 			imguiDrawText((int)x, (int)(y-25), IMGUI_ALIGN_CENTER, text, col);
-		}
+		}*/
 		n++;
 	}
 	
 	static int resScroll = 0;
 	bool mouseOverMenu = imguiBeginScrollArea("Test Results", 10, view[3] - 10 - 350, 200, 350, &resScroll);
-//		mouseOverMenu = true;
+		mouseOverMenu = true;
 		
 	n = 0;
 	for (Test* iter = m_tests; iter; iter = iter->next)

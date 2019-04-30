@@ -22,13 +22,13 @@
 #include <string.h>
 #include <float.h>
 #include <new>
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
-#ifdef __APPLE__
-#	include <OpenGL/glu.h>
-#else
-#	include <GL/glu.h>
-#endif
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
+//#ifdef __APPLE__
+//#	include <OpenGL/glu.h>
+//#else
+//#	include <GL/glu.h>
+//#endif
 #include "..\include\NavMesh\imgui.h"
 #include "..\include\NavMesh\InputGeom.h"
 #include "..\include\NavMesh\Sample.h"
@@ -587,7 +587,7 @@ void drawDetail(duDebugDraw* dd, dtTileCache* tc, const int tx, const int ty, in
 
 void drawDetailOverlay(const dtTileCache* tc, const int tx, const int ty, double* proj, double* model, int* view)
 {
-	dtCompressedTileRef tiles[MAX_LAYERS];
+	/*dtCompressedTileRef tiles[MAX_LAYERS];
 	const int ntiles = tc->getTilesAt(tx,ty,tiles,MAX_LAYERS);
 	if (!ntiles)
 		return;
@@ -616,7 +616,7 @@ void drawDetailOverlay(const dtTileCache* tc, const int tx, const int ty, double
 			snprintf(text,128,"Raw:%.1fkB", rawSize/1024.0f);
 			imguiDrawText((int)x, (int)y-65, IMGUI_ALIGN_CENTER, text, imguiRGBA(0,0,0,128));
 		}
-	}
+	}*/
 }
 		
 dtObstacleRef hitTestObstacle(const dtTileCache* tc, const float* sp, const float* sq)
@@ -729,7 +729,7 @@ public:
 	
 	virtual void handleRender()
 	{
-		if (m_hitPosSet && m_sample)
+		/*if (m_hitPosSet && m_sample)
 		{
 			const float s = m_sample->getAgentRadius();
 			glColor4ub(0,0,0,128);
@@ -747,7 +747,7 @@ public:
 			int tx=0, ty=0;
 			m_sample->getTilePos(m_hitPos, tx, ty);
 			m_sample->renderCachedTile(tx,ty,m_drawType);
-		}
+		}*/
 	}
 	
 	virtual void handleRenderOverlay(double* proj, double* model, int* view)
@@ -1031,7 +1031,7 @@ void Sample_TempObstacles::handleDebugMode()
 
 void Sample_TempObstacles::handleRender()
 {
-	if (!m_geom || !m_geom->getMesh())
+	/*if (!m_geom || !m_geom->getMesh())
 		return;
 	
 	const float texScale = 1.0f / (m_cellSize * 10.0f);
@@ -1077,7 +1077,7 @@ void Sample_TempObstacles::handleRender()
 		 m_drawMode == DRAWMODE_NAVMESH_INVIS))
 	{
 		if (m_drawMode != DRAWMODE_NAVMESH_INVIS)
-			duDebugDrawNavMeshWithClosedList(&m_dd, *m_navMesh, *m_navQuery, m_navMeshDrawFlags/*|DU_DRAWNAVMESH_COLOR_TILES*/);
+			duDebugDrawNavMeshWithClosedList(&m_dd, *m_navMesh, *m_navQuery, m_navMeshDrawFlags/*|DU_DRAWNAVMESH_COLOR_TILES);
 		if (m_drawMode == DRAWMODE_NAVMESH_BVTREE)
 			duDebugDrawNavMeshBVTree(&m_dd, *m_navMesh);
 		if (m_drawMode == DRAWMODE_NAVMESH_PORTALS)
@@ -1096,7 +1096,7 @@ void Sample_TempObstacles::handleRender()
 		m_tool->handleRender();
 	renderToolStates();
 	
-	glDepthMask(GL_TRUE);
+	glDepthMask(GL_TRUE);*/
 }
 
 void Sample_TempObstacles::renderCachedTile(const int tx, const int ty, const int type)

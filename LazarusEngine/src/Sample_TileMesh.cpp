@@ -20,14 +20,14 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include "..\include\SDL\SDL.h"
+/*#include "..\include\SDL\SDL.h"
 #include "..\include\SDL\SDL_opengl.h"
 
 #ifdef __APPLE__
 #	include <OpenGL/glu.h>
 #else
 #	include <GL/glu.h>
-#endif
+#endif*/
 #include "..\include\NavMesh\imgui.h"
 #include "..\include\NavMesh\InputGeom.h"
 #include "..\include\NavMesh\Sample.h"
@@ -136,7 +136,7 @@ public:
 	
 	virtual void handleRender()
 	{
-		if (m_hitPosSet)
+		/*if (m_hitPosSet)
 		{
 			const float s = m_sample->getAgentRadius();
 			glColor4ub(0,0,0,128);
@@ -151,12 +151,12 @@ public:
 			glVertex3f(m_hitPos[0],m_hitPos[1]+0.1f,m_hitPos[2]+s);
 			glEnd();
 			glLineWidth(1.0f);
-		}
+		}*/
 	}
 	
 	virtual void handleRenderOverlay(double* proj, double* model, int* view)
 	{
-		GLdouble x, y, z;
+		/*GLdouble x, y, z;
 		if (m_hitPosSet && gluProject((GLdouble)m_hitPos[0], (GLdouble)m_hitPos[1], (GLdouble)m_hitPos[2],
 									  model, proj, view, &x, &y, &z))
 		{
@@ -169,7 +169,7 @@ public:
 		
 		// Tool help
 		const int h = view[3];
-		imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Rebuild hit tile.  Shift+LMB: Clear hit tile.", imguiRGBA(255,255,255,192));	
+		imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Rebuild hit tile.  Shift+LMB: Clear hit tile.", imguiRGBA(255,255,255,192));*/	
 	}
 };
 
@@ -422,7 +422,7 @@ void Sample_TileMesh::handleDebugMode()
 
 void Sample_TileMesh::handleRender()
 {
-	if (!m_geom || !m_geom->getMesh())
+	/*if (!m_geom || !m_geom->getMesh())
 		return;
 	
 	const float texScale = 1.0f / (m_cellSize * 10.0f);
@@ -545,12 +545,12 @@ void Sample_TileMesh::handleRender()
 		m_tool->handleRender();
 	renderToolStates();
 
-	glDepthMask(GL_TRUE);
+	glDepthMask(GL_TRUE);*/
 }
 
 void Sample_TileMesh::handleRenderOverlay(double* proj, double* model, int* view)
 {
-	GLdouble x, y, z;
+	/*GLdouble x, y, z;
 	
 	// Draw start and end point labels
 	if (m_tileBuildTime > 0.0f && gluProject((GLdouble)(m_lastBuiltTileBmin[0]+m_lastBuiltTileBmax[0])/2, (GLdouble)(m_lastBuiltTileBmin[1]+m_lastBuiltTileBmax[1])/2, (GLdouble)(m_lastBuiltTileBmin[2]+m_lastBuiltTileBmax[2])/2,
@@ -563,7 +563,7 @@ void Sample_TileMesh::handleRenderOverlay(double* proj, double* model, int* view
 	
 	if (m_tool)
 		m_tool->handleRenderOverlay(proj, model, view);
-	renderOverlayToolStates(proj, model, view);
+	renderOverlayToolStates(proj, model, view);*/
 }
 
 void Sample_TileMesh::handleMeshChanged(InputGeom* geom)

@@ -21,13 +21,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
-#ifdef __APPLE__
-#	include <OpenGL/glu.h>
-#else
-#	include <GL/glu.h>
-#endif
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
+//#ifdef __APPLE__
+//#	include <OpenGL/glu.h>
+//#else
+//#	include <GL/glu.h>
+//#endif
 #include "..\include\NavMesh\imgui.h"
 #include "..\include\NavMesh\NavMeshTesterTool.h"
 #include "..\include\NavMesh\Sample.h"
@@ -1376,7 +1376,7 @@ void NavMeshTesterTool::handleRender()
 
 void NavMeshTesterTool::handleRenderOverlay(double* proj, double* model, int* view)
 {
-	GLdouble x, y, z;
+	/*GLdouble x, y, z;
 	
 	// Draw start and end point labels
 	if (m_sposSet && gluProject((GLdouble)m_spos[0], (GLdouble)m_spos[1], (GLdouble)m_spos[2],
@@ -1392,7 +1392,7 @@ void NavMeshTesterTool::handleRenderOverlay(double* proj, double* model, int* vi
 	
 	// Tool help
 	const int h = view[3];
-	imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB+SHIFT: Set start location  LMB: Set end location", imguiRGBA(255,255,255,192));	
+	imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB+SHIFT: Set start location  LMB: Set end location", imguiRGBA(255,255,255,192));	*/
 }
 
 void NavMeshTesterTool::drawAgent(const float* pos, float r, float h, float c, const unsigned int col)

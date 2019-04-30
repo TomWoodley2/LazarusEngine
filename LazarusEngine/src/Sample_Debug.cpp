@@ -27,8 +27,8 @@
 #include "DetourDebugDraw.h"
 #include "RecastDump.h"
 #include "..\include\NavMesh\imgui.h"
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
 
 #ifdef WIN32
 #	define snprintf _snprintf

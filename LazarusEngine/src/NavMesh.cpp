@@ -2,7 +2,7 @@
 
 void NavMesh::NavMeshMain()
 {
-	// Init SDL
+	/*// Init SDL
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 	{
 		printf("Could not initialise SDL.\nError: %s\n", SDL_GetError());
@@ -853,5 +853,25 @@ void NavMesh::NavMeshMain()
 
 	delete sample;
 	delete geom;
+	*/
+}
 
+void NavMesh::loadNavMesh()
+{
+	if (!geom || !geom->load(&ctx, path))
+	{
+		delete geom;
+		geom = 0;
+		delete sample;
+		sample = 0;
+		ctx.dumpLog("Geom load log %s:", path.c_str());
+	}
+}
+
+void NavMesh::BuildNavMesh()
+{
+	if (sample && !sample->handleBuild())
+	{
+		ctx.dumpLog("Build log %s:", path.c_str());
+	}
 }

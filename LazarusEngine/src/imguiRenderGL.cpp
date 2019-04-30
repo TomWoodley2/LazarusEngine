@@ -20,8 +20,8 @@
 #include <cmath>
 #include <cstdio>
 #include "..\include\NavMesh\imgui.h"
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
 
 // Some math headers don't have PI defined.
 static const float PI = 3.14159265f;
@@ -52,7 +52,7 @@ static const int CIRCLE_VERTS = 8*4;
 static float g_circleVerts[CIRCLE_VERTS*2];
 
 static stbtt_bakedchar g_cdata[96]; // ASCII 32..126 is 95 glyphs
-static GLuint g_ftex = 0;
+//static GLuint g_ftex = 0;
 
 inline unsigned int RGBA(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
@@ -102,11 +102,11 @@ static void drawPolygon(const float* coords, unsigned numCoords, float r, unsign
 	
 	unsigned int colTrans = RGBA(col&0xff, (col>>8)&0xff, (col>>16)&0xff, 0);
 	
-	glBegin(GL_TRIANGLES);
+	//glBegin(GL_TRIANGLES);
 	
-	glColor4ubv((GLubyte*)&col);
+	//glColor4ubv((GLubyte*)&col);
 	
-	for (unsigned i = 0, j = numCoords-1; i < numCoords; j=i++)
+	/*for (unsigned i = 0, j = numCoords-1; i < numCoords; j=i++)
 	{
 		glVertex2fv(&coords[i*2]);
 		glVertex2fv(&coords[j*2]);
@@ -128,7 +128,7 @@ static void drawPolygon(const float* coords, unsigned numCoords, float r, unsign
 		glVertex2fv(&coords[i*2]);
 	}
 	
-	glEnd();
+	glEnd();*/
 }
 
 static void drawRect(float x, float y, float w, float h, float fth, unsigned int col)
@@ -291,11 +291,11 @@ bool imguiRenderGLInit(const char* fontpath)
 	stbtt_BakeFontBitmap(ttfBuffer,0, 15.0f, bmap,512,512, 32,96, g_cdata);
 	
 	// can free ttf_buffer at this point
-	glGenTextures(1, &g_ftex);
+	/*glGenTextures(1, &g_ftex);
 	glBindTexture(GL_TEXTURE_2D, g_ftex);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, 512,512, 0, GL_ALPHA, GL_UNSIGNED_BYTE, bmap);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
 
 	free(ttfBuffer);
 	free(bmap);
@@ -305,11 +305,11 @@ bool imguiRenderGLInit(const char* fontpath)
 
 void imguiRenderGLDestroy()
 {
-	if (g_ftex)
+	/*if (g_ftex)
 	{
 		glDeleteTextures(1, &g_ftex);
 		g_ftex = 0;
-	}
+	}*/
 }
 
 static void getBakedQuad(stbtt_bakedchar *chardata, int pw, int ph, int char_index,
@@ -366,69 +366,69 @@ static float getTextLength(stbtt_bakedchar *chardata, const char* text)
 
 static void drawText(float x, float y, const char *text, int align, unsigned int col)
 {
-	if (!g_ftex) return;
-	if (!text) return;
-	
-	if (align == IMGUI_ALIGN_CENTER)
-		x -= getTextLength(g_cdata, text)/2;
-	else if (align == IMGUI_ALIGN_RIGHT)
-		x -= getTextLength(g_cdata, text);
-	
-	glColor4ub(col&0xff, (col>>8)&0xff, (col>>16)&0xff, (col>>24)&0xff);
-	
-	glEnable(GL_TEXTURE_2D);
-	
-	// assume orthographic projection with units = screen pixels, origin at top left
-	glBindTexture(GL_TEXTURE_2D, g_ftex);
-	
-	glBegin(GL_TRIANGLES);
-	
-	const float ox = x;
-	
-	while (*text)
-	{
-		int c = (unsigned char)*text;
-		if (c == '\t')
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				if (x < g_tabStops[i]+ox)
-				{
-					x = g_tabStops[i]+ox;
-					break;
-				}
-			}
-		}
-		else if (c >= 32 && c < 128)
-		{			
-			stbtt_aligned_quad q;
-			getBakedQuad(g_cdata, 512,512, c-32, &x,&y,&q);
-			
-			glTexCoord2f(q.s0, q.t0);
-			glVertex2f(q.x0, q.y0);
-			glTexCoord2f(q.s1, q.t1);
-			glVertex2f(q.x1, q.y1);
-			glTexCoord2f(q.s1, q.t0);
-			glVertex2f(q.x1, q.y0);
-			
-			glTexCoord2f(q.s0, q.t0);
-			glVertex2f(q.x0, q.y0);
-			glTexCoord2f(q.s0, q.t1);
-			glVertex2f(q.x0, q.y1);
-			glTexCoord2f(q.s1, q.t1);
-			glVertex2f(q.x1, q.y1);
-		}
-		++text;
-	}
-	
-	glEnd();	
-	glDisable(GL_TEXTURE_2D);
+	//if (!g_ftex) return;
+	//if (!text) return;
+	//
+	//if (align == IMGUI_ALIGN_CENTER)
+	//	x -= getTextLength(g_cdata, text)/2;
+	//else if (align == IMGUI_ALIGN_RIGHT)
+	//	x -= getTextLength(g_cdata, text);
+	//
+	//glColor4ub(col&0xff, (col>>8)&0xff, (col>>16)&0xff, (col>>24)&0xff);
+	//
+	//glEnable(GL_TEXTURE_2D);
+	//
+	//// assume orthographic projection with units = screen pixels, origin at top left
+	//glBindTexture(GL_TEXTURE_2D, g_ftex);
+	//
+	//glBegin(GL_TRIANGLES);
+	//
+	//const float ox = x;
+	//
+	//while (*text)
+	//{
+	//	int c = (unsigned char)*text;
+	//	if (c == '\t')
+	//	{
+	//		for (int i = 0; i < 4; ++i)
+	//		{
+	//			if (x < g_tabStops[i]+ox)
+	//			{
+	//				x = g_tabStops[i]+ox;
+	//				break;
+	//			}
+	//		}
+	//	}
+	//	else if (c >= 32 && c < 128)
+	//	{			
+	//		stbtt_aligned_quad q;
+	//		getBakedQuad(g_cdata, 512,512, c-32, &x,&y,&q);
+	//		
+	//		glTexCoord2f(q.s0, q.t0);
+	//		glVertex2f(q.x0, q.y0);
+	//		glTexCoord2f(q.s1, q.t1);
+	//		glVertex2f(q.x1, q.y1);
+	//		glTexCoord2f(q.s1, q.t0);
+	//		glVertex2f(q.x1, q.y0);
+	//		
+	//		glTexCoord2f(q.s0, q.t0);
+	//		glVertex2f(q.x0, q.y0);
+	//		glTexCoord2f(q.s0, q.t1);
+	//		glVertex2f(q.x0, q.y1);
+	//		glTexCoord2f(q.s1, q.t1);
+	//		glVertex2f(q.x1, q.y1);
+	//	}
+	//	++text;
+	//}
+	//
+	//glEnd();	
+	//glDisable(GL_TEXTURE_2D);
 }
 
 
 void imguiRenderGLDraw()
 {
-	const imguiGfxCmd* q = imguiGetRenderQueue();
+	/*const imguiGfxCmd* q = imguiGetRenderQueue();
 	int nq = imguiGetRenderQueueSize();
 
 	const float s = 1.0f/8.0f;
@@ -496,5 +496,5 @@ void imguiRenderGLDraw()
 			}
 		}
 	}
-	glDisable(GL_SCISSOR_TEST);
+	glDisable(GL_SCISSOR_TEST);*/
 }

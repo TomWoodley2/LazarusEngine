@@ -21,25 +21,25 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#include "..\SDL\SDL.h"
-#include "..\SDL\SDL_opengl.h"
-#ifdef __APPLE__
-#	include <OpenGL/glu.h>
-#else
-#	include <GL/glu.h>
-#endif
+//#include "..\SDL\SDL.h"
+//#include "..\SDL\SDL_opengl.h"
+//#ifdef __APPLE__
+//#	include <OpenGL/glu.h>
+//#else
+//#	include <GL/glu.h>
+//#endif
 
 #include <vector>
 #include <string>
 
 #include "imgui.h"
-#include "imguiRenderGL.h"
+//#include "imguiRenderGL.h"
 
 #include "Recast.h"
 #include "RecastDebugDraw.h"
 #include "InputGeom.h"
-#include "TestCase.h"
-#include "Filelist.h"
+//#include "TestCase.h"
+//#include "Filelist.h"
 #include "Sample_SoloMesh.h"
 #include "Sample_TileMesh.h"
 #include "Sample_TempObstacles.h"
@@ -71,10 +71,17 @@ static SampleItem g_samples[] =
 	{ createTempObstacle, "Temp Obstacles" },
 };
 
+BuildContext ctx;
+InputGeom* geom = 0;
+Sample* sample = 0;
+
+const string path("assets\Mesh\TestLevel.obj");
+
 static const int g_nsamples = sizeof(g_samples) / sizeof(SampleItem);
 
 class NavMesh
 {
 	void NavMeshMain();
-
+	void loadNavMesh();
+	void BuildNavMesh();
 };

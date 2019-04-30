@@ -21,13 +21,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <float.h>
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
-#ifdef __APPLE__
-#	include <OpenGL/glu.h>
-#else
-#	include <GL/glu.h>
-#endif
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
+//#ifdef __APPLE__
+//#	include <OpenGL/glu.h>
+//#else
+//#	include <GL/glu.h>
+//#endif
 #include "..\include\NavMesh\imgui.h"
 #include "..\include\NavMesh\OffMeshConnectionTool.h"
 #include "..\include\NavMesh\InputGeom.h"
@@ -155,7 +155,7 @@ void OffMeshConnectionTool::handleRender()
 
 void OffMeshConnectionTool::handleRenderOverlay(double* proj, double* model, int* view)
 {
-	GLdouble x, y, z;
+	/*GLdouble x, y, z;
 	
 	// Draw start and end point labels
 	if (m_hitPosSet && gluProject((GLdouble)m_hitPos[0], (GLdouble)m_hitPos[1], (GLdouble)m_hitPos[2],
@@ -173,5 +173,5 @@ void OffMeshConnectionTool::handleRenderOverlay(double* proj, double* model, int
 	else
 	{
 		imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Set connection end point and finish.", imguiRGBA(255,255,255,192));	
-	}
+	}*/
 }

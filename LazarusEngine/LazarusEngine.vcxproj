@@ -49,6 +49,7 @@
     <ClCompile Include="..\Recast\Source\RecastMeshDetail.cpp" />
     <ClCompile Include="..\Recast\Source\RecastRasterization.cpp" />
     <ClCompile Include="..\Recast\Source\RecastRegion.cpp" />
+    <ClCompile Include="include\fastlz\fastlz.c" />
     <ClCompile Include="src\BackgroundColourGameObject.cpp" />
     <ClCompile Include="src\ChunkyTriMesh.cpp" />
     <ClCompile Include="src\CollisionObject.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="..\Recast\Include\Recast.h" />
     <ClInclude Include="..\Recast\Include\RecastAlloc.h" />
     <ClInclude Include="..\Recast\Include\RecastAssert.h" />
+    <ClInclude Include="include\fastlz\fastlz.h" />
     <ClInclude Include="include\glad\glad.h" />
     <ClInclude Include="include\json\json.h" />
     <ClInclude Include="include\NavMesh\ChunkyTriMesh.h" />
@@ -253,6 +255,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

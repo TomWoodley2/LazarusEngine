@@ -22,8 +22,8 @@
 #include <string.h>
 #include <float.h>
 #include <vector>
-#include "..\include\SDL\SDL.h"
-#include "..\include\SDL\SDL_opengl.h"
+//#include "..\include\SDL\SDL.h"
+//#include "..\include\SDL\SDL_opengl.h"
 #include "..\include\NavMesh\imgui.h"
 #include "..\include\NavMesh\NavMeshPruneTool.h"
 #include "..\include\NavMesh\InputGeom.h"
