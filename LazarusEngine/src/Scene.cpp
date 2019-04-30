@@ -71,6 +71,7 @@ void Scene::update(float dt)
 			{
 				if (hasStoppedColliding[i+(j*(dynamicCollisionPositions.size()))])
 				{
+					std::cout << "Static-Dynamic Collision " << std::endl;
 					RigidbodyComponent *const  staticBody = v_gameObjects[staticCollisionPositions[j]]->getComponent<RigidbodyComponent>();
 					RigidbodyComponent *const  dynamicBody = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
 					// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
@@ -113,36 +114,37 @@ void Scene::update(float dt)
 	glm::vec3 d2CNegative = v_gameObjects[dynamicCollisionPositions[1]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[1]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
 	glm::vec3 d2CPositive = v_gameObjects[dynamicCollisionPositions[1]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[1]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
 
-	if (m_collision.checkAABBCollision(d1CNegative, d2CPositive, d1CNegative, d2CPositive))
+	if (m_collision.checkAABBCollision(d1CNegative, d1CPositive, d2CNegative, d2CPositive))
 	{
 		if (hasStoppedCollidingDD)
 		{
-			//std::cout << "Dynamic Collision" << std::endl;
+			std::cout << "Dynamic-Dynamic Collision" << std::endl;
+			// Get rididbodies for each dynamic object
 			RigidbodyComponent *const  d1Body = v_gameObjects[dynamicCollisionPositions[0]]->getComponent<RigidbodyComponent>();
 			RigidbodyComponent *const  d2Body = v_gameObjects[dynamicCollisionPositions[1]]->getComponent<RigidbodyComponent>();
 
-			glm::vec3 d1Momentum = d1Body->getMass() * d1Body->getVelocity();
-			glm::vec3 d2Momentum = d2Body->getMass() * d2Body->getVelocity();
-
-			// Normalized velocity
-			//glm::vec3 normalizedVelD1 =  glm::normalize(d1Body->getVelocity());
-			//glm::vec3 normalizedVelD2 =  glm::normalize(d2Body->getVelocity());
-
+			if (m_collision.getClosestPlane() == 'X')
+			{
+				d1Body->setVelocity(glm::vec3(m_collision.getPlaneValue() * d1Body->getVelocity().x * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d1Body->getVelocity().y, d1Body->getVelocity().z));
+				d2Body->setVelocity(glm::vec3(m_collision.getPlaneValue() * d2Body->getVelocity().x * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d2Body->getVelocity().y, d2Body->getVelocity().z));
+			}
+			else if (m_collision.getClosestPlane() == 'Y')
+			{
+				d1Body->setVelocity(glm::vec3(d1Body->getVelocity().x, m_collision.getPlaneValue() * d1Body->getVelocity().y * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d1Body->getVelocity().z));
+				d2Body->setVelocity(glm::vec3(d2Body->getVelocity().x, m_collision.getPlaneValue() * d2Body->getVelocity().y * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d2Body->getVelocity().z));
+			}
+			else if (m_collision.getClosestPlane() == 'Z')
+			{
+				d1Body->setVelocity(glm::vec3(d1Body->getVelocity().x, d1Body->getVelocity().y, m_collision.getPlaneValue() * d1Body->getVelocity().z * d1Body->getBounceCoefficient() * d2Body->getBounceCoefficient()));
+				d2Body->setVelocity(glm::vec3(d2Body->getVelocity().x, d2Body->getVelocity().y  , m_collision.getPlaneValue() * d2Body->getVelocity().z * d1Body->getBounceCoefficient() * d2Body->getBounceCoefficient()));
+			}
+			else
+			{
+				std::cout << "error" << std::endl;
+			}
 
 			
-			//glm::vec3 resultMomentumD1 = (normalizedVelD2 - normalizedVelD1) * d1Momentum * d1Body->getBounceCoefficient();
-			//glm::vec3 resultMomentumD2 = (normalizedVelD1 - normalizedVelD2) * d2Momentum * d2Body->getBounceCoefficient();
-			
-			//std::cout << "XD1: " << resultMomentumD1.x << "YD1: " << resultMomentumD1.y << "ZD1: " << resultMomentumD1.z << std::endl;
-			//std::cout << "XD2: " << resultMomentumD2.x << "YD2: " << resultMomentumD2.y << "ZD2: " << resultMomentumD2.z << std::endl;
-
-			d1Body->setVelocity(glm::vec3(d1Body->getVelocity().x, -d1Body->getVelocity().y * d2Body->getBounceCoefficient() * d1Body->getBounceCoefficient(), d1Body->getVelocity().z));
-			//d1Body->setVelocity(resultMomentumD1 / d1Body->getMass());
-			//d2Body->setVelocity(resultMomentumD2 / d2Body->getMass());
-
-			glm::vec3 staticVelocityAfter = -(d1Body->getVelocity() * d1Body->getMass()) / d2Body->getMass();
-			d2Body->setVelocity(staticVelocityAfter);
-
+	
 			hasStoppedCollidingDD = false;
 
 

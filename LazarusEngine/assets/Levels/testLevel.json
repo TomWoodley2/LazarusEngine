@@ -2,10 +2,10 @@
   "GameObjects": [
       {"name": "gnd", "model": "ground3.obj", "position": [0.0,0.0,0.0], "type":"static"},  
       {"name": "pCone1", "model": "cone.obj", "position": [0.0,1.0,0.0],"type":"player"},
-	  {"name": "pCube2", "model": "cube1.obj", "position": [-3.0,1.0,-5.0],"type":"dynamic"},
-	  {"name": "pSphere2", "model": "cylinder.obj", "position": [3,10.0,-10.0],"type":"collision"},
-	  {"name": "pSphere1", "model": "cube1.obj", "position": [3.0,5.0,-10.0],"type":"collision"},
-	  {"name": "pCylinder1", "model": "cylinder.obj", "position": [3.0,1.0,-5.0],"type":"static"},
+	  {"name": "pCube2", "model": "cube1.obj", "position": [-3.0,1.0,-15.0],"type":"dynamic"},
+	  {"name": "pSphere2", "model": "cylinder.obj", "position": [0,3.0,-5.0],"type":"collision"},
+	  {"name": "pSphere1", "model": "cube1.obj", "position": [0,3.0,6.0],"type":"collision"},
+	  {"name": "pCylinder1", "model": "cylinder.obj", "position": [3.0,1.0,-15.0],"type":"static"},
 	  {"name": "pSphere3", "model": "sphere.obj", "position": [0.0,1.0,-10.0],"type":"static"}
   ],
   
@@ -13,8 +13,8 @@
 	  {"num": 0, "mass" : 1.0, "velocity" : [0.0,0.0,0.0], "bounce" : 1.0, "gravity" :0, "locked": 0},
 	  {"num" : 1},
 	  {"num" : 2},
-	  {"num": 3, "mass": 0.8, "velocity" : [1.0,0.0,0.0], "bounce" : 1.0, "gravity" :1, "locked": 0},
-	  {"num": 4,"mass" : 0.8, "velocity" : [0.0,0.0,0.0], "bounce" : 1.0, "gravity" :1, "locked": 0},
+	  {"num": 3, "mass": 0.8, "velocity" : [0.0,0.0,1.0], "bounce" : 1.0, "gravity" :1, "locked": 0},
+	  {"num": 4,"mass" : 0.8, "velocity" : [0.0,0.0,-1.0], "bounce" : 1.0, "gravity" :1, "locked": 0},
 	  {"num": 5,"mass" : 1.0, "velocity" : [0.0,0.0,0.0], "bounce" : 1.0, "gravity" :0, "locked": 0},
 	  {"num": 6,"mass" : 1.0, "velocity" : [0.0,0.0,0.0], "bounce" : 1.0, "gravity" :0, "locked": 0}
   ]
