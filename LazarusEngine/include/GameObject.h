@@ -38,9 +38,14 @@ public:
 	// Set and get object type
 	void setObjectType(const std::string type) { objectType = type; }
 	std::string getObjectType() { return objectType; }
+
+	// Set and get physics properties
+	void setPhysicsProperties(int physicsIn) { physicsProperties = physicsIn; }
+	int getPhysicsProperties() { return physicsProperties; }
 private:
 	std::unordered_map<std::type_index, Component*> m_components;
 	std::string objectType;
+	int physicsProperties = -1; // Defaults to 0
 };
 
 

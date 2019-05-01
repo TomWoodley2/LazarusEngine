@@ -407,9 +407,13 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 
 		std::cout << x << "," << y << "," << z << std::endl;
 
-		const Json::Value typeNode = gameObjects[i]["type"];
+		const Json::Value typeNode = gameObjects[i]["type"]; // Game object type
+		const Json::Value physicsNode = gameObjects[i]["physics"]; // Physics information
 
 		GameObject* thisGameObject;
+
+		
+
 		if (typeNode == "player")
 		{
 			thisGameObject = new PlayerCharacter(model, position, orientation);
@@ -450,6 +454,8 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 			thisGameObject->setObjectType("static");
 			
 		}
+		thisGameObject->setPhysicsProperties(physicsNode.asInt()); // Set each object's physics reference
+
 		v_gameObjects.push_back(thisGameObject);
 
 		//delete thisGameObject;
@@ -464,28 +470,28 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 	std::cout << "staticCollision" << std::endl;
 	for (int i = 0; i < staticCollisionPositions.size(); i++)
 	{
-		std::cout << staticCollisionPositions[i] << std::endl;
+		std::cout << v_gameObjects[staticCollisionPositions[i]]->getPhysicsProperties() << std::endl;
 
 		Rigidbody m_rigidbody;
 
 		// Velocity
-		const Json::Value velocityNode = physicsProperties[staticCollisionPositions[i]]["velocity"];
+		const Json::Value velocityNode = physicsProperties[v_gameObjects[staticCollisionPositions[i]]->getPhysicsProperties()]["velocity"];
 		m_rigidbody.velocity = glm::vec3(velocityNode[0].asFloat(), velocityNode[1].asFloat(), velocityNode[2].asFloat());
 
 		// Mass 
-		const Json::Value massNode = physicsProperties[staticCollisionPositions[i]]["mass"];
+		const Json::Value massNode = physicsProperties[v_gameObjects[staticCollisionPositions[i]]->getPhysicsProperties()]["mass"];
 		m_rigidbody.mass = massNode.asFloat();
 
 		// Bounce
-		const Json::Value bounceNode = physicsProperties[staticCollisionPositions[i]]["bounce"];
+		const Json::Value bounceNode = physicsProperties[v_gameObjects[staticCollisionPositions[i]]->getPhysicsProperties()]["bounce"];
 		m_rigidbody.bounceCoefficient = bounceNode.asFloat();
 
 		// Gravity
-		const Json::Value gravityNode = physicsProperties[staticCollisionPositions[i]]["gravity"];
+		const Json::Value gravityNode = physicsProperties[v_gameObjects[staticCollisionPositions[i]]->getPhysicsProperties()]["gravity"];
 		m_rigidbody.gravityEnabled = gravityNode.asBool();
 
 		// Locked
-		const Json::Value lockedNode = physicsProperties[staticCollisionPositions[i]]["locked"];
+		const Json::Value lockedNode = physicsProperties[v_gameObjects[staticCollisionPositions[i]]->getPhysicsProperties()]["locked"];
 		m_rigidbody.positionLocked = lockedNode.asBool();
 
 		v_gameObjects[staticCollisionPositions[i]]->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
@@ -494,28 +500,28 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 	std::cout << "dynamicCollision" << std::endl;
 	for (int i = 0; i < dynamicCollisionPositions.size(); i++)
 	{
-		std::cout << dynamicCollisionPositions[i] << std::endl;
+		std::cout << v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties() << std::endl;
 
 		Rigidbody m_rigidbody;
 
 		// Velocity
-		const Json::Value velocityNode = physicsProperties[dynamicCollisionPositions[i]]["velocity"];
+		const Json::Value velocityNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["velocity"];
 		m_rigidbody.velocity = glm::vec3(velocityNode[0].asFloat(), velocityNode[1].asFloat(), velocityNode[2].asFloat());
 
 		// Mass 
-		const Json::Value massNode = physicsProperties[dynamicCollisionPositions[i]]["mass"];
+		const Json::Value massNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["mass"];
 		m_rigidbody.mass = massNode.asFloat();
 
 		// Bounce
-		const Json::Value bounceNode = physicsProperties[dynamicCollisionPositions[i]]["bounce"];
+		const Json::Value bounceNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["bounce"];
 		m_rigidbody.bounceCoefficient = bounceNode.asFloat();
 
 		// Gravity
-		const Json::Value gravityNode = physicsProperties[dynamicCollisionPositions[i]]["gravity"];
+		const Json::Value gravityNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["gravity"];
 		m_rigidbody.gravityEnabled = gravityNode.asBool();
 
 		// Locked
-		const Json::Value lockedNode = physicsProperties[dynamicCollisionPositions[i]]["locked"];
+		const Json::Value lockedNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["locked"];
 		m_rigidbody.positionLocked = lockedNode.asBool();
 
 		v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
