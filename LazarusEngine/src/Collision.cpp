@@ -123,6 +123,9 @@ bool Collision::checkAABBCollision(glm::vec3 mesh1NegIn, glm::vec3 mesh1PosIn, g
 	return true;
 }
 
+
+
+
 char Collision::getClosestPlane()
 {
 	return closestPlane;

@@ -72,6 +72,8 @@ private:
 
 	std::vector<bool> hasStoppedColliding; // Store if the object has stopped colliding ( stop multiple procs on collision )
 	std::vector<bool> hasStoppedCollidingDD; // Used for dynamic-dynamic collision to check if collision has stopped
-	
-	std::vector<bool> wasPreviousNotColliding; // Stores previous value of collison, used for sliding
+
+	void checkStaticDynamicCollisions(); // check collisions between static and dynamic objects
+	void checkDynamicDynamicCollisions(); // check collisions between all dynamic objects
+
 };

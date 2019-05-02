@@ -53,7 +53,7 @@ Scene::~Scene()
 }
 
 
-void Scene::update(float dt)
+void Scene::checkStaticDynamicCollisions()
 {
 	// Checking for collisions between all dynamic objects and all static objects
 
@@ -78,15 +78,15 @@ void Scene::update(float dt)
 					{
 						//std::cout << "Static-Dynamic Collision " << std::endl;
 						RigidbodyComponent *const  staticBody = v_gameObjects[staticCollisionPositions[j]]->getComponent<RigidbodyComponent>();
-						
+
 						// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
 
 						if (m_collision.getClosestPlane() == 'X')
 						{
-							
+
 							dynamicBody->setVelocity(glm::vec3(m_collision.getPlaneValue() * dynamicBody->getVelocity().x * dynamicBody->getBounceCoefficient() * staticBody->getBounceCoefficient(), dynamicBody->getVelocity().y, dynamicBody->getVelocity().z));
-							
-							
+
+
 						}
 						else if (m_collision.getClosestPlane() == 'Y')
 						{
@@ -96,23 +96,23 @@ void Scene::update(float dt)
 						else if (m_collision.getClosestPlane() == 'Z')
 						{
 
-							
+
 							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, dynamicBody->getVelocity().y, m_collision.getPlaneValue() * dynamicBody->getVelocity().z * staticBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient()));
-							
-							
-							
+
+
+
 						}
 						else
 						{
 							std::cout << "error" << std::endl;
 						}
 
-						
+
 
 						std::cout << "Velocity : X : " << dynamicBody->getVelocity().x << " Y : " << dynamicBody->getVelocity().y << " Z : " << dynamicBody->getVelocity().z << std::endl;
 
-						
-						
+
+
 						hasStoppedColliding[i + (j*(dynamicCollisionPositions.size()))] = false;
 					}
 					else
@@ -136,25 +136,10 @@ void Scene::update(float dt)
 
 		}
 	}
+}
 
-	
-	
-	// Checking for collisions between dynamic objects
-	// Hard coded for the 2 dynamic objects to start with
-
-	//int currentBranchSize = dynamicCollisionPositions.size() - 1;
-
-	// Loop to get dynamic objects
-	/*
-	for (int i = 0; i < dynamicCollisionPositions.size() - 1; i++)
-	{
-		for (int j = i + 1; j < dynamicCollisionPositions.size() ; j++)
-		{
-			std::cout << "i : " << i << " j : " << j << std::endl;
-		}
-	}
-	*/
-
+void Scene::checkDynamicDynamicCollisions()
+{
 	if (dynamicCollisionPositions.size() != 0)
 	{
 		int k = 0; // Used to count place is hasStoppedColliding
@@ -217,20 +202,27 @@ void Scene::update(float dt)
 		}
 	}
 
+}
+
+
+void Scene::update(float dt)
+{
 	
-
+	checkStaticDynamicCollisions(); // Check for collisions between static and dynamic objects
+	checkDynamicDynamicCollisions(); // Check for collisions between all dynamic objects
 	
+	// Checking for collisions between dynamic objects
 
-	
-
-	
-
-	
-
-	
-
-
-	// (remember to delete pointers)
+	// Loop to get dynamic objects
+	/*
+	for (int i = 0; i < dynamicCollisionPositions.size() - 1; i++)
+	{
+		for (int j = i + 1; j < dynamicCollisionPositions.size() ; j++)
+		{
+			std::cout << "i : " << i << " j : " << j << std::endl;
+		}
+	}
+	*/
 
 	// Update dynamic objects based on dt
 	for (int i = 0; i < v_gameObjects.size(); i++)
@@ -572,12 +564,12 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		}
 
 		hasStoppedColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
-		wasPreviousNotColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
+		
 
 		for (int i = 0; i < dynamicCollisionPositions.size()*staticCollisionPositions.size(); i++)
 		{
 			hasStoppedColliding.push_back(true);
-			wasPreviousNotColliding.push_back(true);
+			
 		}
 
 		int currentDynamicSize = dynamicCollisionPositions.size();
