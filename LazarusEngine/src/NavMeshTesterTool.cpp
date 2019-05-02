@@ -1395,6 +1395,58 @@ void NavMeshTesterTool::handleRenderOverlay(double* proj, double* model, int* vi
 	imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB+SHIFT: Set start location  LMB: Set end location", imguiRGBA(255,255,255,192));	*/
 }
 
+void NavMeshTesterTool::setRandomStartPosition()
+{
+	dtStatus status = m_navQuery->findRandomPoint(&m_filter, frand, &m_startRef, m_spos);
+	if (dtStatusSucceed(status))
+	{
+		m_sposSet = true;
+		recalc();
+	}
+
+}
+
+void NavMeshTesterTool::setRandomEndPosition()
+{
+	if (m_sposSet)
+	{
+		dtStatus status = m_navQuery->findRandomPointAroundCircle(m_startRef, m_spos, m_randomRadius, &m_filter, frand, &m_endRef, m_epos);
+		if (dtStatusSucceed(status))
+		{
+			m_eposSet = true;
+			recalc();
+		}
+	}
+}
+
+void NavMeshTesterTool::setRandomTarget()
+{
+	m_randPointsInCircle = false;
+	m_nrandPoints = 0;
+	for (int i = 0; i < MAX_RAND_POINTS; i++)
+	{
+		float pt[3];
+		dtPolyRef ref;
+		dtStatus status = m_navQuery->findRandomPoint(&m_filter, frand, &ref, pt);
+		if (dtStatusSucceed(status))
+		{
+			dtVcopy(&m_randPoints[m_nrandPoints * 3], pt);
+			m_nrandPoints++;
+		}
+	}
+}
+
+void NavMeshTesterTool::setWalkFlags()
+{
+	m_filter.setIncludeFlags(m_filter.getIncludeFlags() ^ SAMPLE_POLYFLAGS_WALK);
+	recalc();
+}
+
+void NavMeshTesterTool::setToolFollow()
+{
+	m_toolMode = TOOLMODE_PATHFIND_FOLLOW;
+}
+
 void NavMeshTesterTool::drawAgent(const float* pos, float r, float h, float c, const unsigned int col)
 {
 	duDebugDraw& dd = m_sample->getDebugDraw();

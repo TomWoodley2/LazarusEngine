@@ -129,7 +129,7 @@ protected:
 	SampleToolState* m_toolStates[MAX_TOOLS];
 	
 	BuildContext* m_ctx;
-
+	
 	SampleDebugDraw m_dd;
 	
 	dtNavMesh* loadAll(const char* path);

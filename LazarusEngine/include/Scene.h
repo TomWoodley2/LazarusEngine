@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "PlayerCharacter.h"
 #include "IEngineCore.h"
+#include "wander.h"
 
 #include <string>
 
@@ -44,13 +45,10 @@ private:
 	int m_playerIndex{ 1 };
 
 	GameObject* m_playerBackground;
-
-
 	std::vector<GameObject*> v_gameObjects;
 	ModelManager* m_theModelManager;
-
-	NavMesh* m_navMesh; 
-	
+ 
+	wander* m_Wander;
 
 	// mouse data - we keep old position (last frame or update) so we can get delta's
 

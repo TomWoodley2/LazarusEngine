@@ -44,49 +44,91 @@
 #include "Sample_TileMesh.h"
 #include "Sample_TempObstacles.h"
 #include "Sample_Debug.h"
+#include "NavMeshTesterTool.h"
 
 #ifdef WIN32
 #	define snprintf _snprintf
 #	define putenv _putenv
 #endif
 
-using std::string;
-using std::vector;
+	using std::string;
+	using std::vector;
+//
+//
+//
+//
+//
+//
 
-struct SampleItem
-{
-	Sample* (*create)();
-	const string name;
-};
 
-Sample* createSolo() { return new Sample_SoloMesh(); }
-Sample* createTile() { return new Sample_TileMesh(); }
-Sample* createTempObstacle() { return new Sample_TempObstacles(); }
-Sample* createDebug() { return new Sample_Debug(); }
+//
+//
+//
+//
+//
+//
 
-static SampleItem g_samples[] =
-{
-	{ createSolo, "Solo Mesh" },
-	{ createTile, "Tile Mesh" },
-	{ createTempObstacle, "Temp Obstacles" },
-};
+//
+//
+//
+	
+//
 
-BuildContext ctx;
-InputGeom* geom = 0;
-Sample* sample = 0;
 
-const string path("assets\Mesh\TestLevel.obj");
 
-static const int g_nsamples = sizeof(g_samples) / sizeof(SampleItem);
+//
+
 
 class NavMesh
 {
 public:
 	NavMesh();
 
+	//Recast Stuff
 	void NavMeshMain();
 	void loadNavMesh();
 	void BuildNavMesh();
 
+	//Detour Stuff
+	void initNav();
+	void HandleNavToggle();
+	void HandleNavRender();
 
+	void NavSetRandomStart();
+	void NavSetRandomEnd();
+	void NavSetRandomTarget();
+	void NavSetWalkFlags();
+	void NavSetToolFollow();
+
+protected:
+
+	/*struct SampleItem
+	{
+		Sample* (*create)();
+		const string name;
+	};*/
+	
+
+	Sample* createSolo() { return new Sample_SoloMesh(); }
+	Sample* createTile() { return new Sample_TileMesh(); }
+	Sample* createTempObstacle() { return new Sample_TempObstacles(); }
+	Sample* createDebug() { return new Sample_Debug(); }
+
+	//const static SampleItem g_samples[] =
+	//{
+	//{ createSolo, "Solo Mesh" },
+	//{ createTile, "Tile Mesh" },
+	//{ createTempObstacle, "Temp Obstacles" },
+	//};
+
+	NavMeshTesterTool* DTNav = 0;
+
+	//static const int g_nsamples = sizeof(g_samples) / sizeof(SampleItem);
+
+	const string path = "assets\Mesh\TestLevel.obj";
+
+	BuildContext ctx;
+	BuildSettings m_settings;
+	InputGeom* geom;
+	Sample* sample = 0;
 };

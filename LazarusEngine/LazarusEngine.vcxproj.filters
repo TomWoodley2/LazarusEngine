@@ -297,6 +297,9 @@
     <ClCompile Include="src\PerfTimer.cpp">
       <Filter>Source Files\Navmesh</Filter>
     </ClCompile>
+    <ClCompile Include="include\wander.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ExampleGame.h">

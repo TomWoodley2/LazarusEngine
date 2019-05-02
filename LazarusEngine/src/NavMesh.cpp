@@ -2,6 +2,25 @@
 
 NavMesh::NavMesh()
 {
+	sample = new Sample();
+	geom = new InputGeom();
+
+	m_settings.cellSize = 0.3f;
+	m_settings.cellHeight = 0.2f;
+	m_settings.agentHeight = 2.0f;
+	m_settings.agentMaxClimb = 0.9f;
+	m_settings.agentMaxSlope = 45.0f;
+	m_settings.regionMinSize = 8;
+	m_settings.regionMergeSize = 20;
+	m_settings.edgeMaxLen = 12.0f;
+	m_settings.edgeMaxError = 1.3f;
+	m_settings.vertsPerPoly = 6.0f;
+	m_settings.detailSampleDist = 6.0f;
+	m_settings.detailSampleMaxError = 1.0f;
+	m_settings.partitionType = SAMPLE_PARTITION_WATERSHED;
+	
+	DTNav = new NavMeshTesterTool();
+
 }
 
 void NavMesh::NavMeshMain()
@@ -862,6 +881,7 @@ void NavMesh::NavMeshMain()
 
 void NavMesh::loadNavMesh()
 {
+
 	if (!geom || !geom->load(&ctx, path))
 	{
 		delete geom;
@@ -870,6 +890,7 @@ void NavMesh::loadNavMesh()
 		sample = 0;
 		ctx.dumpLog("Geom load log %s:", path.c_str());
 	}
+	createSolo()->collectSettings(m_settings);
 }
 
 void NavMesh::BuildNavMesh()
@@ -878,6 +899,45 @@ void NavMesh::BuildNavMesh()
 	{
 		ctx.dumpLog("Build log %s:", path.c_str());
 	}
-
 	
+}
+
+void NavMesh::initNav()
+{
+	DTNav->init(sample);
+}
+
+void NavMesh::HandleNavToggle()
+{
+	DTNav->handleToggle();
+}
+
+void NavMesh::HandleNavRender()
+{
+	DTNav->handleRender();
+}
+
+void NavMesh::NavSetRandomStart()
+{
+	DTNav->setRandomStartPosition();
+}
+
+void NavMesh::NavSetRandomEnd()
+{
+	DTNav->setRandomEndPosition();
+}
+
+void NavMesh::NavSetRandomTarget()
+{
+	DTNav->setRandomTarget();
+}
+
+void NavMesh::NavSetWalkFlags()
+{
+	DTNav->setWalkFlags();
+}
+
+void NavMesh::NavSetToolFollow()
+{
+	DTNav->setToolFollow();
 }

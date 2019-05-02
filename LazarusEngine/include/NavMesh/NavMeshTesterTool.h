@@ -106,6 +106,13 @@ public:
 	virtual void handleRender();
 	virtual void handleRenderOverlay(double* proj, double* model, int* view);
 
+	//My functions
+	void setRandomStartPosition();
+	void setRandomEndPosition();
+	void setRandomTarget();
+	void setWalkFlags();
+	void setToolFollow();
+
 	void recalc();
 	void drawAgent(const float* pos, float r, float h, float c, const unsigned int col);
 };

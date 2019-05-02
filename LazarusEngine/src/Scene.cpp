@@ -8,7 +8,6 @@
 #include "ModelComponent.h"
 #include "CameraComponent.h"
 #include "ModelManager.h"
-#include "../include/NavMesh/NavMesh.h"
 
 #include "json\json.h"
 
@@ -32,10 +31,7 @@ Scene::Scene(std::string filename, ModelManager* theModelManager, IEngineCore* e
 	m_oldMouseY = m_mouseY;
 	m_oldMouseButtons = m_mouseButtons;
 
-	m_navMesh = new NavMesh();
-	
-	m_navMesh->loadNavMesh();
-	m_navMesh->BuildNavMesh();
+	m_Wander = new wander();
 }
 
 
@@ -53,8 +49,7 @@ void Scene::update(float dt)
 		v_gameObjects[i]->OnUpdate(dt);
 	}
 
-
-
+	m_Wander->move();
 }
 
 void Scene::render(IEngineCore* engineCore)
@@ -113,6 +108,8 @@ void Scene::render(IEngineCore* engineCore)
 	// update the camera
 	engineCore->setCamera(getPlayer()->getComponent<CameraComponent>());
 
+	m_Wander->RenderNav();
+
 	// draw the game objects
 	for (auto gameObject : v_gameObjects)
 	{
@@ -160,9 +157,6 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 
 		// get string
 		std::cout << gameObjects[i]["name"].asString() << " loaded\n";
-
-
-
 
 		// link this to model
 
