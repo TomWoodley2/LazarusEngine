@@ -256,7 +256,8 @@ void Scene::render(IEngineCore* engineCore)
 		m_mouseEnabled = !m_mouseEnabled;
 	}
 
-
+	
+	
 	if (m_mouseEnabled)
 	{
 		const float mouseSensitivity = 200.0f;	// related to scrfeenwidth later might be better!
@@ -272,7 +273,7 @@ void Scene::render(IEngineCore* engineCore)
 
 		playerCharacter->SetCameraPositionFromTransformComponent(transformComponent);
 	}
-
+	
 
 	// do open gl setup for the frame (renderColourBackground is not the most informative name)
 	float redValue = 0, greenValue = 0, blueValue = 1;

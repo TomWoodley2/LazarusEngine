@@ -26,6 +26,6 @@ public:
 
 private:
 
-	CameraViewState m_cameraState{ CameraViewState::thirdPersonCamera };
+	CameraViewState m_cameraState{ CameraViewState::firstPersonCamera }; // Change the camera view state
 };
 
