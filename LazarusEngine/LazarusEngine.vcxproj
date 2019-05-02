@@ -174,7 +174,7 @@
     <ProjectGuid>{9A94FDF4-C024-4B44-9F86-E92CEF08175A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>IMAT3905Starter</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>LazarusEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

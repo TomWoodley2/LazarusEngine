@@ -81,7 +81,12 @@ static const int g_nsamples = sizeof(g_samples) / sizeof(SampleItem);
 
 class NavMesh
 {
+public:
+	NavMesh();
+
 	void NavMeshMain();
 	void loadNavMesh();
 	void BuildNavMesh();
+
+
 };

@@ -1,5 +1,9 @@
 #include "..\include\NavMesh\NavMesh.h"
 
+NavMesh::NavMesh()
+{
+}
+
 void NavMesh::NavMeshMain()
 {
 	/*// Init SDL
@@ -874,4 +878,6 @@ void NavMesh::BuildNavMesh()
 	{
 		ctx.dumpLog("Build log %s:", path.c_str());
 	}
+
+	
 }

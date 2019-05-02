@@ -49,6 +49,9 @@ private:
 	std::vector<GameObject*> v_gameObjects;
 	ModelManager* m_theModelManager;
 
+	NavMesh* m_navMesh; 
+	
+
 	// mouse data - we keep old position (last frame or update) so we can get delta's
 
 	double m_oldMouseX;
