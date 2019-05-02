@@ -27,6 +27,9 @@ InputHandler::InputHandler(GameObject* playerCube) : m_playerCube(playerCube)
 	m_controlMapping[(int)'9'] = new GotoLevel1Command();
 	m_controlMapping[(int)'0'] = new GotoLevel2Command();
 
+	// Fire an object
+	m_controlMapping[(int)'T'] = new FireObjectCommand();
+
 }
 
 void InputHandler::handleInputs(const std::vector<bool>& keyBuffer)

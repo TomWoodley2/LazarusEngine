@@ -25,7 +25,7 @@ public:
 	~Scene();
 
 
-	void update(float dt);
+	void update(float dt,IEngineCore* engineCore);
 	
 	
 
@@ -74,6 +74,7 @@ private:
 	std::vector<bool> hasStoppedCollidingDD; // Used for dynamic-dynamic collision to check if collision has stopped
 
 	void checkStaticDynamicCollisions(); // check collisions between static and dynamic objects
-	void checkDynamicDynamicCollisions(); // check collisions between all dynamic objects
+	void checkDynamicDynamicCollisions(); // check collisions between all dynamic objects#
+	void fillCollidingVectors(); // Fill the vectors checking if an object collides 
 
 };

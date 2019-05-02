@@ -119,12 +119,14 @@ void Scene::checkStaticDynamicCollisions()
 					{
 
 						// Sliding here
+						
 						if (dynamicBody->getVelocity().y < 0.1f && dynamicBody->getVelocity().y > -0.1f)
 						{
 							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x * 0.2, 0, dynamicBody->getVelocity().z * 0.2));
 							dynamicBody->setForce(glm::vec3(0.0, 0, 0.0));
 							dynamicBody->setAcceleration(glm::vec3(0.0, 0, 0.0));
 						}
+						
 
 					}
 				}
@@ -205,24 +207,11 @@ void Scene::checkDynamicDynamicCollisions()
 }
 
 
-void Scene::update(float dt)
+void Scene::update(float dt,IEngineCore* engineCore)
 {
 	
 	checkStaticDynamicCollisions(); // Check for collisions between static and dynamic objects
 	checkDynamicDynamicCollisions(); // Check for collisions between all dynamic objects
-	
-	// Checking for collisions between dynamic objects
-
-	// Loop to get dynamic objects
-	/*
-	for (int i = 0; i < dynamicCollisionPositions.size() - 1; i++)
-	{
-		for (int j = i + 1; j < dynamicCollisionPositions.size() ; j++)
-		{
-			std::cout << "i : " << i << " j : " << j << std::endl;
-		}
-	}
-	*/
 
 	// Update dynamic objects based on dt
 	for (int i = 0; i < v_gameObjects.size(); i++)
@@ -230,10 +219,73 @@ void Scene::update(float dt)
 		v_gameObjects[i]->OnUpdate(dt);
 	}
 
+	// Create a new object when T is pressed
+	PlayerCharacter* playerCharacter = getPlayer();
+
+	if (playerCharacter->getComponent<FireObjectComponent>()->GetShouldFire() == true)
+	{
+		
+		GameObject * m_gameObject;
+		Model * m_model;
+
+		m_model = m_theModelManager->getModel("assets/models/cone.obj");
+
+
+		
+
+		glm::vec3 m_position(5,5,-5);
+		glm::quat orientation(1.0f, 0.0f, 0.0f, 0.0f);
+
+		m_gameObject = new CollisionObject(m_model, m_position, orientation);
+		m_gameObject->setObjectType("DynamicCollision");
+		std::cout << "Fire!" << std::endl;
+
+		Rigidbody m_rigidbody;
+		m_rigidbody.bounceCoefficient = 1.0f;
+		m_rigidbody.gravityEnabled = true;
+		m_rigidbody.mass = 1.0f;
+		m_rigidbody.velocity = glm::vec3(0.0f,0.0f,-1.0f);
+		
+		//m_gameObject->setPhysicsProperties( Use in future )
+		m_gameObject->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
+
+		std::cout << v_gameObjects.size()+1 << std::endl;
+		dynamicCollisionPositions.push_back(v_gameObjects.size());
+
+		for (int i = 0; i < staticCollisionPositions.size() ; i++)
+		{
+			hasStoppedColliding.push_back(true);
+		}
+
+		for (int i = 0; i < dynamicCollisionPositions.size() ; i++)
+		{
+			hasStoppedCollidingDD.push_back(true);
+		}
+
+		v_gameObjects.push_back(m_gameObject);
+		
+		//delete m_gameObject;
+		//delete m_model;
+		
+
+		playerCharacter->getComponent<FireObjectComponent>()->SetShouldFire(false);
+
+		Model* model = m_gameObject->getComponent<ModelComponent>()->getModel();
+		glm::vec3 negativeMeshCorner = model->getNegativeCorner(); // Get the corner points of the model
+		glm::vec3 positiveMeshCorner = model->getPositiveCorner();
+		engineCore->updatePhysicsBoxVertices(negativeMeshCorner, positiveMeshCorner); 
+
+		//fillCollidingVectors();
+	}
+	
+
+
 }
 
 void Scene::render(IEngineCore* engineCore)
 {
+
+
 	// try mouse code here?
 
 	PlayerCharacter* playerCharacter = getPlayer();
@@ -563,30 +615,8 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 			v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
 
 		}
-
-		hasStoppedColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
+		fillCollidingVectors();
 		
-
-		for (int i = 0; i < dynamicCollisionPositions.size()*staticCollisionPositions.size(); i++)
-		{
-			hasStoppedColliding.push_back(true);
-			
-		}
-
-		int currentDynamicSize = dynamicCollisionPositions.size();
-		int totalDynamicSize = 0;
-
-		for (int i = dynamicCollisionPositions.size() - 1; i > 0; i--)
-		{
-			totalDynamicSize += i;
-		}
-
-		hasStoppedCollidingDD.reserve(totalDynamicSize);
-
-		for (int i = 0; i < totalDynamicSize; i++)
-		{
-			hasStoppedCollidingDD.push_back(true);
-		}
 
 	}
 	
@@ -597,187 +627,38 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 	return loadOK;
 }
 
-#if 0
-
-bool Scene::loadLevelJSONOLD(std::string levelJSONFile)
+void Scene::fillCollidingVectors()
 {
-	std::fstream jsonData;
-	Json::Value root;
-	Json::Reader reader;
+	hasStoppedColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
+		
 
-	jsonData.open(levelJSONFile.c_str());
-	// check for errors
-	if (!reader.parse(jsonData, root))
+	for (int i = 0; i < dynamicCollisionPositions.size()*staticCollisionPositions.size(); i++)
 	{
-		std::cout << "Failed to parse data from: "
-			<< levelJSONFile
-			<< reader.getFormattedErrorMessages();
-		return false;
-	}
-	const Json::Value gameObjects = root["GameObjects"];
-
-	//
-
-	int numberOfCubes = gameObjects.size();
-	//v_GameObjects.resize(numberOfCubes);
-
-	// size() tells us how large the array is
-	for (int i = 0; i < (int)gameObjects.size(); i++)
-	{
-
-
-
-		////////////////////////////////////////////////////////
-
-		// get string
-		std::cout << gameObjects[i]["name"].asString() << " loaded\n";
-		
-		
-		// link this to model later....
-		
-		
-		float x, y, z;
-		// get the position node
-		const Json::Value posNode = gameObjects[i]["position"];
-		x = posNode[0].asFloat(); // get float
-		y = posNode[1].asFloat();
-		z = posNode[2].asFloat();
-
-		glm::vec3 position(x, y, z);
-
-		glm::quat orientation(1.0f, 0.0f, 0.0f, 0.0f);
-
-
-		const Json::Value orientNode = gameObjects[i]["orientation"];
-		if (orientNode.type() != Json::nullValue)
-		{
-
-			// get orientation here e.t.c.
-
-		}
-
-
-		glm::vec3 scale(1.0f, 1.0f, 1.0f);
-		const Json::Value scaleNode = gameObjects[i]["scale"];
-		if (scaleNode.type() != Json::nullValue)
-		{
-
-			// get scale here e.t.c.
-
-		}
-		// todo - fix this to be data dependent
-		if (i == 0)
-		{
-			v_gameObjects.push_back(new PlayerCharacter(m_model, position, orientation));
-		}
-		else
-		{
-			v_gameObjects.push_back(new StaticEnvironmentObject(m_model, position, orientation));
-		}
+		hasStoppedColliding.push_back(true);
+			
 	}
 
+	int currentDynamicSize = dynamicCollisionPositions.size();
+	int totalDynamicSize = 0;
 
+	for (int i = dynamicCollisionPositions.size() - 1; i > 0; i--)
+	{
+		totalDynamicSize += i;
+	}
 
+	hasStoppedCollidingDD.reserve(totalDynamicSize);
 
-
-	return true;
+	for (int i = 0; i < totalDynamicSize; i++)
+	{
+		hasStoppedCollidingDD.push_back(true);
+	}
 }
-
-#endif
 
 PlayerCharacter* Scene::getPlayer()
 {
 	return (PlayerCharacter*)v_gameObjects[m_playerIndex];
 }
 
-
-
-
-
-
-void Scene::loadLevel(std::string levelFile)
-{
-
-	Model* model = nullptr;;	//fix if we use this
-
-	std::ifstream myInputFile;
-	myInputFile.open(levelFile, std::ios_base::in);
-
-	std::stringstream ss;
-	std::string s;
-
-	int numCubesToRead;
-
-	if (myInputFile.is_open())
-	{
-		// read the first line which has the number of elements
-		std::getline(myInputFile, s);
-		ss.str(s);
-		ss.ignore(17); // ignore the first 20 chars
-
-		//std::string title;
-		//ss >> title;
-		ss >> numCubesToRead;
-
-		// resize the correct size for the vector
-		v_gameObjects.resize(numCubesToRead);
-		ss.clear();
-
-		for (int i = 0; i < numCubesToRead; i++)
-		{
-			getline(myInputFile, s);
-			ss.clear();
-			ss.str(s);
-
-			// cube x - just ignore for now..
-
-			// use a stringstream to get integer values
-			getline(myInputFile, s);
-			ss.clear();
-			ss.str(s);
-
-			float x;
-			float y;
-			float z;
-
-			ss >> x;
-			ss >> y;
-			ss >> z;
-			glm::vec3 position(x, y, z);
-
-			getline(myInputFile, s);
-			ss.clear();
-			ss.str(s);
-
-			float ow;
-			float ox;
-			float oy;
-			float oz;
-
-			ss >> ow;
-			ss >> ox;
-			ss >> oy;
-			ss >> oz;
-			glm::quat orientation(ow, ox, oy, oz);
-
-			getline(myInputFile, s);
-			ss.clear();
-			ss.str(s);
-
-			float sx;
-			float sy;
-			float sz;
-
-			ss >> sx;
-			ss >> sy;
-			ss >> sz;
-
-			glm::vec3 scale(sx, sy, sz);
-
-			v_gameObjects.push_back(new StaticEnvironmentObject(model, position, orientation));
-		}
-	}
-}
 
 void Scene::setDebugMode(bool state)
 {

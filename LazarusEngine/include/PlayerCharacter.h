@@ -5,6 +5,7 @@
 #include "TransformComponent.h"
 #include "ModelComponent.h"
 #include "SceneStateComponent.h"
+#include "FireObjectComponent.h"
 
 class PlayerCharacter : public GameObject
 {

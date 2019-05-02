@@ -17,8 +17,8 @@
 	  {"num": 0, "mass" : 1.0, "velocity" : [0.0,0.0,0.0], "bounce" : 1.0, "gravity" :0, "locked": 0},
 	  {"num": 1, "mass": 0.8, "velocity" : [0.0,0.0,-1.0], "bounce" : 0.1, "gravity" :1, "locked": 0},
 	  {"num": 2,"mass" : 0.8, "velocity" : [0.0,0.0,1.0], "bounce" : 0.8, "gravity" :1, "locked": 0},
-	  {"num": 3,"mass" : 0.8, "velocity" : [0.5,0.0,0.0], "bounce" : 0.8, "gravity" :0, "locked": 0},
-	  {"num": 4,"mass" : 0.8, "velocity" : [-0.5,0.0,0.0], "bounce" : 0.8, "gravity" :0, "locked": 0},
-	  {"num": 5,"mass" : 0.8, "velocity" : [-0.5,0.0,0.0], "bounce" : 0.7, "gravity" :1, "locked": 0}  
+	  {"num": 3,"mass" : 0.8, "velocity" : [0.5,0.0,0.0], "bounce" : 1.0, "gravity" :0, "locked": 0},
+	  {"num": 4,"mass" : 0.8, "velocity" : [-0.5,0.0,0.0], "bounce" : 0.5, "gravity" :0, "locked": 0},
+	  {"num": 5,"mass" : 0.8, "velocity" : [0,0.0,0.0], "bounce" : 1.0, "gravity" :1, "locked": 0}  
   ]
 }
