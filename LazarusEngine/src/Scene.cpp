@@ -84,7 +84,7 @@ void Scene::update(float dt)
 						}
 						else if (m_collision.getClosestPlane() == 'Y')
 						{
-							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, m_collision.getPlaneValue() * dynamicBody->getVelocity().y * dynamicBody->getBounceCoefficient() * staticBody->getBounceCoefficient(), dynamicBody->getVelocity().z));
+							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, m_collision.getPlaneValue() *  dynamicBody->getVelocity().y * dynamicBody->getBounceCoefficient() * staticBody->getBounceCoefficient(), dynamicBody->getVelocity().z));
 						}
 						else if (m_collision.getClosestPlane() == 'Z')
 						{
