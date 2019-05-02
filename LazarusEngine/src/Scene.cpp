@@ -69,42 +69,63 @@ void Scene::update(float dt)
 				glm::vec3 dynamicCNegative = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getNegativeCorner();
 				glm::vec3 dynamicCPositive = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<TransformComponent>()->position() + v_gameObjects[dynamicCollisionPositions[i]]->getComponent<ModelComponent>()->getModel()->getPositiveCorner();
 
+
+				RigidbodyComponent *const  dynamicBody = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
+
 				if (m_collision.checkAABBCollision(staticCNegative, staticCPositive, dynamicCNegative, dynamicCPositive))
 				{
 					if (hasStoppedColliding[i + (j*(dynamicCollisionPositions.size()))])
 					{
 						//std::cout << "Static-Dynamic Collision " << std::endl;
 						RigidbodyComponent *const  staticBody = v_gameObjects[staticCollisionPositions[j]]->getComponent<RigidbodyComponent>();
-						RigidbodyComponent *const  dynamicBody = v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>();
+						
 						// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
 
 						if (m_collision.getClosestPlane() == 'X')
 						{
+							
 							dynamicBody->setVelocity(glm::vec3(m_collision.getPlaneValue() * dynamicBody->getVelocity().x * dynamicBody->getBounceCoefficient() * staticBody->getBounceCoefficient(), dynamicBody->getVelocity().y, dynamicBody->getVelocity().z));
+							
+							
 						}
 						else if (m_collision.getClosestPlane() == 'Y')
 						{
+
 							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, m_collision.getPlaneValue() *  dynamicBody->getVelocity().y * dynamicBody->getBounceCoefficient() * staticBody->getBounceCoefficient(), dynamicBody->getVelocity().z));
 						}
 						else if (m_collision.getClosestPlane() == 'Z')
 						{
-							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, dynamicBody->getVelocity().y, m_collision.getPlaneValue() * dynamicBody->getVelocity().z * staticBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient()));
 
+							
+							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, dynamicBody->getVelocity().y, m_collision.getPlaneValue() * dynamicBody->getVelocity().z * staticBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient()));
+							
+							
+							
 						}
 						else
 						{
 							std::cout << "error" << std::endl;
 						}
 
+						
 
+						std::cout << "Velocity : X : " << dynamicBody->getVelocity().x << " Y : " << dynamicBody->getVelocity().y << " Z : " << dynamicBody->getVelocity().z << std::endl;
 
-						/*
+						
+						
+						hasStoppedColliding[i + (j*(dynamicCollisionPositions.size()))] = false;
+					}
+					else
+					{
+
+						// Sliding here
 						if (dynamicBody->getVelocity().y < 0.1f && dynamicBody->getVelocity().y > -0.1f)
 						{
-						dynamicBody->setForce(glm::vec3(0.0f, 0.0f, 0.0f));
+							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x * 0.2, 0, dynamicBody->getVelocity().z * 0.2));
+							dynamicBody->setForce(glm::vec3(0.0, 0, 0.0));
+							dynamicBody->setAcceleration(glm::vec3(0.0, 0, 0.0));
 						}
-						*/
-						hasStoppedColliding[i + (j*(dynamicCollisionPositions.size()))] = false;
+
 					}
 				}
 				else
@@ -519,37 +540,44 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		{
 			std::cout << v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties() << std::endl;
 
+			int physicsPropertiesInt = v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties();
+
 			Rigidbody m_rigidbody;
 
-			// Velocity
-			const Json::Value velocityNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["velocity"];
+			// If object has physics properties
+
+			const Json::Value velocityNode = physicsProperties[physicsPropertiesInt]["velocity"];
 			m_rigidbody.velocity = glm::vec3(velocityNode[0].asFloat(), velocityNode[1].asFloat(), velocityNode[2].asFloat());
 
 			// Mass 
-			const Json::Value massNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["mass"];
+			const Json::Value massNode = physicsProperties[physicsPropertiesInt]["mass"];
 			m_rigidbody.mass = massNode.asFloat();
 
-			// Bounce
-			const Json::Value bounceNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["bounce"];
+				// Bounce
+			const Json::Value bounceNode = physicsProperties[physicsPropertiesInt]["bounce"];
 			m_rigidbody.bounceCoefficient = bounceNode.asFloat();
 
 			// Gravity
-			const Json::Value gravityNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["gravity"];
+			const Json::Value gravityNode = physicsProperties[physicsPropertiesInt]["gravity"];
 			m_rigidbody.gravityEnabled = gravityNode.asBool();
 
 			// Locked
-			const Json::Value lockedNode = physicsProperties[v_gameObjects[dynamicCollisionPositions[i]]->getPhysicsProperties()]["locked"];
+			const Json::Value lockedNode = physicsProperties[physicsPropertiesInt]["locked"];
 			m_rigidbody.positionLocked = lockedNode.asBool();
+			
+			
 
 			v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
 
 		}
 
 		hasStoppedColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
+		wasPreviousNotColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
 
 		for (int i = 0; i < dynamicCollisionPositions.size()*staticCollisionPositions.size(); i++)
 		{
 			hasStoppedColliding.push_back(true);
+			wasPreviousNotColliding.push_back(true);
 		}
 
 		int currentDynamicSize = dynamicCollisionPositions.size();

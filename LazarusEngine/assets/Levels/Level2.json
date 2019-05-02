@@ -11,8 +11,8 @@
   
    "Physics" : [
 	  {"num": 0, "mass" : 1.0, "velocity" : [0.0,0.0,0.0], "bounce" : 1.0, "gravity" :0, "locked": 0},
-	  {"num": 1, "mass" : 1.0, "velocity" : [0.0,0.0,0.0], "bounce" : 1.0, "gravity" :1, "locked": 0},
-	  {"num": 2, "mass" : 5.0, "velocity" : [-2.0,0.0,0.0], "bounce" : 1.0, "gravity" :1, "locked": 0}
+	  {"num": 1, "mass" : 1.0, "velocity" : [0.0,0.0,0.0], "bounce" : 0.8, "gravity" :1, "locked": 0},
+	  {"num": 2, "mass" : 5.0, "velocity" : [-2.0,0.0,0.0], "bounce" : 0.8, "gravity" :1, "locked": 0}
 	  
 	  
   ]
