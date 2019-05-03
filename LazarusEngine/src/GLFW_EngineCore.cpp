@@ -412,8 +412,8 @@ void GLFW_EngineCore::setupDefaultFont()
 
 void GLFW_EngineCore::mouseMoveCallbackEvent(GLFWwindow* window, double xPos, double yPos)
 {
-	m_mouseX = xPos;
-	m_mouseY = yPos;
+	m_mouseX = -xPos;
+	m_mouseY = -yPos;
 
 }
 

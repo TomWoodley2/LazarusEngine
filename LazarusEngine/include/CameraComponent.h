@@ -14,12 +14,12 @@ public:
 	glm::quat m_orientation;
 	float m_fov;
 	
-	CameraComponent() : m_position(0), m_orientation(1,0,0,0), m_fov(45) 
+	CameraComponent() : m_position(0), m_orientation(1,0,0,0), m_fov(50) 
 	{
 	}
 	
-	CameraComponent(const glm::vec3& pos) : m_position(pos), m_orientation(1, 0, 0, 0),m_fov(45) {}
-	CameraComponent(const glm::vec3& pos, const glm::quat& orient) : m_position(pos), m_orientation(orient), m_fov(45) {}
+	CameraComponent(const glm::vec3& pos) : m_position(pos), m_orientation(1, 0, 0, 0),m_fov(50) {}
+	CameraComponent(const glm::vec3& pos, const glm::quat& orient) : m_position(pos), m_orientation(orient), m_fov(50) {}
 
 	void lookAt(const glm::vec3& target) { m_orientation = (glm::toQuat(glm::lookAt(m_position, target, glm::vec3(0, 1, 0)))); }
 	

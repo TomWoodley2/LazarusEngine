@@ -5,6 +5,7 @@
 #include "TransformComponent.h"
 #include "ModelComponent.h"
 #include "SceneStateComponent.h"
+#include "FireObjectComponent.h"
 
 class PlayerCharacter : public GameObject
 {
@@ -26,6 +27,6 @@ public:
 
 private:
 
-	CameraViewState m_cameraState{ CameraViewState::thirdPersonCamera };
+	CameraViewState m_cameraState{ CameraViewState::thirdPersonCamera }; // Change the camera view state
 };
 

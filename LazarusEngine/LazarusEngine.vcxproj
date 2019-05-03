@@ -24,6 +24,7 @@
     <ClCompile Include="src\CollisionObject.cpp" />
     <ClCompile Include="src\DynamicEnviromentObject.cpp" />
     <ClCompile Include="src\ExampleGame.cpp" />
+    <ClCompile Include="src\FireObjectComponent.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GLAD\glad.c" />
     <ClCompile Include="src\GLFW_EngineCore.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="src\SceneStateComponent.cpp" />
     <ClCompile Include="src\StaticEnvironmentObject.cpp" />
     <ClCompile Include="src\stb_image.c" />
+    <ClCompile Include="src\TriggerObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\BackgroundColourGameObject.h" />
@@ -50,6 +52,7 @@
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\DynamicEnviromentObject.h" />
     <ClInclude Include="include\ExampleGame.h" />
+    <ClInclude Include="include\FireObjectComponent.h" />
     <ClInclude Include="include\ft2build.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameObject.h" />
@@ -68,6 +71,7 @@
     <ClInclude Include="include\SceneStateComponent.h" />
     <ClInclude Include="include\StaticEnvironmentObject.h" />
     <ClInclude Include="include\TransformComponent.h" />
+    <ClInclude Include="include\TriggerObject.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

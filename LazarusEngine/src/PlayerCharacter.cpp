@@ -1,6 +1,6 @@
 #include "PlayerCharacter.h"
 
-
+#include <iostream>
 
 
 	// constructor
@@ -12,6 +12,7 @@ PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat ori
 		addComponent(new ModelComponent(model));
 		addComponent(new CameraComponent());
 		addComponent(new SceneStateComponent());
+		addComponent(new FireObjectComponent());
 		SetCameraPositionFromTransformComponent(tc);
 	}
 PlayerCharacter::~PlayerCharacter()
@@ -20,7 +21,9 @@ PlayerCharacter::~PlayerCharacter()
 
 void PlayerCharacter::OnUpdate(float dt)
 {
+	getComponent<FireObjectComponent>()->OnUpdate(dt); // Update the fire object component
 }
+
 void PlayerCharacter::OnMessage(const std::string msg)
 {
 
@@ -43,6 +46,10 @@ void PlayerCharacter::OnMessage(const std::string msg)
 	{
 		getComponent<SceneStateComponent>()->OnMessage("Level2");
 
+	}
+	else if (msg == "FireObject")
+	{
+		getComponent<FireObjectComponent>()->OnMessage("FireObject");
 	}
 	else
 	{

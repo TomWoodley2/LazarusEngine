@@ -6,6 +6,7 @@
 #include "TransformComponent.h"
 #include "ColourComponent.h"
 #include "ModelComponent.h"
+
 #include "CameraComponent.h"
 #include "ModelManager.h"
 #include "JSON\json.h"
@@ -14,12 +15,14 @@
 #include "StaticEnvironmentObject.h"
 #include "DynamicEnviromentObject.h"
 #include "BackgroundColourGameObject.h"
+#include "TriggerObject.h"
 #include "CollisionObject.h"
 #include "RigidbodyComponent.h"
 #include "Rigidbody.h"
 
 #include <fstream>
 #include <sstream>
+#include <math.h>
 
 Scene::Scene(std::string filename, ModelManager* theModelManager, IEngineCore* engineCore) : m_theModelManager(theModelManager)
 {
@@ -53,7 +56,7 @@ Scene::~Scene()
 }
 
 
-void Scene::update(float dt)
+void Scene::checkStaticDynamicCollisions()
 {
 	// Checking for collisions between all dynamic objects and all static objects
 
@@ -76,17 +79,24 @@ void Scene::update(float dt)
 				{
 					if (hasStoppedColliding[i + (j*(dynamicCollisionPositions.size()))])
 					{
+
 						//std::cout << "Static-Dynamic Collision " << std::endl;
 						RigidbodyComponent *const  staticBody = v_gameObjects[staticCollisionPositions[j]]->getComponent<RigidbodyComponent>();
-						
+
+						// If object was a trigger
+						if (v_gameObjects[staticCollisionPositions[j]]->getObjectType() == "Trigger")
+						{
+							playerScore++;
+						}
+
 						// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
 
 						if (m_collision.getClosestPlane() == 'X')
 						{
-							
+
 							dynamicBody->setVelocity(glm::vec3(m_collision.getPlaneValue() * dynamicBody->getVelocity().x * dynamicBody->getBounceCoefficient() * staticBody->getBounceCoefficient(), dynamicBody->getVelocity().y, dynamicBody->getVelocity().z));
-							
-							
+
+
 						}
 						else if (m_collision.getClosestPlane() == 'Y')
 						{
@@ -96,35 +106,37 @@ void Scene::update(float dt)
 						else if (m_collision.getClosestPlane() == 'Z')
 						{
 
-							
+
 							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x, dynamicBody->getVelocity().y, m_collision.getPlaneValue() * dynamicBody->getVelocity().z * staticBody->getBounceCoefficient() * dynamicBody->getBounceCoefficient()));
-							
-							
-							
+
+
+
 						}
 						else
 						{
 							std::cout << "error" << std::endl;
 						}
 
-						
+
 
 						std::cout << "Velocity : X : " << dynamicBody->getVelocity().x << " Y : " << dynamicBody->getVelocity().y << " Z : " << dynamicBody->getVelocity().z << std::endl;
 
-						
-						
+
+
 						hasStoppedColliding[i + (j*(dynamicCollisionPositions.size()))] = false;
 					}
 					else
 					{
 
 						// Sliding here
-						if (dynamicBody->getVelocity().y < 0.1f && dynamicBody->getVelocity().y > -0.1f)
+						
+						if (dynamicBody->getVelocity().y < 0.3f && dynamicBody->getVelocity().y > -0.3f)
 						{
 							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x * 0.2, 0, dynamicBody->getVelocity().z * 0.2));
 							dynamicBody->setForce(glm::vec3(0.0, 0, 0.0));
 							dynamicBody->setAcceleration(glm::vec3(0.0, 0, 0.0));
 						}
+						
 
 					}
 				}
@@ -136,25 +148,10 @@ void Scene::update(float dt)
 
 		}
 	}
+}
 
-	
-	
-	// Checking for collisions between dynamic objects
-	// Hard coded for the 2 dynamic objects to start with
-
-	//int currentBranchSize = dynamicCollisionPositions.size() - 1;
-
-	// Loop to get dynamic objects
-	/*
-	for (int i = 0; i < dynamicCollisionPositions.size() - 1; i++)
-	{
-		for (int j = i + 1; j < dynamicCollisionPositions.size() ; j++)
-		{
-			std::cout << "i : " << i << " j : " << j << std::endl;
-		}
-	}
-	*/
-
+void Scene::checkDynamicDynamicCollisions()
+{
 	if (dynamicCollisionPositions.size() != 0)
 	{
 		int k = 0; // Used to count place is hasStoppedColliding
@@ -217,20 +214,23 @@ void Scene::update(float dt)
 		}
 	}
 
+}
+
+
+void Scene::update(float dt,IEngineCore* engineCore)
+{
+	// Check if should move to next scene
+	PlayerCharacter* playerCharacter = getPlayer();
+	if (playerScore >= 3)
+	{
+		playerCharacter->getComponent<SceneStateComponent>()->SetSceneIndex(playerCharacter->getComponent<SceneStateComponent>()->GetSceneIndex()+1);
+		//playerScore = 0;
+		return;
+	}
 	
 
-	
-
-	
-
-	
-
-	
-
-	
-
-
-	// (remember to delete pointers)
+	checkStaticDynamicCollisions(); // Check for collisions between static and dynamic objects
+	checkDynamicDynamicCollisions(); // Check for collisions between all dynamic objects
 
 	// Update dynamic objects based on dt
 	for (int i = 0; i < v_gameObjects.size(); i++)
@@ -238,11 +238,94 @@ void Scene::update(float dt)
 		v_gameObjects[i]->OnUpdate(dt);
 	}
 
+	// Create a new object when T is pressed
+	
+
+	
+	
+
+	if (playerCharacter->getComponent<FireObjectComponent>()->GetShouldFire() == true)
+	{
+		
+		
+		GameObject * m_gameObject;
+		Model * m_model;
+
+		m_model = m_theModelManager->getModel("assets/models/cone.obj");
+
+
+		
+
+		glm::vec3 m_position(playerCharacter->getComponent<TransformComponent>()->position());
+		glm::quat orientation(1.0f, 0.0f, 0.0f, 0.0f);
+
+		m_gameObject = new CollisionObject(m_model, m_position, orientation);
+		m_gameObject->setObjectType("DynamicCollision");
+		std::cout << "Fire!" << std::endl;
+
+		glm::quat playerOrientation = playerCharacter->getComponent<TransformComponent>()->getOrientation();
+		glm::vec3 playerEulerOrientation =  (glm::eulerAngles(playerOrientation) );
+		
+		std::cout << "playerEulerOrientation " << playerEulerOrientation.x << "," << playerEulerOrientation.y << "," << playerEulerOrientation.z << std::endl;
+
+		//glm::mat3 xRotated = 
+		// Not sure about this
+		float xVal = (10.f * cos(playerEulerOrientation.y)) - (10.f * sin(playerEulerOrientation.y));
+		float yVal = 10.f;
+		float zVal = (10.f * sin(playerEulerOrientation.y)) + (10.f *cos(playerEulerOrientation.y));
+
+		 
+
+		Rigidbody m_rigidbody;
+		m_rigidbody.bounceCoefficient = 0.7f;
+		m_rigidbody.gravityEnabled = true;
+		m_rigidbody.mass = 1.0f;
+		m_rigidbody.velocity = glm::vec3(xVal, yVal, zVal);
+		
+		//m_gameObject->setPhysicsProperties( Use in future )
+		m_gameObject->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
+
+		std::cout << v_gameObjects.size()+1 << std::endl;
+		dynamicCollisionPositions.push_back(v_gameObjects.size());
+
+		for (int i = 0; i < staticCollisionPositions.size() ; i++)
+		{
+			hasStoppedColliding.push_back(true);
+		}
+
+		for (int i = 0; i < dynamicCollisionPositions.size() ; i++)
+		{
+			hasStoppedCollidingDD.push_back(true);
+		}
+
+		v_gameObjects.push_back(m_gameObject);
+		
+		//delete m_gameObject;
+		//delete m_model;
+		
+
+		playerCharacter->getComponent<FireObjectComponent>()->SetShouldFire(false);
+
+		Model* model = m_gameObject->getComponent<ModelComponent>()->getModel();
+		glm::vec3 negativeMeshCorner = model->getNegativeCorner(); // Get the corner points of the model
+		glm::vec3 positiveMeshCorner = model->getPositiveCorner();
+		engineCore->updatePhysicsBoxVertices(negativeMeshCorner, positiveMeshCorner); 
+
+		//fillCollidingVectors();
+		// Check if required score reached
+		
+	}
+	
+
+
 }
 
 void Scene::render(IEngineCore* engineCore)
 {
+
+
 	// try mouse code here?
+	
 
 	PlayerCharacter* playerCharacter = getPlayer();
 
@@ -264,7 +347,8 @@ void Scene::render(IEngineCore* engineCore)
 		m_mouseEnabled = !m_mouseEnabled;
 	}
 
-
+	
+	
 	if (m_mouseEnabled)
 	{
 		const float mouseSensitivity = 200.0f;	// related to scrfeenwidth later might be better!
@@ -280,7 +364,7 @@ void Scene::render(IEngineCore* engineCore)
 
 		playerCharacter->SetCameraPositionFromTransformComponent(transformComponent);
 	}
-
+	
 
 	// do open gl setup for the frame (renderColourBackground is not the most informative name)
 	float redValue = 0, greenValue = 0, blueValue = 1;
@@ -323,6 +407,11 @@ void Scene::render(IEngineCore* engineCore)
 			ObjColour = glm::vec3(0.0f, 0.0f, 1.0f);
 
 		}
+		else if (gameObject->getObjectType() == "Trigger")
+		{
+			ObjColour = glm::vec3(0.5f, 0.0f, 0.5f);
+
+		}
 		else
 		{
 			ObjColour = glm::vec3(1.0f, 0.0f, 0.0f);
@@ -335,6 +424,7 @@ void Scene::render(IEngineCore* engineCore)
 		
 		i++; // Used for drawing the physics boxes
 		//engineCore->drawCube(matrix);
+		engineCore->renderText("Score : " + std::to_string(playerScore), 0.80f, 0.90f, 1, glm::vec3(1, 0, 0));
 
 	}
 }
@@ -461,12 +551,16 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 			staticCollisionPositions.push_back(i);
 			
 		}
+		else if (typeNode == "trigger")
+		{
+			thisGameObject = new TriggerObject(model, position, orientation);
+			thisGameObject->setObjectType("Trigger");
+			staticCollisionPositions.push_back(i);
+		}
 		else if (typeNode == "dynamic")
 		{
 			thisGameObject = new DynamicEnvironmentObject(model, position, orientation);
 			thisGameObject->setObjectType("dynamic");
-			
-		
 		}
 		else if (typeNode == "collision")
 		{
@@ -570,30 +664,8 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 			v_gameObjects[dynamicCollisionPositions[i]]->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
 
 		}
-
-		hasStoppedColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
-		wasPreviousNotColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
-
-		for (int i = 0; i < dynamicCollisionPositions.size()*staticCollisionPositions.size(); i++)
-		{
-			hasStoppedColliding.push_back(true);
-			wasPreviousNotColliding.push_back(true);
-		}
-
-		int currentDynamicSize = dynamicCollisionPositions.size();
-		int totalDynamicSize = 0;
-
-		for (int i = dynamicCollisionPositions.size() - 1; i > 0; i--)
-		{
-			totalDynamicSize += i;
-		}
-
-		hasStoppedCollidingDD.reserve(totalDynamicSize);
-
-		for (int i = 0; i < totalDynamicSize; i++)
-		{
-			hasStoppedCollidingDD.push_back(true);
-		}
+		fillCollidingVectors();
+		
 
 	}
 	
@@ -604,187 +676,38 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 	return loadOK;
 }
 
-#if 0
-
-bool Scene::loadLevelJSONOLD(std::string levelJSONFile)
+void Scene::fillCollidingVectors()
 {
-	std::fstream jsonData;
-	Json::Value root;
-	Json::Reader reader;
+	hasStoppedColliding.reserve(dynamicCollisionPositions.size()*staticCollisionPositions.size());
+		
 
-	jsonData.open(levelJSONFile.c_str());
-	// check for errors
-	if (!reader.parse(jsonData, root))
+	for (int i = 0; i < dynamicCollisionPositions.size()*staticCollisionPositions.size(); i++)
 	{
-		std::cout << "Failed to parse data from: "
-			<< levelJSONFile
-			<< reader.getFormattedErrorMessages();
-		return false;
-	}
-	const Json::Value gameObjects = root["GameObjects"];
-
-	//
-
-	int numberOfCubes = gameObjects.size();
-	//v_GameObjects.resize(numberOfCubes);
-
-	// size() tells us how large the array is
-	for (int i = 0; i < (int)gameObjects.size(); i++)
-	{
-
-
-
-		////////////////////////////////////////////////////////
-
-		// get string
-		std::cout << gameObjects[i]["name"].asString() << " loaded\n";
-		
-		
-		// link this to model later....
-		
-		
-		float x, y, z;
-		// get the position node
-		const Json::Value posNode = gameObjects[i]["position"];
-		x = posNode[0].asFloat(); // get float
-		y = posNode[1].asFloat();
-		z = posNode[2].asFloat();
-
-		glm::vec3 position(x, y, z);
-
-		glm::quat orientation(1.0f, 0.0f, 0.0f, 0.0f);
-
-
-		const Json::Value orientNode = gameObjects[i]["orientation"];
-		if (orientNode.type() != Json::nullValue)
-		{
-
-			// get orientation here e.t.c.
-
-		}
-
-
-		glm::vec3 scale(1.0f, 1.0f, 1.0f);
-		const Json::Value scaleNode = gameObjects[i]["scale"];
-		if (scaleNode.type() != Json::nullValue)
-		{
-
-			// get scale here e.t.c.
-
-		}
-		// todo - fix this to be data dependent
-		if (i == 0)
-		{
-			v_gameObjects.push_back(new PlayerCharacter(m_model, position, orientation));
-		}
-		else
-		{
-			v_gameObjects.push_back(new StaticEnvironmentObject(m_model, position, orientation));
-		}
+		hasStoppedColliding.push_back(true);
+			
 	}
 
+	int currentDynamicSize = dynamicCollisionPositions.size();
+	int totalDynamicSize = 0;
 
+	for (int i = dynamicCollisionPositions.size() - 1; i > 0; i--)
+	{
+		totalDynamicSize += i;
+	}
 
+	hasStoppedCollidingDD.reserve(totalDynamicSize);
 
-
-	return true;
+	for (int i = 0; i < totalDynamicSize; i++)
+	{
+		hasStoppedCollidingDD.push_back(true);
+	}
 }
-
-#endif
 
 PlayerCharacter* Scene::getPlayer()
 {
 	return (PlayerCharacter*)v_gameObjects[m_playerIndex];
 }
 
-
-
-
-
-
-void Scene::loadLevel(std::string levelFile)
-{
-
-	Model* model = nullptr;;	//fix if we use this
-
-	std::ifstream myInputFile;
-	myInputFile.open(levelFile, std::ios_base::in);
-
-	std::stringstream ss;
-	std::string s;
-
-	int numCubesToRead;
-
-	if (myInputFile.is_open())
-	{
-		// read the first line which has the number of elements
-		std::getline(myInputFile, s);
-		ss.str(s);
-		ss.ignore(17); // ignore the first 20 chars
-
-		//std::string title;
-		//ss >> title;
-		ss >> numCubesToRead;
-
-		// resize the correct size for the vector
-		v_gameObjects.resize(numCubesToRead);
-		ss.clear();
-
-		for (int i = 0; i < numCubesToRead; i++)
-		{
-			getline(myInputFile, s);
-			ss.clear();
-			ss.str(s);
-
-			// cube x - just ignore for now..
-
-			// use a stringstream to get integer values
-			getline(myInputFile, s);
-			ss.clear();
-			ss.str(s);
-
-			float x;
-			float y;
-			float z;
-
-			ss >> x;
-			ss >> y;
-			ss >> z;
-			glm::vec3 position(x, y, z);
-
-			getline(myInputFile, s);
-			ss.clear();
-			ss.str(s);
-
-			float ow;
-			float ox;
-			float oy;
-			float oz;
-
-			ss >> ow;
-			ss >> ox;
-			ss >> oy;
-			ss >> oz;
-			glm::quat orientation(ow, ox, oy, oz);
-
-			getline(myInputFile, s);
-			ss.clear();
-			ss.str(s);
-
-			float sx;
-			float sy;
-			float sz;
-
-			ss >> sx;
-			ss >> sy;
-			ss >> sz;
-
-			glm::vec3 scale(sx, sy, sz);
-
-			v_gameObjects.push_back(new StaticEnvironmentObject(model, position, orientation));
-		}
-	}
-}
 
 void Scene::setDebugMode(bool state)
 {

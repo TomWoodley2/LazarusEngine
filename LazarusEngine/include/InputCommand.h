@@ -83,3 +83,8 @@ class GotoLevel2Command : public InputCommand
 {
 	void execute(GameObject& player);
 };
+
+class FireObjectCommand : public InputCommand
+{
+	void execute(GameObject& player);
+};
