@@ -1297,7 +1297,7 @@ void NavMeshTesterTool::handleRender()
 				duDebugDrawArc(&dd, p0[0],p0[1],p0[2], p1[0],p1[1],p1[2], 0.25f, 0.0f, 0.4f, duRGBA(0,0,0,128), 2.0f);
 				dd.depthMask(true);
 			}
-
+			
 			static const int MAX_SEGS = DT_VERTS_PER_POLYGON*4;
 			float segs[MAX_SEGS*6];
 			dtPolyRef refs[MAX_SEGS];

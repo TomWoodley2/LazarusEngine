@@ -103,11 +103,11 @@ public:
 	virtual void handleMenu()
 	{
 		imguiLabel("Create Tiles");
-		if (imguiButton("Create All"))
-		{
+		//if (imguiButton("Create All"))
+		//{
 			if (m_sample)
 				m_sample->buildAllTiles();
-		}
+		//}
 		if (imguiButton("Remove All"))
 		{
 			if (m_sample)

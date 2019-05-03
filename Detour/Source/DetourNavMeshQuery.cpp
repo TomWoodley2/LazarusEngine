@@ -260,7 +260,7 @@ dtStatus dtNavMeshQuery::findRandomPoint(const dtQueryFilter* filter, float (*fr
 		const dtPolyRef ref = base | (dtPolyRef)i;
 		if (!filter->passFilter(ref, tile, p))
 			continue;
-
+		
 		// Calc area of the polygon.
 		float polyArea = 0.0f;
 		for (int j = 2; j < p->vertCount; ++j)

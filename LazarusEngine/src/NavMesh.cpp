@@ -25,20 +25,28 @@ NavMesh::NavMesh()
 	sample = new Sample();
 	geom = new InputGeom();
 
-	m_settings.cellSize = 0.3f;
-	m_settings.cellHeight = 0.2f;
+	m_settings.cellSize = 1.0f;
+	m_settings.cellHeight = 2.0f;
 	m_settings.agentHeight = 2.0f;
-	m_settings.agentMaxClimb = 0.9f;
-	m_settings.agentMaxSlope = 45.0f;
+	m_settings.agentMaxClimb = 0.1f;
+	m_settings.agentMaxSlope = 10.0f;
 	m_settings.agentRadius = 1.5f;
-	m_settings.regionMinSize = 8;
-	m_settings.regionMergeSize = 20;
-	m_settings.edgeMaxLen = 12.0f;
+	m_settings.regionMinSize = 1.0f;
+	m_settings.regionMergeSize = 10.0f;
+	m_settings.edgeMaxLen = 10.0f;
 	m_settings.edgeMaxError = 1.3f;
 	m_settings.vertsPerPoly = 6.0f;
 	m_settings.detailSampleDist = 6.0f;
-	m_settings.detailSampleMaxError = 1.0f;
+	m_settings.detailSampleMaxError = 2.0f;
 	m_settings.partitionType = SAMPLE_PARTITION_WATERSHED;
+	m_settings.navMeshBMax[0] = 100.0f;
+	m_settings.navMeshBMax[1] = 0.0f;
+	m_settings.navMeshBMax[2] = 100.0f;
+	m_settings.navMeshBMin[0] = -100.0f; 
+	m_settings.navMeshBMin[1] = 0.0f;
+	m_settings.navMeshBMin[2] = -100.0f;
+	m_settings.tileSize = 25.0f;
+	
 	
 	DTNav = new NavMeshTesterTool();
 
@@ -364,10 +372,7 @@ void NavMesh::NavMeshMain()
 				}
 				else
 				{
-					float pos[3];
-					pos[0] = rayStart[0] + (rayEnd[0] - rayStart[0]) * hitTime;
-					pos[1] = rayStart[1] + (rayEnd[1] - rayStart[1]) * hitTime;
-					pos[2] = rayStart[2] + (rayEnd[2] - rayStart[2]) * hitTime;
+					
 					sample->handleClick(rayStart, pos, processHitTestShift);
 				}
 			}
@@ -955,7 +960,8 @@ void NavMesh::loadNavMesh()
 
 void NavMesh::BuildNavMesh()
 {
-	
+	float pos[3];
+
 	/*if (sample && !sample->handleBuild())
 	{
 		ctx.dumpLog("Build log %s:", pathObj.c_str());
@@ -964,7 +970,16 @@ void NavMesh::BuildNavMesh()
 	{
 		createSolo()->handleBuild();
 	}*/
-	sample->handleBuild();
+	if (geom && sample)
+	{
+		sample->handleSettings();
+		sample->handleClick(rayStart, pos, processHitTestShift);
+
+		sample->handleBuild();
+
+		//sample->handleTools();
+	}
+	
 }
 
 void NavMesh::initNav()

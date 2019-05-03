@@ -38,7 +38,7 @@
 #include "Recast.h"
 #include "RecastDebugDraw.h"
 #include "InputGeom.h"
-//#include "TestCase.h"
+#include "TestCase.h"
 //#include "Filelist.h"
 #include "Sample_SoloMesh.h"
 #include "Sample_TileMesh.h"
@@ -89,8 +89,12 @@ protected:
 	const string pathObj = "assets/Mesh/TestLevel.obj";
 	const string pathSet = "assets/Mesh/TestLevel.gset";
 
+	float rayStart[3];
+	bool processHitTestShift = false;
+
 	BuildContext ctx;
 	BuildSettings m_settings;
 	InputGeom* geom = 0;
 	Sample* sample = 0;
+	TestCase* test = 0;
 };
