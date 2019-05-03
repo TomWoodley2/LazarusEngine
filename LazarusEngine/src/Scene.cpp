@@ -238,12 +238,7 @@ void Scene::update(float dt,IEngineCore* engineCore)
 		v_gameObjects[i]->OnUpdate(dt);
 	}
 
-	// Create a new object when T is pressed
-	
-
-	
-	
-
+	// Create a new object when fire button is pressed
 	if (playerCharacter->getComponent<FireObjectComponent>()->GetShouldFire() == true)
 	{
 		
@@ -251,42 +246,49 @@ void Scene::update(float dt,IEngineCore* engineCore)
 		GameObject * m_gameObject;
 		Model * m_model;
 
-		m_model = m_theModelManager->getModel("assets/models/cone.obj");
+		m_model = m_theModelManager->getModel("assets/models/orangeSphere.obj");
 
 
 		
-
+		// Set position based on player position
 		glm::vec3 m_position(playerCharacter->getComponent<TransformComponent>()->position());
 		glm::quat orientation(1.0f, 0.0f, 0.0f, 0.0f);
 
+		// Create a collision object
 		m_gameObject = new CollisionObject(m_model, m_position, orientation);
 		m_gameObject->setObjectType("DynamicCollision");
-		std::cout << "Fire!" << std::endl;
+		//std::cout << "Fire!" << std::endl;
 
+		// Attempt to rotate velocity based on player rotation
 		glm::quat playerOrientation = playerCharacter->getComponent<TransformComponent>()->getOrientation();
 		glm::vec3 playerEulerOrientation =  (glm::eulerAngles(playerOrientation) );
 		
-		std::cout << "playerEulerOrientation " << playerEulerOrientation.x << "," << playerEulerOrientation.y << "," << playerEulerOrientation.z << std::endl;
+		//std::cout << "playerEulerOrientation " << playerEulerOrientation.x << "," << playerEulerOrientation.y << "," << playerEulerOrientation.z << std::endl;
 
 		//glm::mat3 xRotated = 
 		// Not sure about this
-		float xVal = (10.f * cos(playerEulerOrientation.y)) - (10.f * sin(playerEulerOrientation.y));
-		float yVal = 10.f;
-		float zVal = (10.f * sin(playerEulerOrientation.y)) + (10.f *cos(playerEulerOrientation.y));
+		float xVal = (12.f * cos(playerEulerOrientation.y)) - (12.f * sin(playerEulerOrientation.y));
+		float yVal = 12.f;
+		float zVal = (12.f * sin(playerEulerOrientation.y)) + (12.f *cos(playerEulerOrientation.y));
 
 		 
-
+		// Setup rigidbody
 		Rigidbody m_rigidbody;
 		m_rigidbody.bounceCoefficient = 0.7f;
 		m_rigidbody.gravityEnabled = true;
 		m_rigidbody.mass = 1.0f;
 		m_rigidbody.velocity = glm::vec3(xVal, yVal, zVal);
+		//m_rigidbody.velocity = glm::vec3(10, 5, 0);
 		
 		//m_gameObject->setPhysicsProperties( Use in future )
 		m_gameObject->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);
 
-		std::cout << v_gameObjects.size()+1 << std::endl;
+		//std::cout << v_gameObjects.size()+1 << std::endl;
+
+		// Add this rigid body to store of dynamicPositions
 		dynamicCollisionPositions.push_back(v_gameObjects.size());
+
+		// Push back new possible collision states for static and dynamic
 
 		for (int i = 0; i < staticCollisionPositions.size() ; i++)
 		{
@@ -298,6 +300,7 @@ void Scene::update(float dt,IEngineCore* engineCore)
 			hasStoppedCollidingDD.push_back(true);
 		}
 
+		// Add to game objects
 		v_gameObjects.push_back(m_gameObject);
 		
 		//delete m_gameObject;

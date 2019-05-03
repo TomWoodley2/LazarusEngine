@@ -8,6 +8,8 @@ PlayerCharacter::PlayerCharacter(Model* model, glm::vec3 position, glm::quat ori
 	{
 		TransformComponent* tc = new TransformComponent(position, orientation);
 
+		tc->yaw(180);
+
 		addComponent(tc);
 		addComponent(new ModelComponent(model));
 		addComponent(new CameraComponent());

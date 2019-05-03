@@ -28,7 +28,7 @@ InputHandler::InputHandler(GameObject* playerCube) : m_playerCube(playerCube)
 	m_controlMapping[(int)'0'] = new GotoLevel2Command();
 
 	// Fire an object
-	m_controlMapping[(int)'T'] = new FireObjectCommand();
+	m_controlMapping[(int)'Q'] = new FireObjectCommand();
 
 }
 
