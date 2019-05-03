@@ -20,6 +20,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <math.h>
 
 Scene::Scene(std::string filename, ModelManager* theModelManager, IEngineCore* engineCore) : m_theModelManager(theModelManager)
 {
@@ -233,18 +234,31 @@ void Scene::update(float dt,IEngineCore* engineCore)
 
 		
 
-		glm::vec3 m_position(5,5,-5);
+		glm::vec3 m_position(playerCharacter->getComponent<TransformComponent>()->position());
 		glm::quat orientation(1.0f, 0.0f, 0.0f, 0.0f);
 
 		m_gameObject = new CollisionObject(m_model, m_position, orientation);
 		m_gameObject->setObjectType("DynamicCollision");
 		std::cout << "Fire!" << std::endl;
 
+		glm::quat playerOrientation = playerCharacter->getComponent<TransformComponent>()->getOrientation();
+		glm::vec3 playerEulerOrientation =  (glm::eulerAngles(playerOrientation) );
+		
+		std::cout << "playerEulerOrientation " << playerEulerOrientation.x << "," << playerEulerOrientation.y << "," << playerEulerOrientation.z << std::endl;
+
+		//glm::mat3 xRotated = 
+		// Not sure about this
+		float xVal = (5.f * cos(playerEulerOrientation.y)) - (5.f * sin(playerEulerOrientation.y));
+		float yVal = 5.f;
+		float zVal = (5.f * sin(playerEulerOrientation.y)) + (5.f *cos(playerEulerOrientation.y));
+
+		 
+
 		Rigidbody m_rigidbody;
 		m_rigidbody.bounceCoefficient = 1.0f;
 		m_rigidbody.gravityEnabled = true;
 		m_rigidbody.mass = 1.0f;
-		m_rigidbody.velocity = glm::vec3(0.0f,0.0f,-1.0f);
+		m_rigidbody.velocity = glm::vec3(xVal, yVal, zVal);
 		
 		//m_gameObject->setPhysicsProperties( Use in future )
 		m_gameObject->getComponent<RigidbodyComponent>()->setRigidbody(m_rigidbody);

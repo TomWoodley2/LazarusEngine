@@ -3,7 +3,7 @@
       {"name": "gnd", "model": "ground3.obj", "position": [0.0,0.0,0.0], "type":"static","physics" : 0},  
       {"name": "pCone1", "model": "cone.obj", "position": [0.0,1.0,5.0],"type":"player" ,"physics" : -1},
 	  {"name": "pCube2", "model": "cube1.obj", "position": [-3.0,1.0,-15.0],"type": "dynamic","physics" : -1},
-	  {"name": "pSphere2", "model": "cylinder.obj", "position": [0,3.0,5.0],"type":"collision","physics" : 1},
+	  {"name": "pSphere2", "model": "cylinder.obj", "position": [-4,3.0,3.0],"type":"collision","physics" : 1},
 	  {"name": "pSphere1", "model": "cube1.obj", "position": [0,3.0,-6.0],"type":"collision","physics" : 2},
 	  {"name": "Dynamic3", "model": "cube1.obj", "position": [4,4.0,-6.0],"type":"collision","physics" : 3},
 	  {"name": "Dynamic4", "model": "cube1.obj", "position": [6,4.0,-6.0],"type":"collision","physics" : 4},

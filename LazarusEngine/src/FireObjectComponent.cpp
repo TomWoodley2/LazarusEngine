@@ -20,7 +20,7 @@ void FireObjectComponent::OnMessage(const std::string msg)
 {
 	if (msg == "FireObject")
 	{
-		if (timeSinceTriggered >5)
+		if (timeSinceTriggered > 1.0f)
 		{
 			ShouldFire = true;
 			timeSinceTriggered = 0;
