@@ -8,6 +8,8 @@
 #include "IEngineCore.h"
 #include "wander.h"
 
+#include "Collision.h" // Used for collision between objects
+
 #include <string>
 
 
@@ -38,6 +40,8 @@ public:
 
 	PlayerCharacter* getPlayer();
 
+	void setDebugMode(bool state); // Change state of debug mode based on game class
+
 private:
 
 	bool m_levelLoaded{ false };
@@ -59,4 +63,18 @@ private:
 	int m_mouseButtons;
 	int m_oldMouseButtons;
 	bool m_mouseEnabled{ false };
+
+	bool renderDebugMode = true;
+
+	Collision m_collision ;
+
+	std::vector<int> staticCollisionPositions; // Store positions of static collision objects in the GameObject array
+	std::vector<int> dynamicCollisionPositions; // Store positions of dynamic collision objects in the GameObject array
+
+	std::vector<bool> hasStoppedColliding; // Store if the object has stopped colliding ( stop multiple procs on collision )
+	std::vector<bool> hasStoppedCollidingDD; // Used for dynamic-dynamic collision to check if collision has stopped
+
+	void checkStaticDynamicCollisions(); // check collisions between static and dynamic objects
+	void checkDynamicDynamicCollisions(); // check collisions between all dynamic objects
+
 };

@@ -36,6 +36,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 		int sceneMeshIndex = node->mMeshes[i];
 		aiMesh* mesh = scene->mMeshes[sceneMeshIndex];
 		v_meshes.push_back(processMesh(mesh, scene));
+		
 	}
 	// recursively process the nodes of any children
 	for (int i = 0; i < static_cast<int>(node->mNumChildren); i++)
@@ -55,13 +56,57 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	vertices.resize(mesh->mNumVertices);
 	indices.resize(mesh->mNumFaces*3); // imported as triangles
 
+	
+
 	// for each vertex of the mesh copy the data to out own mesh format
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		// all meshes should have vertices and normals
 		vertices[i].position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
 		vertices[i].normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
-		
+
+		// Check for 2 corners of mesh for physics debug mode
+		/*
+		// Negative
+		if (vertices[i].position.x <= negativeCorner.x && vertices[i].position.y <= negativeCorner.y && vertices[i].position.z <= negativeCorner.z)
+		{
+			negativeCorner = vertices[i].position;
+		}
+		// Positive
+		if (vertices[i].position.x >= positiveCorner.x && vertices[i].position.y >= positiveCorner.y && vertices[i].position.z >= positiveCorner.z)
+		{
+			positiveCorner = vertices[i].position;
+		}
+		*/
+
+		// Negative
+		if (vertices[i].position.x <= negativeCorner.x)
+		{
+			negativeCorner.x = vertices[i].position.x;
+		}
+		if (vertices[i].position.y <= negativeCorner.y)
+		{
+			negativeCorner.y = vertices[i].position.y;
+		}
+		if (vertices[i].position.z <= negativeCorner.z)
+		{
+			negativeCorner.z = vertices[i].position.z;
+		}
+		// Positive
+		if (vertices[i].position.x >= positiveCorner.x)
+		{
+			positiveCorner.x = vertices[i].position.x;
+		}
+		if (vertices[i].position.y >= positiveCorner.y)
+		{
+			positiveCorner.y = vertices[i].position.y;
+		}
+		if (vertices[i].position.z >= positiveCorner.z)
+		{
+			positiveCorner.z = vertices[i].position.z;
+		}
+
+
 		// check if the mesh has texture coordinates
 		if (mesh->mTextureCoords[0]) 
 		{
@@ -73,7 +118,12 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		}
 
 	}
+
+	//std::cout << "Negative: " << negativeCorner.x << ", " << negativeCorner.y << ", " << negativeCorner.z << std::endl; 
+	//std::cout << "Positive: " << positiveCorner.x << ", " << positiveCorner.y << ", " << positiveCorner.z << std::endl;
 	
+
+
 	// save all the vertex indices in the indices vector
 	for (int i = 0; i < static_cast<int>(mesh->mNumFaces); i++)
 	{
@@ -181,4 +231,14 @@ unsigned int Model::TextureFromFile(const char* filepath, const string& director
 	}
 
 	return textureID;
+}
+
+glm::vec3 Model::getNegativeCorner()
+{
+	return negativeCorner;
+}
+
+glm::vec3 Model::getPositiveCorner()
+{
+	return positiveCorner;
 }

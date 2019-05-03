@@ -16,9 +16,18 @@ public:
 
 	static unsigned int TextureFromFile(const char* filepath, const string& directory, bool gamma = false);
 
+	// Getters
+	glm::vec3 getNegativeCorner();
+	glm::vec3 getPositiveCorner();
+
 private:
 
 	std::vector<Mesh> v_meshes;
+
+	// Having these at 0,0,0 does mean some part of the object collision box has to be in the centre of mass
+	glm::vec3 negativeCorner = glm::vec3(0.0f, 0.0f, 0.0f); // -x, -y, -z corner of mesh
+	glm::vec3 positiveCorner = glm::vec3(0.0f, 0.0f, 0.0f); // +x, +y, +z corner of mesh
+
 	string directory;
 	vector<Texture> v_textures;
 

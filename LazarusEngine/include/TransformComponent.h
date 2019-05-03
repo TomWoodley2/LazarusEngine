@@ -25,8 +25,8 @@ class TransformComponent : public Component
 
 	//const float rotateStepsize = 1.0f / 512.0f;	// 0.001f;
 
-	const float moveStepsize = 1.0f / 64.0f; // 0.004f;  accurate binary value
-	const float rotateStepsize = 1.0f / 128.0f;	// 0.001f;
+	const float moveStepsize = 1.0f / 32.0f; // 0.004f;  accurate binary value
+	const float rotateStepsize = 1.0f / 98.0f;	// 0.001f;
 
 public:
 	glm::vec3 m_position;

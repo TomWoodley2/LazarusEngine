@@ -68,10 +68,9 @@ bool GLFW_EngineCore::initWindow(int width, int height, std::string windowName)
 	// set the shaders to the given default ones
 	setDefaultShaders();
 	setupDefaultFont();
-
-	// set the drawable model as a cube
-	// note: this will be changed later when we can draw many kinds of objects
-	initCubeModel();
+	
+	// Setup the rendering for the physics box
+	//initPhysicsBox();
 
 	// enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -211,16 +210,15 @@ void GLFW_EngineCore::setCamera(const CameraComponent* cam)
 	glUniform3f(glGetUniformLocation(m_defaultShaderProgram, "lightPos"), 0.0f, 2.0f, -2.0f);
 	glUniform3fv(glGetUniformLocation(m_defaultShaderProgram, "viewPos"), 1, glm::value_ptr(cam->position()));
 
-}
+	glUseProgram(m_boxShaderProgram);
 
-void GLFW_EngineCore::drawCube(const glm::mat4& modelMatrix)
-{
-	// set the model component of our shader to the cube model
-	glUniformMatrix4fv(glGetUniformLocation(m_defaultShaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	glUniformMatrix4fv(glGetUniformLocation(m_boxShaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(m_boxShaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(cam->getViewMatrix()));
 
-	// the only thing we can draw so far is the cube, so we know it is bound already
-	// this will obviously have to change later
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glUseProgram(m_defaultShaderProgram);
+
+
+
 }
 
 void GLFW_EngineCore::drawModel(Model* model, const glm::mat4& modelMatrix)
@@ -329,6 +327,7 @@ void GLFW_EngineCore::setDefaultShaders()
 {
 	loadShader("assets/shaders/defaultShader.vert", "assets/shaders/defaultShader.frag", m_defaultShaderProgram);
 	loadShader("assets/shaders/fontShader.vert", "assets/shaders/fontShader.frag", m_fontShaderProgram);
+	loadShader("assets/shaders/box.vert", "assets/shaders/box.frag", m_boxShaderProgram);
 	
 	// set the default shader
 	glUseProgram(m_defaultShaderProgram);
@@ -413,77 +412,10 @@ void GLFW_EngineCore::setupDefaultFont()
 	glBindVertexArray(0);
 }
 
-// a simple function to initialise a cube model in memory
-void GLFW_EngineCore::initCubeModel()
-{
-	// set up vertex and normal data
-	float vertices[] = {
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
-	};
-	
-	unsigned int VBO, VAO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	// normal attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	
-}
-
-
 void GLFW_EngineCore::mouseMoveCallbackEvent(GLFWwindow* window, double xPos, double yPos)
 {
-	m_mouseX = xPos;
-	m_mouseY = yPos;
+	m_mouseX = -xPos;
+	m_mouseY = -yPos;
 
 }
 
@@ -517,4 +449,137 @@ void GLFW_EngineCore::getMouseState(double& mouseX, double& mouseY, int& mouseBu
 	mouseX = m_mouseX;
 	mouseY = m_mouseY;
 	mouseButtons = m_mouseButtons;	
+}
+
+
+void GLFW_EngineCore::initPhysicsBox()
+{
+
+	glm::vec3 centre = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 size = glm::vec3(2.f, 2.f, 2.f);
+
+	//std::cout << "Negative: " << negativeMeshCornerIn.x << ", " << negativeMeshCornerIn.y << ", " << negativeMeshCornerIn.z << std::endl;
+	//std::cout << "Positive: " << positiveMeshCornerIn.x << ", " << positiveMeshCornerIn.y << ", " << positiveMeshCornerIn.z << std::endl;
+
+	
+	// set vertices ready for debug
+	float vertices[] = {
+		centre.x - (size.x / 2), centre.y - (size.y / 2), centre.z - (size.z / 2),
+		centre.x - (size.x / 2), centre.y + (size.y / 2), centre.z - (size.z / 2),
+		centre.x + (size.x / 2), centre.y + (size.y / 2), centre.z - (size.z / 2),
+		centre.x + (size.x / 2), centre.y - (size.y / 2), centre.z - (size.z / 2),
+
+		centre.x - (size.x / 2), centre.y - (size.y / 2), centre.z + (size.z / 2),
+		centre.x - (size.x / 2), centre.y + (size.y / 2), centre.z + (size.z / 2),
+		centre.x + (size.x / 2), centre.y + (size.y / 2), centre.z + (size.z / 2),
+		centre.x + (size.x / 2), centre.y - (size.y / 2), centre.z + (size.z / 2)
+	};
+	
+	
+	/*
+	
+	// set vertices ready for debug
+	float vertices[] = {
+		negativeMeshCornerIn.x, negativeMeshCornerIn.y, negativeMeshCornerIn.z,
+		negativeMeshCornerIn.x, positiveMeshCornerIn.y, negativeMeshCornerIn.z,
+		positiveMeshCornerIn.x, positiveMeshCornerIn.y, negativeMeshCornerIn.z,
+		positiveMeshCornerIn.x, negativeMeshCornerIn.y, negativeMeshCornerIn.z,
+
+		negativeMeshCornerIn.x, negativeMeshCornerIn.y, positiveMeshCornerIn.z,
+		negativeMeshCornerIn.x, positiveMeshCornerIn.y, positiveMeshCornerIn.z,
+		positiveMeshCornerIn.x, positiveMeshCornerIn.y, positiveMeshCornerIn.z,
+		positiveMeshCornerIn.x, negativeMeshCornerIn.y, positiveMeshCornerIn.z
+	};
+	
+	*/
+
+	// Index data
+	unsigned int indices[] = {
+		0, 1, 2,
+		0, 2, 3,
+		1, 5, 6,
+		1, 6, 2,
+		0, 4, 7,
+		0, 7, 3,
+		4, 5, 1,
+		4, 1, 0,
+		3, 2, 6,
+		3, 6, 7,
+		7, 6, 5,
+		7, 5, 4
+	};
+
+	// Buffer and Array initialization
+	glGenBuffers(1, &physics_EBO);
+	glGenBuffers(1, &physics_VBO);
+	glGenVertexArrays(1, &physics_VAO);
+
+	// This is vertex array as the one in use
+	glBindVertexArray(physics_VAO);
+
+	// Bind the buffers to the array
+	glBindBuffer(GL_ARRAY_BUFFER, physics_VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, physics_EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+	// Setup pointers for shader to vertices
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	
+
+	
+}
+
+void GLFW_EngineCore::updatePhysicsBoxVertices(glm::vec3 negativeMeshCornerIn, glm::vec3 positiveMeshCornerIn)
+{
+	// Update which vertices are being used based on updated positions of the physics box
+	std::vector<float> vertices = {
+		negativeMeshCornerIn.x, negativeMeshCornerIn.y, negativeMeshCornerIn.z,
+		negativeMeshCornerIn.x, positiveMeshCornerIn.y, negativeMeshCornerIn.z,
+		positiveMeshCornerIn.x, positiveMeshCornerIn.y, negativeMeshCornerIn.z,
+		positiveMeshCornerIn.x, negativeMeshCornerIn.y, negativeMeshCornerIn.z,
+
+		negativeMeshCornerIn.x, negativeMeshCornerIn.y, positiveMeshCornerIn.z,
+		negativeMeshCornerIn.x, positiveMeshCornerIn.y, positiveMeshCornerIn.z,
+		positiveMeshCornerIn.x, positiveMeshCornerIn.y, positiveMeshCornerIn.z,
+		positiveMeshCornerIn.x, negativeMeshCornerIn.y, positiveMeshCornerIn.z
+	};
+
+	v_allObjectCollisionVertices.push_back(vertices);
+}
+
+
+
+void GLFW_EngineCore::drawPhysicsBox(const glm::mat4& modelIn, int modelNo, glm::vec3 colourIn)
+{
+	glUseProgram(m_boxShaderProgram); // Use the box shader program
+
+	glUniformMatrix4fv(glGetUniformLocation(m_boxShaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(modelIn)); // send model matrix to shader
+	glUniform3f(glGetUniformLocation(m_boxShaderProgram, "colour"), colourIn.x, colourIn.y, colourIn.z);
+	
+	//std::cout << modelNo << std::endl;
+
+	glBindVertexArray(physics_VAO); // get the vertex array for drawing
+	//glBufferData(GL_ARRAY_BUFFER, v_allObjectCollisionVertices[modelNo].size() * sizeof(float), &v_allObjectCollisionVertices[modelNo][0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, physics_VBO);
+	glBufferData(GL_ARRAY_BUFFER, 36 * sizeof(float), &v_allObjectCollisionVertices[modelNo][0], GL_STATIC_DRAW);
+
+	//glEnableVertexAttribArray(0);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+	
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Draw as a line
+	glDrawElements(GL_TRIANGLES, 36 * sizeof(unsigned int), GL_UNSIGNED_INT, 0); // size of gets the number of points required for the number of triangles to be drawn
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // change back to filling objects
+																				 
+	glUseProgram(m_defaultShaderProgram); // change back to default shader
+
+}
+
+void GLFW_EngineCore::clearPhysicsBoxes()
+{
+	physics_VBOs.clear();
+	v_allObjectCollisionVertices.clear();
 }
