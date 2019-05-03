@@ -6,6 +6,7 @@
 #include "TransformComponent.h"
 #include "ColourComponent.h"
 #include "ModelComponent.h"
+
 #include "CameraComponent.h"
 #include "ModelManager.h"
 #include "JSON\json.h"
@@ -14,6 +15,7 @@
 #include "StaticEnvironmentObject.h"
 #include "DynamicEnviromentObject.h"
 #include "BackgroundColourGameObject.h"
+#include "TriggerObject.h"
 #include "CollisionObject.h"
 #include "RigidbodyComponent.h"
 #include "Rigidbody.h"
@@ -217,7 +219,16 @@ void Scene::checkDynamicDynamicCollisions()
 
 void Scene::update(float dt,IEngineCore* engineCore)
 {
+	// Check if should move to next scene
+	PlayerCharacter* playerCharacter = getPlayer();
+	if (playerScore >= 3)
+	{
+		playerCharacter->getComponent<SceneStateComponent>()->SetSceneIndex(playerCharacter->getComponent<SceneStateComponent>()->GetSceneIndex()+1);
+		//playerScore = 0;
+		return;
+	}
 	
+
 	checkStaticDynamicCollisions(); // Check for collisions between static and dynamic objects
 	checkDynamicDynamicCollisions(); // Check for collisions between all dynamic objects
 
@@ -228,10 +239,14 @@ void Scene::update(float dt,IEngineCore* engineCore)
 	}
 
 	// Create a new object when T is pressed
-	PlayerCharacter* playerCharacter = getPlayer();
+	
+
+	
+	
 
 	if (playerCharacter->getComponent<FireObjectComponent>()->GetShouldFire() == true)
 	{
+		
 		
 		GameObject * m_gameObject;
 		Model * m_model;
@@ -255,9 +270,9 @@ void Scene::update(float dt,IEngineCore* engineCore)
 
 		//glm::mat3 xRotated = 
 		// Not sure about this
-		float xVal = (5.f * cos(playerEulerOrientation.y)) - (5.f * sin(playerEulerOrientation.y));
-		float yVal = 5.f;
-		float zVal = (5.f * sin(playerEulerOrientation.y)) + (5.f *cos(playerEulerOrientation.y));
+		float xVal = (10.f * cos(playerEulerOrientation.y)) - (10.f * sin(playerEulerOrientation.y));
+		float yVal = 10.f;
+		float zVal = (10.f * sin(playerEulerOrientation.y)) + (10.f *cos(playerEulerOrientation.y));
 
 		 
 
@@ -297,6 +312,8 @@ void Scene::update(float dt,IEngineCore* engineCore)
 		engineCore->updatePhysicsBoxVertices(negativeMeshCorner, positiveMeshCorner); 
 
 		//fillCollidingVectors();
+		// Check if required score reached
+		
 	}
 	
 
@@ -536,7 +553,7 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 		}
 		else if (typeNode == "trigger")
 		{
-			thisGameObject = new StaticEnvironmentObject(model, position, orientation);
+			thisGameObject = new TriggerObject(model, position, orientation);
 			thisGameObject->setObjectType("Trigger");
 			staticCollisionPositions.push_back(i);
 		}

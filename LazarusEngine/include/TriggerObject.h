@@ -10,6 +10,8 @@ class TriggerObject : public GameObject
 {
 private:
 	Rigidbody m_rigidbody;
+	glm::vec3 startPosition;
+	bool movingRight = true;
 public:
 	TriggerObject(Model* model, glm::vec3 position, glm::quat orientation);
 	~TriggerObject();
