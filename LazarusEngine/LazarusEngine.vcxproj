@@ -41,6 +41,7 @@
     <ClCompile Include="src\SceneStateComponent.cpp" />
     <ClCompile Include="src\StaticEnvironmentObject.cpp" />
     <ClCompile Include="src\stb_image.c" />
+    <ClCompile Include="src\TriggerObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\BackgroundColourGameObject.h" />
@@ -70,6 +71,7 @@
     <ClInclude Include="include\SceneStateComponent.h" />
     <ClInclude Include="include\StaticEnvironmentObject.h" />
     <ClInclude Include="include\TransformComponent.h" />
+    <ClInclude Include="include\TriggerObject.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

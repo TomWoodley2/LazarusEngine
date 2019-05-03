@@ -77,8 +77,15 @@ void Scene::checkStaticDynamicCollisions()
 				{
 					if (hasStoppedColliding[i + (j*(dynamicCollisionPositions.size()))])
 					{
+
 						//std::cout << "Static-Dynamic Collision " << std::endl;
 						RigidbodyComponent *const  staticBody = v_gameObjects[staticCollisionPositions[j]]->getComponent<RigidbodyComponent>();
+
+						// If object was a trigger
+						if (v_gameObjects[staticCollisionPositions[j]]->getObjectType() == "Trigger")
+						{
+							playerScore++;
+						}
 
 						// These all hard coded for y values -> for full collision, will need to swap the velocity based on the force
 
@@ -301,6 +308,7 @@ void Scene::render(IEngineCore* engineCore)
 
 
 	// try mouse code here?
+	
 
 	PlayerCharacter* playerCharacter = getPlayer();
 
@@ -382,6 +390,11 @@ void Scene::render(IEngineCore* engineCore)
 			ObjColour = glm::vec3(0.0f, 0.0f, 1.0f);
 
 		}
+		else if (gameObject->getObjectType() == "Trigger")
+		{
+			ObjColour = glm::vec3(0.5f, 0.0f, 0.5f);
+
+		}
 		else
 		{
 			ObjColour = glm::vec3(1.0f, 0.0f, 0.0f);
@@ -394,6 +407,7 @@ void Scene::render(IEngineCore* engineCore)
 		
 		i++; // Used for drawing the physics boxes
 		//engineCore->drawCube(matrix);
+		engineCore->renderText("Score : " + std::to_string(playerScore), 0.80f, 0.90f, 1, glm::vec3(1, 0, 0));
 
 	}
 }
@@ -520,12 +534,16 @@ bool Scene::loadLevelJSON(std::string levelJSONFile)
 			staticCollisionPositions.push_back(i);
 			
 		}
+		else if (typeNode == "trigger")
+		{
+			thisGameObject = new StaticEnvironmentObject(model, position, orientation);
+			thisGameObject->setObjectType("Trigger");
+			staticCollisionPositions.push_back(i);
+		}
 		else if (typeNode == "dynamic")
 		{
 			thisGameObject = new DynamicEnvironmentObject(model, position, orientation);
 			thisGameObject->setObjectType("dynamic");
-			
-		
 		}
 		else if (typeNode == "collision")
 		{

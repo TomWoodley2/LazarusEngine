@@ -77,4 +77,6 @@ private:
 	void checkDynamicDynamicCollisions(); // check collisions between all dynamic objects#
 	void fillCollidingVectors(); // Fill the vectors checking if an object collides 
 
+	int playerScore = 0; // Score of the player
+
 };

@@ -18,7 +18,8 @@
 	  {"name": "wall1", "model": "wall1.obj", "position": [0.0,3.0,-10.0],"type":"static","physics" : 0},
 	  {"name": "wall2", "model": "wall1.obj", "position": [0.0,3.0,30.0],"type":"static","physics" : 0},
 	  {"name": "wall1", "model": "wall1.obj", "position": [19.1.0,3.0,-10.0],"type":"static","physics" : 0},
-	  {"name": "wall1", "model": "wall1.obj", "position": [19.1.0,3.0,30.0],"type":"static","physics" : 0}
+	  {"name": "wall1", "model": "wall1.obj", "position": [19.1.0,3.0,30.0],"type":"static","physics" : 0},
+	  {"name": "trigger", "model": "trigger.obj", "position": [30,8,10],"type":"trigger","physics" : 0}
 	 
   ],
   
