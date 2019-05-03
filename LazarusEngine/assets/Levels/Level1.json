@@ -1,15 +1,24 @@
 {
   "GameObjects": [
-      {"name": "gnd", "model": "ground3.obj", "position": [0.0,0.0,0.0], "type":"static","physics" : 0},  
-      {"name": "pCone1", "model": "cone.obj", "position": [0.0,1.0,5.0],"type":"player" ,"physics" : -1},
-	  {"name": "pCube2", "model": "cube1.obj", "position": [-3.0,1.0,-15.0],"type": "dynamic","physics" : -1},
+      {"name": "gnd", "model": "ground4.obj", "position": [0.0,0.0,0.0], "type":"static","physics" : 0},    
+      {"name": "pCone1", "model": "cone.obj", "position": [0.0,4.0,5.0],"type":"player" ,"physics" : -1},
+	  
+	  {"name": "pCube2", "model": "cube1.obj", "position": [-3.0,1.0,5.0],"type": "dynamic","physics" : -1},
 	  {"name": "pSphere2", "model": "cylinder.obj", "position": [-4,3.0,3.0],"type":"collision","physics" : 1},
 	  {"name": "pSphere1", "model": "cube1.obj", "position": [0,3.0,-6.0],"type":"collision","physics" : 2},
 	  {"name": "Dynamic3", "model": "cube1.obj", "position": [4,4.0,-6.0],"type":"collision","physics" : 3},
 	  {"name": "Dynamic4", "model": "cube1.obj", "position": [6,4.0,-6.0],"type":"collision","physics" : 4},
 	  {"name": "Dynamic4", "model": "cone.obj", "position": [8,6.0,-6.0],"type":"collision","physics" : 5},
-	  {"name": "pCylinder1", "model": "cylinder.obj", "position": [3.0,1.0,-15.0],"type":"static","physics" : 0},
-	  {"name": "pSphere3", "model": "sphere.obj", "position": [0.0,1.0,-10.0],"type":"static","physics" : 0}
+	  {"name": "pCylinder1", "model": "cylinder.obj", "position": [3.0,1.0,5.0],"type":"static","physics" : 0},
+	  {"name": "pSphere3", "model": "sphere.obj", "position": [0.0,1.0,5.0],"type":"static","physics" : 0},
+	  {"name": "cuboid", "model": "cuboidRed.obj", "position": [-8.0,4.0,-10.0],"type":"static","physics" : 0},
+	  {"name": "cuboid", "model": "cuboidRed.obj", "position": [-8.0,4.0,30.0],"type":"static","physics" : 0},
+	  {"name": "cuboid", "model": "cuboidRed.obj", "position": [28.0,4.0,30.0],"type":"static","physics" : 0},
+	  {"name": "cuboid", "model": "cuboidRed.obj", "position": [28.0,4.0,-10.0],"type":"static","physics" : 0},
+	  {"name": "wall1", "model": "wall1.obj", "position": [0.0,3.0,-10.0],"type":"static","physics" : 0},
+	  {"name": "wall2", "model": "wall1.obj", "position": [0.0,3.0,30.0],"type":"static","physics" : 0},
+	  {"name": "wall1", "model": "wall1.obj", "position": [19.1.0,3.0,-10.0],"type":"static","physics" : 0},
+	  {"name": "wall1", "model": "wall1.obj", "position": [19.1.0,3.0,30.0],"type":"static","physics" : 0}
 	 
   ],
   
@@ -17,7 +26,7 @@
 	  {"num": 0, "mass" : 1.0, "velocity" : [0.0,0.0,0.0], "bounce" : 1.0, "gravity" :0, "locked": 0},
 	  {"num": 1, "mass": 0.8, "velocity" : [0.0,0.0,-1.0], "bounce" : 0.1, "gravity" :1, "locked": 0},
 	  {"num": 2,"mass" : 0.8, "velocity" : [0.0,0.0,1.0], "bounce" : 0.8, "gravity" :1, "locked": 0},
-	  {"num": 3,"mass" : 0.8, "velocity" : [0.5,0.0,0.0], "bounce" : 1.0, "gravity" :0, "locked": 0},
+	  {"num": 3,"mass" : 0.8, "velocity" : [0.0,0.0,10.0], "bounce" : 1.0, "gravity" :0, "locked": 0},
 	  {"num": 4,"mass" : 0.8, "velocity" : [-0.5,0.0,0.0], "bounce" : 0.5, "gravity" :0, "locked": 0},
 	  {"num": 5,"mass" : 0.8, "velocity" : [0,0.0,0.0], "bounce" : 1.0, "gravity" :1, "locked": 0}  
   ]

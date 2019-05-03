@@ -121,7 +121,7 @@ void Scene::checkStaticDynamicCollisions()
 
 						// Sliding here
 						
-						if (dynamicBody->getVelocity().y < 0.1f && dynamicBody->getVelocity().y > -0.1f)
+						if (dynamicBody->getVelocity().y < 0.3f && dynamicBody->getVelocity().y > -0.3f)
 						{
 							dynamicBody->setVelocity(glm::vec3(dynamicBody->getVelocity().x * 0.2, 0, dynamicBody->getVelocity().z * 0.2));
 							dynamicBody->setForce(glm::vec3(0.0, 0, 0.0));
@@ -255,7 +255,7 @@ void Scene::update(float dt,IEngineCore* engineCore)
 		 
 
 		Rigidbody m_rigidbody;
-		m_rigidbody.bounceCoefficient = 1.0f;
+		m_rigidbody.bounceCoefficient = 0.7f;
 		m_rigidbody.gravityEnabled = true;
 		m_rigidbody.mass = 1.0f;
 		m_rigidbody.velocity = glm::vec3(xVal, yVal, zVal);
