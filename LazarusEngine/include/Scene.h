@@ -12,6 +12,8 @@
 
 #include <string>
 
+#include "wander.h"
+
 
 //class Model;
 class ModelManager;
@@ -32,7 +34,7 @@ public:
 
 	void render(IEngineCore* engineCore);
 	
-	
+	wander * m_Wander;
 
 	void loadLevel(std::string levelFile);
 	bool loadLevelJSON(std::string levelJSONFile);
@@ -51,8 +53,6 @@ private:
 	GameObject* m_playerBackground;
 	std::vector<GameObject*> v_gameObjects;
 	ModelManager* m_theModelManager;
- 
-	wander* m_Wander;
 
 	// mouse data - we keep old position (last frame or update) so we can get delta's
 
