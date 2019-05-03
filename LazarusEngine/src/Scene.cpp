@@ -278,7 +278,7 @@ void Scene::update(float dt,IEngineCore* engineCore)
 		 
 		// Setup rigidbody
 		Rigidbody m_rigidbody;
-		m_rigidbody.bounceCoefficient = 0.7f;
+		m_rigidbody.bounceCoefficient = 0.6f;
 		m_rigidbody.gravityEnabled = true;
 		m_rigidbody.mass = 1.0f;
 		m_rigidbody.velocity = glm::vec3(xVal, yVal, zVal);

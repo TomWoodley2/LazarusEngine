@@ -21,6 +21,7 @@
 ExampleGame::ExampleGame(IEngineCore* engine) : Game(engine)
 {
 	Initialise();
+	//int desiredSceneIndex = m_scene->getPlayer()->getComponent<SceneStateComponent>()->SetSceneIndex(0);
 }
 
 void ExampleGame::update(float dt) 
@@ -66,13 +67,18 @@ void ExampleGame::render()
 		std::ostringstream oss4;
 		std::ostringstream oss5;
 		std::ostringstream oss6;
+		std::ostringstream oss7;
+		std::ostringstream oss8;
 		oss << " (" << eulerAngles.x << ", " << eulerAngles.y << ", " << eulerAngles.z << ")";
 		oss1 << "Controls:";
-		oss2 << "WASD = Movement";
-		oss3 << "IJKL/LMB = Rotate";
-		oss4 << "1,2 = Camera";
-		oss5 << "9,0 = Level";
-		oss6 << "fps:" << (1 / frameDuration);
+		oss2 << "Tab = Toggle debug mode";
+		oss3 << "WASD = Movement";
+		oss4 << "IJKL/LMB = Rotate";
+		oss5 << "1,2 = Camera";
+		oss6 << "9,0 = Level";
+		oss7 << "Q = Fire";
+		oss8 << "fps:" << (1 / frameDuration);
+		
 		//oss << frameDuration;
 		//renderText([string stream name].str(), [Xpos(0-1)], [Ypos(0-1)], [Text Size], glm::vec3[Text Colour(R, G, B)]
 		m_engineInterfacePtr->renderText(oss.str(), 0.01f, 0.01f, 1, glm::vec3(1, 1, 0));
@@ -82,6 +88,8 @@ void ExampleGame::render()
 		m_engineInterfacePtr->renderText(oss4.str(), 0.01f, 0.84f, 0.50f, glm::vec3(1, 1, 0));
 		m_engineInterfacePtr->renderText(oss5.str(), 0.01f, 0.80f, 0.50f, glm::vec3(1, 1, 0));
 		m_engineInterfacePtr->renderText(oss6.str(), 0.01f, 0.76f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss7.str(), 0.01f, 0.72f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss8.str(), 0.01f, 0.68f, 0.50f, glm::vec3(1, 1, 0));
 	}
 }
 

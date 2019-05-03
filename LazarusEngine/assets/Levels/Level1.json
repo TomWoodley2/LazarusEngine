@@ -6,17 +6,21 @@
 	  
 	  
 	  {"name": "Dynamic3", "model": "brownCube.obj", "position": [6,4.0,-6.0],"type":"collision","physics" : 3},
-	  {"name": "Dynamic4", "model": "brownCube.obj", "position": [22,4.0,-6.0],"type":"collision","physics" : 4},
+	  {"name": "Dynamic4", "model": "brownCube.obj", "position": [22,4.0,10.0],"type":"collision","physics" : 4},
+	  
 	  {"name": "cuboid", "model": "cuboidRed.obj", "position": [-8.0,6.0,-10.0],"type":"static","physics" : 0},
 	  {"name": "cuboid", "model": "cuboidRed.obj", "position": [-8.0,6.0,30.0],"type":"static","physics" : 0},
 	  {"name": "cuboid", "model": "cuboidRed.obj", "position": [28.0,6.0,30.0],"type":"static","physics" : 0},
 	  {"name": "cuboid", "model": "cuboidRed.obj", "position": [28.0,6.0,-10.0],"type":"static","physics" : 0},
+	  
 	  {"name": "wall1", "model": "wall1.obj", "position": [0.0,3.0,-10.0],"type":"static","physics" : 0},
 	  {"name": "wall2", "model": "wall1.obj", "position": [0.0,3.0,30.0],"type":"static","physics" : 0},
 	  {"name": "wall1", "model": "wall1.obj", "position": [19.1.0,3.0,-10.0],"type":"static","physics" : 0},
 	  {"name": "wall1", "model": "wall1.obj", "position": [19.1.0,3.0,30.0],"type":"static","physics" : 0},
+	  
 	  {"name": "bwall", "model": "backwall.obj", "position": [27.0,5.0,10.0],"type":"static","physics" : 0},
-	  {"name": "bwall", "model": "topwall.obj", "position": [27.0,14,10.0],"type":"static","physics" : 0},
+	  {"name": "twall", "model": "topwall.obj", "position": [27.0,14,10.0],"type":"static","physics" : 0},
+	  
 	  {"name": "torus", "model": "donut.obj", "position": [-8,14,-10.0],"type":"dynamic","physics" : 0},
 	  {"name": "torus", "model": "donut.obj", "position": [-8.0,14,30.0],"type":"dynamic","physics" : 0},
 	  
