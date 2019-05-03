@@ -79,5 +79,6 @@ private:
 	void fillCollidingVectors(); // Fill the vectors checking if an object collides 
 
 	int playerScore = 0; // Score of the player
+	int maxPlayerScore = 6;
 
 };

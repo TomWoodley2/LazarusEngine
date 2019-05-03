@@ -222,7 +222,7 @@ void Scene::update(float dt,IEngineCore* engineCore)
 {
 	// Check if should move to next scene
 	PlayerCharacter* playerCharacter = getPlayer();
-	if (playerScore >= 3)
+	if (playerScore >= maxPlayerScore)
 	{
 		playerCharacter->getComponent<SceneStateComponent>()->SetSceneIndex(playerCharacter->getComponent<SceneStateComponent>()->GetSceneIndex()+1);
 		//playerScore = 0;
@@ -269,9 +269,11 @@ void Scene::update(float dt,IEngineCore* engineCore)
 
 		//glm::mat3 xRotated = 
 		// Not sure about this
-		float xVal = (12.f * cos(playerEulerOrientation.y)) - (12.f * sin(playerEulerOrientation.y));
+		float newY = playerEulerOrientation.y + ((30 * 3.14159 / 180));
+
+		float xVal = (12.f * cos(newY)) - (12.f * sin(newY));
 		float yVal = 12.f;
-		float zVal = (12.f * sin(playerEulerOrientation.y)) + (12.f *cos(playerEulerOrientation.y));
+		float zVal = (12.f * sin(newY)) + (12.f *cos(newY));
 
 		 
 		// Setup rigidbody
