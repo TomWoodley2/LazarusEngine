@@ -3,6 +3,8 @@
 #include "TransformComponent.h"
 #include "ModelComponent.h"
 
+
+
 DynamicEnvironmentObject::DynamicEnvironmentObject(Model* model, glm::vec3 position, glm::quat orientation)
 {
 	addComponent(new TransformComponent(position, orientation));

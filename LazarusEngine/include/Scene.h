@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "PlayerCharacter.h"
 #include "IEngineCore.h"
+#include "wander.h"
 
 #include "Collision.h" // Used for collision between objects
 
@@ -48,10 +49,10 @@ private:
 	int m_playerIndex{ 1 };
 
 	GameObject* m_playerBackground;
-
-
 	std::vector<GameObject*> v_gameObjects;
 	ModelManager* m_theModelManager;
+ 
+	wander* m_Wander;
 
 	// mouse data - we keep old position (last frame or update) so we can get delta's
 
