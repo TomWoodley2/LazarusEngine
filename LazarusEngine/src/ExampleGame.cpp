@@ -69,6 +69,7 @@ void ExampleGame::render()
 		std::ostringstream oss6;
 		std::ostringstream oss7;
 		std::ostringstream oss8;
+		std::ostringstream oss9;
 		oss << " (" << eulerAngles.x << ", " << eulerAngles.y << ", " << eulerAngles.z << ")";
 		oss1 << "Controls:";
 		oss2 << "Tab = Toggle debug mode";
@@ -78,7 +79,8 @@ void ExampleGame::render()
 		oss6 << "9,0 = Level";
 		oss7 << "Q = Fire";
 		oss8 << "fps:" << (1 / frameDuration);
-		
+		oss9 << "Hit the moving black box to get points!";
+
 		//oss << frameDuration;
 		//renderText([string stream name].str(), [Xpos(0-1)], [Ypos(0-1)], [Text Size], glm::vec3[Text Colour(R, G, B)]
 		m_engineInterfacePtr->renderText(oss.str(), 0.01f, 0.01f, 1, glm::vec3(1, 1, 0));
@@ -90,6 +92,7 @@ void ExampleGame::render()
 		m_engineInterfacePtr->renderText(oss6.str(), 0.01f, 0.76f, 0.50f, glm::vec3(1, 1, 0));
 		m_engineInterfacePtr->renderText(oss7.str(), 0.01f, 0.72f, 0.50f, glm::vec3(1, 1, 0));
 		m_engineInterfacePtr->renderText(oss8.str(), 0.01f, 0.68f, 0.50f, glm::vec3(1, 1, 0));
+		m_engineInterfacePtr->renderText(oss9.str(), 0.45f, 0.01f, 1.f, glm::vec3(0, 1, 0));
 	}
 }
 
