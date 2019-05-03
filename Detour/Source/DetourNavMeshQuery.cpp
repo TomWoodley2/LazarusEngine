@@ -222,7 +222,7 @@ dtStatus dtNavMeshQuery::findRandomPoint(const dtQueryFilter* filter, float (*fr
 										 dtPolyRef* randomRef, float* randomPt) const
 {
 	dtAssert(m_nav);
-
+	
 	if (!filter || !frand || !randomRef || !randomPt)
 		return DT_FAILURE | DT_INVALID_PARAM;
 

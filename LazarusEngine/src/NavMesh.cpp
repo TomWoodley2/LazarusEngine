@@ -1,5 +1,25 @@
 #include "..\include\NavMesh\NavMesh.h"
 
+struct SampleItem
+	{
+		Sample* (*create)();
+		const string name;
+	};
+
+	Sample* createSolo(); //{ return new Sample_SoloMesh(); }
+	Sample* createTile(); //{ return new Sample_TileMesh(); }
+	Sample* createTempObstacle(); //{ return new Sample_TempObstacles(); }
+	Sample* createDebug(); //{ return new Sample_Debug(); }
+
+	const static SampleItem g_samples[] =
+	{
+	{ createSolo, "Solo Mesh" },
+	{ createTile, "Tile Mesh" },
+	{ createTempObstacle, "Temp Obstacles" },
+	};
+
+	static const int g_nsamples = sizeof(g_samples) / sizeof(SampleItem);
+
 NavMesh::NavMesh()
 {
 	sample = new Sample();
@@ -10,6 +30,7 @@ NavMesh::NavMesh()
 	m_settings.agentHeight = 2.0f;
 	m_settings.agentMaxClimb = 0.9f;
 	m_settings.agentMaxSlope = 45.0f;
+	m_settings.agentRadius = 1.5f;
 	m_settings.regionMinSize = 8;
 	m_settings.regionMergeSize = 20;
 	m_settings.edgeMaxLen = 12.0f;
@@ -20,6 +41,22 @@ NavMesh::NavMesh()
 	m_settings.partitionType = SAMPLE_PARTITION_WATERSHED;
 	
 	DTNav = new NavMeshTesterTool();
+
+	geom->load(&ctx, pathObj);
+	if (!geom->getBuildSettings())
+	{
+		geom->saveGeomSet(&m_settings);
+		delete geom;
+		geom = new InputGeom();
+	}
+	else
+	{
+		delete geom;
+		geom = new InputGeom();
+	}
+	geom->load(&ctx, pathObj);
+	geom->load(&ctx, pathSet);
+	
 
 }
 
@@ -882,24 +919,52 @@ void NavMesh::NavMeshMain()
 void NavMesh::loadNavMesh()
 {
 
-	if (!geom || !geom->load(&ctx, path))
+	/*if (!geom || !geom->load(&ctx, path))
 	{
 		delete geom;
 		geom = 0;
 		delete sample;
 		sample = 0;
 		ctx.dumpLog("Geom load log %s:", path.c_str());
+	}*/
+	//createSolo()->collectSettings(m_settings);
+	//createSolo()->handleBuild();
+	//sample->handleMeshChanged(geom);
+
+	//sample->setGeom(geom);
+
+	Sample* newSample = 0;
+	for (int i = 0; i < g_nsamples; ++i)
+	{
+		
+		newSample = g_samples[i].create();	
+		
 	}
-	createSolo()->collectSettings(m_settings);
+	if (newSample)
+	{
+		delete sample;
+		sample = newSample;
+		sample->setContext(&ctx);
+		if (geom)
+		{
+			sample->handleMeshChanged(geom);
+		}
+	}
+
 }
 
 void NavMesh::BuildNavMesh()
 {
-	if (sample && !sample->handleBuild())
-	{
-		ctx.dumpLog("Build log %s:", path.c_str());
-	}
 	
+	/*if (sample && !sample->handleBuild())
+	{
+		ctx.dumpLog("Build log %s:", pathObj.c_str());
+	}
+	else
+	{
+		createSolo()->handleBuild();
+	}*/
+	sample->handleBuild();
 }
 
 void NavMesh::initNav()
@@ -940,4 +1005,24 @@ void NavMesh::NavSetWalkFlags()
 void NavMesh::NavSetToolFollow()
 {
 	DTNav->setToolFollow();
+}
+
+Sample * createSolo()
+{
+	return new Sample_SoloMesh();
+}
+
+Sample * createTile()
+{
+	return new Sample_TileMesh();
+}
+
+Sample * createTempObstacle()
+{
+	return new Sample_TempObstacles();
+}
+
+Sample * createDebug()
+{
+	return new Sample_Debug();
 }

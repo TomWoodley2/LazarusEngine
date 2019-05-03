@@ -404,7 +404,7 @@ dtNavMesh* Sample::loadAll(const char* path)
 	}
 
 	fclose(fp);
-
+	
 	return mesh;
 }
 

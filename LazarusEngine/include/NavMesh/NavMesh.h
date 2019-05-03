@@ -53,31 +53,8 @@
 
 	using std::string;
 	using std::vector;
-//
-//
-//
-//
-//
-//
 
-
-//
-//
-//
-//
-//
-//
-
-//
-//
-//
 	
-//
-
-
-
-//
-
 
 class NavMesh
 {
@@ -100,35 +77,20 @@ public:
 	void NavSetWalkFlags();
 	void NavSetToolFollow();
 
-protected:
-
-	/*struct SampleItem
-	{
-		Sample* (*create)();
-		const string name;
-	};*/
-	
-
-	Sample* createSolo() { return new Sample_SoloMesh(); }
+	/*Sample* createSolo() { return new Sample_SoloMesh(); }
 	Sample* createTile() { return new Sample_TileMesh(); }
 	Sample* createTempObstacle() { return new Sample_TempObstacles(); }
-	Sample* createDebug() { return new Sample_Debug(); }
+	Sample* createDebug() { return new Sample_Debug(); }*/
 
-	//const static SampleItem g_samples[] =
-	//{
-	//{ createSolo, "Solo Mesh" },
-	//{ createTile, "Tile Mesh" },
-	//{ createTempObstacle, "Temp Obstacles" },
-	//};
+protected:
 
 	NavMeshTesterTool* DTNav = 0;
 
-	//static const int g_nsamples = sizeof(g_samples) / sizeof(SampleItem);
-
-	const string path = "assets\Mesh\TestLevel.obj";
+	const string pathObj = "assets/Mesh/TestLevel.obj";
+	const string pathSet = "assets/Mesh/TestLevel.gset";
 
 	BuildContext ctx;
 	BuildSettings m_settings;
-	InputGeom* geom;
+	InputGeom* geom = 0;
 	Sample* sample = 0;
 };

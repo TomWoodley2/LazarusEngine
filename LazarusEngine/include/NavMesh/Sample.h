@@ -99,10 +99,11 @@ struct SampleToolState {
 class Sample
 {
 protected:
-	class InputGeom* m_geom;
+
 	class dtNavMesh* m_navMesh;
 	class dtNavMeshQuery* m_navQuery;
 	class dtCrowd* m_crowd;
+
 
 	unsigned char m_navMeshDrawFlags;
 
@@ -138,7 +139,10 @@ protected:
 public:
 	Sample();
 	virtual ~Sample();
+
+	class InputGeom* m_geom;
 	
+	void setGeom(InputGeom* geom) { m_geom = geom; }
 	void setContext(BuildContext* ctx) { m_ctx = ctx; }
 	
 	void setTool(SampleTool* tool);

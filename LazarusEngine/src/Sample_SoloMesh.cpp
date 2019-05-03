@@ -184,7 +184,7 @@ void Sample_SoloMesh::handleDebugMode()
 
 	if (unavail == MAX_DRAWMODE)
 		return;
-
+	
 	imguiLabel("Draw");
 	if (imguiCheck("Input Mesh", m_drawMode == DRAWMODE_MESH, valid[DRAWMODE_MESH]))
 		m_drawMode = DRAWMODE_MESH;
@@ -370,6 +370,7 @@ void Sample_SoloMesh::handleMeshChanged(class InputGeom* geom)
 
 bool Sample_SoloMesh::handleBuild()
 {
+	
 	if (!m_geom || !m_geom->getMesh())
 	{
 		m_ctx->log(RC_LOG_ERROR, "buildNavigation: Input mesh is not specified.");

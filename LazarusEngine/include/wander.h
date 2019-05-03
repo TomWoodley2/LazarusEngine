@@ -17,6 +17,6 @@ public:
 protected:
 	bool m_isStartSet = false;
 	bool m_isEndSet = false;
-
+	
 	NavMesh m_NavigationMesh;
 };
