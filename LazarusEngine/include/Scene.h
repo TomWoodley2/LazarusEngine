@@ -6,10 +6,13 @@
 #include "GameObject.h"
 #include "PlayerCharacter.h"
 #include "IEngineCore.h"
+#include "wander.h"
 
 #include "Collision.h" // Used for collision between objects
 
 #include <string>
+
+#include "wander.h"
 
 
 //class Model;
@@ -31,7 +34,7 @@ public:
 
 	void render(IEngineCore* engineCore);
 	
-	
+	wander * m_Wander;
 
 	void loadLevel(std::string levelFile);
 	bool loadLevelJSON(std::string levelJSONFile);
@@ -48,8 +51,6 @@ private:
 	int m_playerIndex{ 1 };
 
 	GameObject* m_playerBackground;
-
-
 	std::vector<GameObject*> v_gameObjects;
 	ModelManager* m_theModelManager;
 

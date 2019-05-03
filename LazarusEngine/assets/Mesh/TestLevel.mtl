@@ -1,0 +1,42 @@
+newmtl cube1:initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Brick256x256-24rgb.bmp
+Ni 1.00
+newmtl cylinder:initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Brick256x256-24rgb.bmp
+Ni 1.00
+newmtl ground4:initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Wood_floor_002_COLOR.bmp
+Ni 1.00
+newmtl sphere:initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd granite256x256.bmp
+Ni 1.00
+newmtl sphere1:initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd granite256x256.bmp
+Ni 1.00
+newmtl sphere2:initialShadingGroup
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd granite256x256.bmp
+Ni 1.00

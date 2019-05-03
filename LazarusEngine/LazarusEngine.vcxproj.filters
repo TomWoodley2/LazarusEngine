@@ -40,6 +40,48 @@
     <Filter Include="Source Files\Model">
       <UniqueIdentifier>{bbe54ee5-20eb-44d4-954c-3cca321f114f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AI">
+      <UniqueIdentifier>{6f08da2f-a8ae-42a3-8a7d-c1de02ac07d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI">
+      <UniqueIdentifier>{2112d87a-b4fb-4790-8d79-6f68813c9be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Externals\Detour">
+      <UniqueIdentifier>{df502d15-9fe5-4a3d-a0c9-1da0af7a1c8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Externals\DetourUtil">
+      <UniqueIdentifier>{4b4d0809-4def-479d-aca1-4879169c5f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Externals\DetourCrowd">
+      <UniqueIdentifier>{bada3d02-337d-4756-9efc-a0bb0ebda793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Externals\DetourTileCache">
+      <UniqueIdentifier>{521a392d-14b0-4f3c-89a1-eb099bc89d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Externals\Recast">
+      <UniqueIdentifier>{441d05bf-2dad-440d-99cc-b07b4861affd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Recast">
+      <UniqueIdentifier>{3a4319d1-c970-4062-a3e0-36b996c1466c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detour">
+      <UniqueIdentifier>{f6bcc666-c90d-4809-9316-74dc715421f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DetourUtil">
+      <UniqueIdentifier>{38e3cf35-f8e7-42ec-b395-391e60c15eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DetourCrowd">
+      <UniqueIdentifier>{c461b4d4-9e87-4f62-9df5-09b8cdde474f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DetourTileCache">
+      <UniqueIdentifier>{4c66b12a-3b4a-4737-8bf9-9ae4305ff1d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AI\Navmesh">
+      <UniqueIdentifier>{dfb443a9-10df-4453-a696-472ef36c1bcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI\Navmesh">
+      <UniqueIdentifier>{8d89556a-a7b5-4768-bd86-2b22cbb173f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ExampleGame.cpp">
@@ -60,13 +102,7 @@
     <ClCompile Include="src\SceneStateComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\GLAD\glad.c">
-      <Filter>Source Files\Externals</Filter>
-    </ClCompile>
     <ClCompile Include="src\stb_image.c">
-      <Filter>Source Files\Externals</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jsoncpp.cpp">
       <Filter>Source Files\Externals</Filter>
     </ClCompile>
     <ClCompile Include="src\BackgroundColourGameObject.cpp">
@@ -99,17 +135,182 @@
     <ClCompile Include="src\ModelManager.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
-    <ClCompile Include="src\RigidbodyComponent.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GLAD\glad.c">
+      <Filter>Source Files\Externals</Filter>
     </ClCompile>
-    <ClCompile Include="src\Collision.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\jsoncpp.cpp">
+      <Filter>Source Files\Externals</Filter>
     </ClCompile>
     <ClCompile Include="src\FireObjectComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TriggerObject.cpp">
       <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RigidbodyComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ChunkyTriMesh.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConvexVolumeTool.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CrowdTool.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Filelist.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgui.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imguiRenderGL.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputGeom.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MeshLoaderObj.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NavMesh.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NavMeshPruneTool.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NavMeshTesterTool.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OffMeshConnectionTool.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PerfTimer.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sample.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sample_Debug.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sample_SoloMesh.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sample_TempObstacles.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sample_TileMesh.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SampleInterfaces.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestCase.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ValueHistory.cpp">
+      <Filter>Source Files\AI\Navmesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\Source\DetourAlloc.cpp">
+      <Filter>Source Files\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\Source\DetourAssert.cpp">
+      <Filter>Source Files\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\Source\DetourCommon.cpp">
+      <Filter>Source Files\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\Source\DetourNavMesh.cpp">
+      <Filter>Source Files\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\Source\DetourNavMeshBuilder.cpp">
+      <Filter>Source Files\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\Source\DetourNavMeshQuery.cpp">
+      <Filter>Source Files\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\Source\DetourNode.cpp">
+      <Filter>Source Files\Detour</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourCrowd.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourLocalBoundary.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourObstacleAvoidance.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourPathCorridor.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourPathQueue.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourProximityGrid.cpp">
+      <Filter>Source Files\DetourCrowd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourTileCache\Source\DetourTileCache.cpp">
+      <Filter>Source Files\DetourTileCache</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DetourTileCache\Source\DetourTileCacheBuilder.cpp">
+      <Filter>Source Files\DetourTileCache</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DebugUtils\Source\DebugDraw.cpp">
+      <Filter>Source Files\DetourUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DebugUtils\Source\DetourDebugDraw.cpp">
+      <Filter>Source Files\DetourUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DebugUtils\Source\RecastDebugDraw.cpp">
+      <Filter>Source Files\DetourUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Detour\DebugUtils\Source\RecastDump.cpp">
+      <Filter>Source Files\DetourUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\Recast.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastAlloc.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastArea.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastAssert.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastContour.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastFilter.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastLayers.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastMesh.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastMeshDetail.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastRasterization.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Recast\Source\RecastRegion.cpp">
+      <Filter>Source Files\Recast</Filter>
+    </ClCompile>
+    <ClCompile Include="include\wander.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="include\fastlz\fastlz.c">
+      <Filter>Source Files\Externals</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,9 +328,6 @@
     </ClInclude>
     <ClInclude Include="include\Scene.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ft2build.h">
-      <Filter>Header Files\Externals</Filter>
     </ClInclude>
     <ClInclude Include="include\CameraComponent.h">
       <Filter>Header Files\Components</Filter>
@@ -182,20 +380,164 @@
     <ClInclude Include="include\ModelManager.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="include\RigidbodyComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Rigidbody.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\FireObjectComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="include\TriggerObject.h">
       <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ft2build.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rigidbody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RigidbodyComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\ChunkyTriMesh.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\ConvexVolumeTool.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\CrowdTool.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\Filelist.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\imgui.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\imguiRenderGL.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\InputGeom.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\MeshLoaderObj.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\NavMesh.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\NavMeshPruneTool.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\NavMeshTesterTool.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\OffMeshConnectionTool.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\PerfTimer.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\Sample.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\Sample_Debug.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\Sample_SoloMesh.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\Sample_TempObstacles.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\Sample_TileMesh.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\SampleInterfaces.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\TestCase.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NavMesh\ValueHistory.h">
+      <Filter>Header Files\AI\Navmesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourAlloc.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourAssert.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourCommon.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourMath.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourNavMesh.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourNavMeshBuilder.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourNavMeshQuery.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourNode.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\Include\DetourStatus.h">
+      <Filter>Header Files\Externals\Detour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourCrowd.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourLocalBoundary.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourObstacleAvoidance.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourPathCorridor.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourPathQueue.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourProximityGrid.h">
+      <Filter>Header Files\Externals\DetourCrowd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourTileCache\Include\DetourTileCache.h">
+      <Filter>Header Files\Externals\DetourTileCache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DetourTileCache\Include\DetourTileCacheBuilder.h">
+      <Filter>Header Files\Externals\DetourTileCache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DebugUtils\Include\DebugDraw.h">
+      <Filter>Header Files\Externals\DetourUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DebugUtils\Include\DetourDebugDraw.h">
+      <Filter>Header Files\Externals\DetourUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DebugUtils\Include\RecastDebugDraw.h">
+      <Filter>Header Files\Externals\DetourUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Detour\DebugUtils\Include\RecastDump.h">
+      <Filter>Header Files\Externals\DetourUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Recast\Include\Recast.h">
+      <Filter>Header Files\Externals\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Recast\Include\RecastAlloc.h">
+      <Filter>Header Files\Externals\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Recast\Include\RecastAssert.h">
+      <Filter>Header Files\Externals\Recast</Filter>
+    </ClInclude>
+    <ClInclude Include="include\wander.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fastlz\fastlz.h">
+      <Filter>Header Files\Externals</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

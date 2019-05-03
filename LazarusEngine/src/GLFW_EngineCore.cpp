@@ -1,3 +1,4 @@
+
 #include "GLFW_EngineCore.h"
 #include "Game.h"
 #include <fstream>
@@ -7,7 +8,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Model.h"
 #include <ft2build.h>
+
 #include FT_FREETYPE_H 
+
 
 std::vector<bool> GLFW_EngineCore::m_keyBuffer;
 int GLFW_EngineCore::m_screenWidth;
@@ -27,7 +30,6 @@ GLFW_EngineCore::~GLFW_EngineCore()
 
 bool GLFW_EngineCore::initWindow(int width, int height, std::string windowName)
 {
-	
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

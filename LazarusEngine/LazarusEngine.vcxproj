@@ -19,31 +19,108 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Detour\DebugUtils\Source\DebugDraw.cpp" />
+    <ClCompile Include="..\Detour\DebugUtils\Source\DetourDebugDraw.cpp" />
+    <ClCompile Include="..\Detour\DebugUtils\Source\RecastDebugDraw.cpp" />
+    <ClCompile Include="..\Detour\DebugUtils\Source\RecastDump.cpp" />
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourCrowd.cpp" />
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourLocalBoundary.cpp" />
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourObstacleAvoidance.cpp" />
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourPathCorridor.cpp" />
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourPathQueue.cpp" />
+    <ClCompile Include="..\Detour\DetourCrowd\Source\DetourProximityGrid.cpp" />
+    <ClCompile Include="..\Detour\DetourTileCache\Source\DetourTileCache.cpp" />
+    <ClCompile Include="..\Detour\DetourTileCache\Source\DetourTileCacheBuilder.cpp" />
+    <ClCompile Include="..\Detour\Source\DetourAlloc.cpp" />
+    <ClCompile Include="..\Detour\Source\DetourAssert.cpp" />
+    <ClCompile Include="..\Detour\Source\DetourCommon.cpp" />
+    <ClCompile Include="..\Detour\Source\DetourNavMesh.cpp" />
+    <ClCompile Include="..\Detour\Source\DetourNavMeshBuilder.cpp" />
+    <ClCompile Include="..\Detour\Source\DetourNavMeshQuery.cpp" />
+    <ClCompile Include="..\Detour\Source\DetourNode.cpp" />
+    <ClCompile Include="..\Recast\Source\Recast.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastAlloc.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastArea.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastAssert.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastContour.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastFilter.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastLayers.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastMesh.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastMeshDetail.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastRasterization.cpp" />
+    <ClCompile Include="..\Recast\Source\RecastRegion.cpp" />
+    <ClCompile Include="include\fastlz\fastlz.c" />
+    <ClCompile Include="include\wander.cpp" />
     <ClCompile Include="src\BackgroundColourGameObject.cpp" />
+    <ClCompile Include="src\ChunkyTriMesh.cpp" />
     <ClCompile Include="src\Collision.cpp" />
     <ClCompile Include="src\CollisionObject.cpp" />
+    <ClCompile Include="src\ConvexVolumeTool.cpp" />
+    <ClCompile Include="src\CrowdTool.cpp" />
     <ClCompile Include="src\DynamicEnviromentObject.cpp" />
     <ClCompile Include="src\ExampleGame.cpp" />
+    <ClCompile Include="src\Filelist.cpp" />
     <ClCompile Include="src\FireObjectComponent.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GLAD\glad.c" />
     <ClCompile Include="src\GLFW_EngineCore.cpp" />
+    <ClCompile Include="src\imgui.cpp" />
+    <ClCompile Include="src\imguiRenderGL.cpp" />
     <ClCompile Include="src\InputCommand.cpp" />
+    <ClCompile Include="src\InputGeom.cpp" />
     <ClCompile Include="src\InputHandler.cpp" />
     <ClCompile Include="src\jsoncpp.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\MeshLoaderObj.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\ModelManager.cpp" />
+    <ClCompile Include="src\NavMesh.cpp" />
+    <ClCompile Include="src\NavMeshPruneTool.cpp" />
+    <ClCompile Include="src\NavMeshTesterTool.cpp" />
+    <ClCompile Include="src\OffMeshConnectionTool.cpp" />
+    <ClCompile Include="src\PerfTimer.cpp" />
     <ClCompile Include="src\PlayerCharacter.cpp" />
     <ClCompile Include="src\RigidbodyComponent.cpp" />
+    <ClCompile Include="src\Sample.cpp" />
+    <ClCompile Include="src\SampleInterfaces.cpp" />
+    <ClCompile Include="src\Sample_Debug.cpp" />
+    <ClCompile Include="src\Sample_SoloMesh.cpp" />
+    <ClCompile Include="src\Sample_TempObstacles.cpp" />
+    <ClCompile Include="src\Sample_TileMesh.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneStateComponent.cpp" />
     <ClCompile Include="src\StaticEnvironmentObject.cpp" />
     <ClCompile Include="src\stb_image.c" />
+    <ClCompile Include="src\TestCase.cpp" />
     <ClCompile Include="src\TriggerObject.cpp" />
+    <ClCompile Include="src\ValueHistory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Detour\DebugUtils\Include\DebugDraw.h" />
+    <ClInclude Include="..\Detour\DebugUtils\Include\DetourDebugDraw.h" />
+    <ClInclude Include="..\Detour\DebugUtils\Include\RecastDebugDraw.h" />
+    <ClInclude Include="..\Detour\DebugUtils\Include\RecastDump.h" />
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourCrowd.h" />
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourLocalBoundary.h" />
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourObstacleAvoidance.h" />
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourPathCorridor.h" />
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourPathQueue.h" />
+    <ClInclude Include="..\Detour\DetourCrowd\Include\DetourProximityGrid.h" />
+    <ClInclude Include="..\Detour\DetourTileCache\Include\DetourTileCache.h" />
+    <ClInclude Include="..\Detour\DetourTileCache\Include\DetourTileCacheBuilder.h" />
+    <ClInclude Include="..\Detour\Include\DetourAlloc.h" />
+    <ClInclude Include="..\Detour\Include\DetourAssert.h" />
+    <ClInclude Include="..\Detour\Include\DetourCommon.h" />
+    <ClInclude Include="..\Detour\Include\DetourMath.h" />
+    <ClInclude Include="..\Detour\Include\DetourNavMesh.h" />
+    <ClInclude Include="..\Detour\Include\DetourNavMeshBuilder.h" />
+    <ClInclude Include="..\Detour\Include\DetourNavMeshQuery.h" />
+    <ClInclude Include="..\Detour\Include\DetourNode.h" />
+    <ClInclude Include="..\Detour\Include\DetourStatus.h" />
+    <ClInclude Include="..\Recast\Include\Recast.h" />
+    <ClInclude Include="..\Recast\Include\RecastAlloc.h" />
+    <ClInclude Include="..\Recast\Include\RecastAssert.h" />
     <ClInclude Include="include\BackgroundColourGameObject.h" />
     <ClInclude Include="include\CameraComponent.h" />
     <ClInclude Include="include\Collision.h" />
@@ -52,6 +129,7 @@
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\DynamicEnviromentObject.h" />
     <ClInclude Include="include\ExampleGame.h" />
+    <ClInclude Include="include\fastlz\fastlz.h" />
     <ClInclude Include="include\FireObjectComponent.h" />
     <ClInclude Include="include\ft2build.h" />
     <ClInclude Include="include\Game.h" />
@@ -64,6 +142,27 @@
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\ModelComponent.h" />
     <ClInclude Include="include\ModelManager.h" />
+    <ClInclude Include="include\NavMesh\ChunkyTriMesh.h" />
+    <ClInclude Include="include\NavMesh\ConvexVolumeTool.h" />
+    <ClInclude Include="include\NavMesh\CrowdTool.h" />
+    <ClInclude Include="include\NavMesh\Filelist.h" />
+    <ClInclude Include="include\NavMesh\imgui.h" />
+    <ClInclude Include="include\NavMesh\imguiRenderGL.h" />
+    <ClInclude Include="include\NavMesh\InputGeom.h" />
+    <ClInclude Include="include\NavMesh\MeshLoaderObj.h" />
+    <ClInclude Include="include\NavMesh\NavMesh.h" />
+    <ClInclude Include="include\NavMesh\NavMeshPruneTool.h" />
+    <ClInclude Include="include\NavMesh\NavMeshTesterTool.h" />
+    <ClInclude Include="include\NavMesh\OffMeshConnectionTool.h" />
+    <ClInclude Include="include\NavMesh\PerfTimer.h" />
+    <ClInclude Include="include\NavMesh\Sample.h" />
+    <ClInclude Include="include\NavMesh\SampleInterfaces.h" />
+    <ClInclude Include="include\NavMesh\Sample_Debug.h" />
+    <ClInclude Include="include\NavMesh\Sample_SoloMesh.h" />
+    <ClInclude Include="include\NavMesh\Sample_TempObstacles.h" />
+    <ClInclude Include="include\NavMesh\Sample_TileMesh.h" />
+    <ClInclude Include="include\NavMesh\TestCase.h" />
+    <ClInclude Include="include\NavMesh\ValueHistory.h" />
     <ClInclude Include="include\PlayerCharacter.h" />
     <ClInclude Include="include\Rigidbody.h" />
     <ClInclude Include="include\RigidbodyComponent.h" />
@@ -72,13 +171,14 @@
     <ClInclude Include="include\StaticEnvironmentObject.h" />
     <ClInclude Include="include\TransformComponent.h" />
     <ClInclude Include="include\TriggerObject.h" />
+    <ClInclude Include="include\wander.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{9A94FDF4-C024-4B44-9F86-E92CEF08175A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>IMAT3905Starter</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectName>LazarusEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -128,7 +228,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>include;$(IncludePath)</IncludePath>
+    <IncludePath>..\Detour\DetourTileCache\Include;..\Detour\DetourCrowd\Include;..\Detour\DebugUtils\Include;..\Detour\Include;include;..\Recast\Include;$(IncludePath)</IncludePath>
     <LibraryPath>lib;$(LibraryPath)</LibraryPath>
     <SourcePath>src;$(SourcePath)</SourcePath>
     <OutDir>$(SolutionDir)$(Configuration)\bin\</OutDir>
@@ -156,6 +256,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

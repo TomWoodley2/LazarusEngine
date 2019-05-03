@@ -40,7 +40,8 @@ Scene::Scene(std::string filename, ModelManager* theModelManager, IEngineCore* e
 		glm::vec3 positiveMeshCorner = model->getPositiveCorner();
 		engineCore->updatePhysicsBoxVertices(negativeMeshCorner, positiveMeshCorner); // Update the physics box based on the model position
 	}
-	
+
+	m_Wander = new wander;
 
 	engineCore->getMouseState(m_mouseX, m_mouseY, m_mouseButtons);
 
@@ -228,6 +229,7 @@ void Scene::update(float dt,IEngineCore* engineCore)
 		return;
 	}
 	
+	m_Wander->move();
 
 	checkStaticDynamicCollisions(); // Check for collisions between static and dynamic objects
 	checkDynamicDynamicCollisions(); // Check for collisions between all dynamic objects
@@ -350,7 +352,7 @@ void Scene::render(IEngineCore* engineCore)
 		m_mouseEnabled = !m_mouseEnabled;
 	}
 
-	
+	m_Wander->RenderNav();
 	
 	if (m_mouseEnabled)
 	{
