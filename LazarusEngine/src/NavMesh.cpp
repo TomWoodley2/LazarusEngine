@@ -1,5 +1,6 @@
 #include "..\include\NavMesh\NavMesh.h"
 
+//This section is alter code to suit my purpose
 struct SampleItem
 	{
 		Sample* (*create)();
@@ -68,6 +69,8 @@ NavMesh::NavMesh()
 
 }
 
+
+//This is the original Main file
 void NavMesh::NavMeshMain()
 {
 	/*// Init SDL
@@ -921,6 +924,8 @@ void NavMesh::NavMeshMain()
 	*/
 }
 
+
+//My code
 void NavMesh::loadNavMesh()
 {
 
